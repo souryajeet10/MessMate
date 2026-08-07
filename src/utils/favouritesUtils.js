@@ -10,13 +10,13 @@ export function getFavoriteDishes() {
   try {
     const raw = localStorage.getItem(FAVORITE_DISH_IDS_KEY);
     if (!raw) {
-      const initial = ["paneer-butter-masala", "chole-bhature", "aloo-paratha", "gulab-jamun"];
+      const initial = ["paneer-lababdar", "hakka-noodles", "pani-puri", "chole"];
       localStorage.setItem(FAVORITE_DISH_IDS_KEY, JSON.stringify(initial));
       return initial;
     }
     return JSON.parse(raw);
   } catch {
-    return ["paneer-butter-masala", "chole-bhature"];
+    return ["paneer-lababdar", "hakka-noodles"];
   }
 }
 
