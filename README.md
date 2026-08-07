@@ -1,140 +1,62 @@
-# 🍽️ MESSMATE @ UH — United Homes Hostel Mess Menu App
+# 🍽️ MESS MATE @ UH
 
-> Real-time hostel mess menu app for United Homes students. Check today's menu, track favourite dishes, and get live meal alerts — all in a beautiful PWA.
+> **Real-time Mess Menu for United Homes, Karnavati University**
+
+MESS MATE @ UH is a modern web application built for the **United Homes** off-site hostel of **Karnavati University**. It provides students with accurate, real-time mess menu updates instead of relying solely on the monthly printed menu, which often changes.
+
+The platform helps students instantly know **what's actually being served**, meal timings, and any updates made by the mess administration.
 
 ---
 
 ## ✨ Features
 
-### 👨‍🎓 For Students
-- **Today's Live Menu** — See what's being served right now, what's coming up, and what's ended
-- **Calendar View** — Browse the full week's menu by date with a swipeable date strip
-- **Favourite Dishes** — Select favourite dishes from a pre-fed catalog; get starred alerts when they're on the menu
-- **Planned vs Confirmed Badges** — Know if today's menu is confirmed or still subject to change
-- **Dark Mode** — Toggle between light and dark themes
-- **PWA / Home Screen** — Install directly to your phone's home screen for instant access
 
-### 🛠️ For Mess Manager / Owner
-- **Manager Portal** (`/admin`) — Hidden from students, accessible via direct URL only
-- **Instant Calendar Editor** — Pick any date, toggle Confirmed/Planned, add/remove dishes from pre-fed catalog
-- **Auto-Save on Tap** — Every change saves live with zero manual save button hassle
-- **Category Filters** — Filter dishes by category (Breakfast, HI-TEA, Main Course, etc.)
-- **Reset to Default** — Revert any day back to the default menu in one tap
-
-### 📱 PWA & Notifications
-- **Add to Home Screen** prompt on mobile
-- **Browser Notification** permission for dish reminders
+- **Today's Live Menu** — Instantly see what's being served right now, along with upcoming and completed meals.
+- **Calendar View** — Browse the weekly menu using an intuitive, swipeable date selector.
+- **Favourite Dishes** — Save your favourite dishes and receive alerts when they're on the menu.
+- **Planned vs Confirmed Menu** — Clearly identify whether today's menu is planned or officially confirmed.
+- **Dark Mode** — Switch between light and dark themes for a comfortable viewing experience.
+- **Install as an App (PWA)** — Add MESS MATE to your home screen for quick, app-like access.
 
 ---
 
-## 🗂️ Tech Stack
+## 🎯 Problem
 
-| Technology | Purpose |
-|---|---|
-| **React 19 + Vite** | UI framework & build tool |
-| **React Router v7** | Client-side routing |
-| **Framer Motion** | Animations & micro-interactions |
-| **Lucide React** | Icons |
-| **Vanilla CSS** | Custom design system & theming |
-| **localStorage** | Favorites & menu override persistence |
-| **Web Notifications API** | Browser dish reminders |
-| **Web App Manifest** | PWA home screen installation |
+The hostel shares a monthly menu, but the food served often differs from the schedule.
+
+Students frequently have no reliable way to know the actual menu until they arrive at the mess.
+
+MESS MATE solves this by displaying the **live menu** with instant updates.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Tech Stack
 
-### Prerequisites
-- Node.js 18+
-- npm
-
-### Install & Run
-
-```bash
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-```
-
-The app runs on `http://localhost:5173/`
+- React
+- Vite
+- Tailwind CSS
+- Firebase Firestore
+- Firebase Authentication
+- Vercel
 
 ---
 
-## 📁 Project Structure
+## 🌍 Future Vision
+
+MESS MATE is currently built for **United Homes (UH)** but is designed to support multiple hostels in the future.
 
 ```
-src/
-├── components/
-│   ├── AdminPanel.jsx        # Manager Portal (URL: /admin)
-│   ├── CalendarView.jsx      # Weekly calendar with date carousel
-│   ├── FavouritesPage.jsx    # Student dish favorites
-│   ├── MealCard.jsx          # Individual meal card
-│   ├── PwaInstallPrompt.jsx  # Mobile add-to-home popup
-│   ├── Sidebar.jsx           # Navigation drawer
-│   └── WelcomeScreen.jsx     # Intro/splash screen
-├── context/
-│   └── ThemeContext.jsx      # Light/Dark mode
-├── data/
-│   ├── dishesCatalog.js      # Pre-fed master dish list with unique IDs
-│   └── menuData.js           # Weekly menu data (dish ID references)
-├── pages/
-│   └── TodayPage.jsx         # Today's live menu page
-└── utils/
-    ├── favouritesUtils.js    # Favourite dish tracking logic
-    ├── menuUtils.js          # Menu status & admin override logic
-    └── notificationUtils.js  # Browser notification helpers
+MESS MATE
+├── United Homes
+├── Boys Hostel
+├── Girls Hostel
+└── Other Campuses
 ```
 
 ---
 
-## 🍛 Mess Timings
+## 👨‍💻 Developed by
 
-| Meal | Time |
-|---|---|
-| **Breakfast** | 6:30 AM — 9:00 AM |
-| **Lunch** | 12:00 PM — 2:30 PM |
-| **HI-TEA** | 5:30 PM — 6:30 PM |
-| **Dinner** | 8:00 PM — 9:30 PM |
+**Souryajeet Singh**
 
----
-
-## ⚙️ Updating the Menu (for Managers)
-
-Visit `http://<your-ip>:5173/admin` on any device.
-
-1. **Select a date** from the calendar strip
-2. **Toggle Confirmed / Planned** status
-3. **Tap any dish** from the catalog to add/remove it from a meal
-4. Changes **auto-save instantly** — no save button needed
-
-See [MENU_GUIDE.md](./MENU_GUIDE.md) for the manual JSON editing approach.
-
----
-
-## 💾 Data Persistence
-
-| Data | Storage |
-|---|---|
-| Student favourite dish IDs | `localStorage` (per browser/device) |
-| Admin menu overrides | `localStorage` (per browser/device) |
-| Theme preference | `localStorage` |
-
----
-
-## 📋 Roadmap / Future Ideas
-
-- [ ] Firebase backend for cross-device favorites sync
-- [ ] Admin authentication / passcode lock for `/admin`
-- [ ] Full month menu upload via CSV/Excel
-- [ ] Push notifications via Service Worker
-- [ ] Feedback / rating system for meals
-
----
-
-## 🏠 About
-
-Built for **United Homes Hostel** students to check mess menu faster than asking anyone.
-
-*MESSMATE @ UH — Know before you go.* 🥘
+Built to improve the dining experience for students at United Homes.
