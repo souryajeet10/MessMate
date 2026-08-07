@@ -24,7 +24,6 @@
 ### 📱 PWA & Notifications
 - **Add to Home Screen** prompt on mobile
 - **Browser Notification** permission for dish reminders
-- **Local Network Hosting** — View on any device on the same Wi-Fi
 
 ---
 
@@ -55,15 +54,11 @@
 # Install dependencies
 npm install
 
-# Start dev server (localhost only)
+# Start dev server
 npm run dev
-
-# Start with local network access (view on mobile)
-npm run dev -- --host
 ```
 
-The app runs on `http://localhost:5173/`  
-On local network (mobile): `http://<your-ip>:5173/`
+The app runs on `http://localhost:5173/`
 
 ---
 
