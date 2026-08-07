@@ -18,6 +18,13 @@ The platform helps students instantly know **what's actually being served**, mea
 - **Dark Mode** — Switch between light and dark themes for a comfortable viewing experience.
 - **Install as an App (PWA)** — Add MESS MATE to your home screen for quick, app-like access.
 
+### 👨‍🍳 For Mess Administration / ADMINS
+
+- **Quick Menu Updates** — Update today's menu in seconds.
+- **Real-Time Synchronization** — Changes are reflected instantly for all students.
+- **Publish or Edit Menus** — Modify meals at any time during the day.
+- **Menu Status Management** — Mark menus as *Planned* or *Confirmed*.
+- **Multi-Day Planning** — Prepare menus in advance for upcoming days.
 ---
 
 ## 🎯 Problem
@@ -48,9 +55,7 @@ MESS MATE is currently built for **United Homes (UH)** but is designed to suppor
 ```
 MESS MATE
 ├── United Homes
-├── Boys Hostel
-├── Girls Hostel
-└── Other Campuses
+
 ```
 
 ---
