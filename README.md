@@ -1,4 +1,4 @@
-# 🍽️ MessMate — United Homes Hostel Mess Menu App
+# 🍽️ MESSMATE @ UH — United Homes Hostel Mess Menu App
 
 > Real-time hostel mess menu app for United Homes students. Check today's menu, track favourite dishes, and get live meal alerts — all in a beautiful PWA.
 
@@ -137,4 +137,4 @@ See [MENU_GUIDE.md](./MENU_GUIDE.md) for the manual JSON editing approach.
 
 Built for **United Homes Hostel** students to check mess menu faster than asking anyone.
 
-*MessMate — Know before you go.* 🥘
+*MESSMATE @ UH — Know before you go.* 🥘

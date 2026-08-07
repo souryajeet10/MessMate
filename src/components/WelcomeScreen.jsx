@@ -30,7 +30,7 @@ export default function WelcomeScreen() {
         <h1 className="welcome-title">Welcome To</h1>
         <div className="welcome-brand">
           <span className="welcome-logo">M</span>
-          <span className="welcome-brand-name">MessMate</span>
+          <span className="welcome-brand-name">MESSMATE @ UH</span>
         </div>
       </motion.div>
 

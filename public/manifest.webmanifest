@@ -1,6 +1,6 @@
 {
-  "name": "MessMate — United Homes Mess Menu",
-  "short_name": "MessMate",
+  "name": "MESSMATE @ UH — United Homes Mess Menu",
+  "short_name": "MESSMATE @ UH",
   "description": "Real-time hostel mess menu, dish alerts, and favorite tracking for United Homes students.",
   "start_url": "/",
   "display": "standalone",

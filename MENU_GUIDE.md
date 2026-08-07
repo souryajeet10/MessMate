@@ -1,6 +1,6 @@
-# MESSMATE — Menu Data & Admin Guide
+# MESSMATE @ UH — Menu Data & Admin Guide
 
-This guide explains how to easily edit, update, or paste full monthly/daily mess menus into MESSMATE.
+This guide explains how to easily edit, update, or paste full monthly/daily mess menus into MESSMATE @ UH.
 
 ---
 

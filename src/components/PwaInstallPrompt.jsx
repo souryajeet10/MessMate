@@ -98,13 +98,13 @@ export default function PwaInstallPrompt() {
               <Smartphone size={24} color="#0284C7" />
             </div>
             <div>
-              <h3 className="popup-card-title">Install MESSMATE App</h3>
+              <h3 className="popup-card-title">Install MESSMATE @ UH App</h3>
               <p className="popup-card-subtitle">Fast mess menu & dish alerts</p>
             </div>
           </div>
 
           <div className="popup-card-body-text">
-            <p>Add MESSMATE directly to your home screen for 1-tap menu access & dish reminders!</p>
+            <p>Add MESSMATE @ UH directly to your home screen for 1-tap menu access & dish reminders!</p>
           </div>
 
           <div className="popup-card-actions">

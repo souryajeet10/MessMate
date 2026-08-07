@@ -29,7 +29,7 @@ export default function Sidebar({ isOpen, onClose }) {
       <nav className={`sidebar ${isOpen ? "open" : ""}`} id="sidebar">
         <div className="sidebar-brand">
           <span className="sidebar-brand-logo">M</span>
-          <span className="sidebar-brand-name">MessMate</span>
+          <span className="sidebar-brand-name">MESSMATE @ UH</span>
         </div>
 
         <div className="sidebar-nav">
