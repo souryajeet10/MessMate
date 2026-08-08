@@ -1,4 +1,4 @@
-import weeklyMenu, { MEAL_ORDER, getMenuForDate } from "../data/menuData";
+import weeklyMenu, { MEAL_ORDER, getMenuForDate, getMenuRotationKey } from "../data/menuData.js";
 
 const DAY_NAMES = [
   "Sunday",
@@ -27,12 +27,15 @@ export function getMenuOverrides() {
 /**
  * Save confirmation status for a day
  */
-export function setDayConfirmation(dayName, isConfirmed) {
+export function setDayConfirmation(dayName, isConfirmed, date = new Date()) {
+  const rotationKey = getMenuRotationKey(date);
+  const key = `${rotationKey}_${dayName}`;
   const overrides = getMenuOverrides();
-  if (!overrides[dayName]) {
-    overrides[dayName] = { ...weeklyMenu[dayName] };
+  const baseDay = getMenuForDate(date)[dayName];
+  if (!overrides[key]) {
+    overrides[key] = { ...baseDay };
   }
-  overrides[dayName].isConfirmed = isConfirmed;
+  overrides[key].isConfirmed = isConfirmed;
   localStorage.setItem(MENU_OVERRIDES_KEY, JSON.stringify(overrides));
   return overrides;
 }
@@ -40,9 +43,11 @@ export function setDayConfirmation(dayName, isConfirmed) {
 /**
  * Update full day menu
  */
-export function updateDayMenu(dayName, dayObj) {
+export function updateDayMenu(dayName, dayObj, date = new Date()) {
+  const rotationKey = getMenuRotationKey(date);
+  const key = `${rotationKey}_${dayName}`;
   const overrides = getMenuOverrides();
-  overrides[dayName] = dayObj;
+  overrides[key] = dayObj;
   localStorage.setItem(MENU_OVERRIDES_KEY, JSON.stringify(overrides));
   return overrides;
 }
@@ -88,17 +93,29 @@ export function getDayMenu(dayName, date = new Date()) {
   const baseDayMenu = dateMenu[dayName] || null;
   if (!baseDayMenu) return null;
 
+  const rotationKey = getMenuRotationKey(date);
   const overrides = getMenuOverrides();
-  const overrideDay = overrides[dayName];
+  const overrideDay = overrides[`${rotationKey}_${dayName}`] || overrides[dayName];
 
   if (overrideDay) {
+    const mergeMeal = (mealKey) => {
+      const baseMeal = baseDayMenu[mealKey];
+      const overMeal = overrideDay[mealKey];
+      if (!overMeal) return baseMeal;
+      if (!baseMeal) return overMeal;
+      return {
+        ...overMeal,
+        timing: baseMeal.timing || overMeal.timing,
+      };
+    };
+
     return {
       ...baseDayMenu,
       isConfirmed: overrideDay.isConfirmed ?? baseDayMenu.isConfirmed,
-      breakfast: overrideDay.breakfast && baseDayMenu.breakfast ? { ...overrideDay.breakfast, timing: baseDayMenu.breakfast.timing } : baseDayMenu.breakfast,
-      lunch: overrideDay.lunch && baseDayMenu.lunch ? { ...overrideDay.lunch, timing: baseDayMenu.lunch.timing } : baseDayMenu.lunch,
-      hitea: overrideDay.hitea && baseDayMenu.hitea ? { ...overrideDay.hitea, timing: baseDayMenu.hitea.timing } : baseDayMenu.hitea,
-      dinner: overrideDay.dinner && baseDayMenu.dinner ? { ...overrideDay.dinner, timing: baseDayMenu.dinner.timing } : baseDayMenu.dinner,
+      breakfast: mergeMeal("breakfast"),
+      lunch: mergeMeal("lunch"),
+      hitea: mergeMeal("hitea"),
+      dinner: mergeMeal("dinner"),
     };
   }
   return baseDayMenu;

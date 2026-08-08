@@ -8,6 +8,7 @@ import FavouritesPage from "./components/FavouritesPage";
 import Sidebar from "./components/Sidebar";
 import BottomNav from "./components/BottomNav";
 import AdminPanel from "./components/AdminPanel";
+import Footer from "./components/Footer";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import { checkTodayFavoriteDishesAndNotify } from "./utils/notificationUtils";
 
@@ -83,19 +84,11 @@ function AppContent() {
             )
           }
         />
-        <Route
-          path="/admin"
-          element={
-            !hasWelcomed ? (
-              <Navigate to="/welcome" replace />
-            ) : (
-              <AdminPanel />
-            )
-          }
-        />
+        <Route path="/admin" element={<AdminPanel />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
+      {!isWelcomePage && <Footer />}
       {!isWelcomePage && hasWelcomed && <BottomNav />}
       {!isWelcomePage && hasWelcomed && <PwaInstallPrompt />}
     </div>

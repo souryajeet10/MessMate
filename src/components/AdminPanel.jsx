@@ -23,7 +23,7 @@ export default function AdminPanel() {
   const selectedDayName = DAY_ORDER[selectedDate.getDay() === 0 ? 6 : selectedDate.getDay() - 1]; // Convert Sun(0)->Sunday(6)
   
   // State for the selected day's menu
-  const [dayMenu, setDayMenu] = useState(() => getDayMenu(selectedDayName));
+  const [dayMenu, setDayMenu] = useState(() => getDayMenu(selectedDayName, today));
   const [activeMealEdit, setActiveMealEdit] = useState("breakfast");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [dishSearchQuery, setDishSearchQuery] = useState("");
@@ -43,7 +43,7 @@ export default function AdminPanel() {
   const handleDateSelect = (dateObj) => {
     setSelectedDate(dateObj);
     const dayName = DAY_ORDER[dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1];
-    setDayMenu(getDayMenu(dayName));
+    setDayMenu(getDayMenu(dayName, dateObj));
     setAutoSaveToast(false);
   };
 
@@ -52,16 +52,19 @@ export default function AdminPanel() {
 
   // Instant Auto-Save on Confirmation Status Toggle
   const handleConfirmationToggle = () => {
-    const newStatus = !dayMenu.isConfirmed;
-    const updatedDay = { ...dayMenu, isConfirmed: newStatus };
+    const current = dayMenu || { isConfirmed: false };
+    const newStatus = !current.isConfirmed;
+    const updatedDay = { ...current, isConfirmed: newStatus };
     setDayMenu(updatedDay);
-    updateDayMenu(selectedDayName, updatedDay);
+    updateDayMenu(selectedDayName, updatedDay, selectedDate);
     triggerAutoSaveToast();
   };
 
   // Instant Auto-Save on Dish Tap
   const handleToggleDishInMeal = (mealKey, dishId) => {
-    const currentFood = dayMenu[mealKey]?.food || [];
+    const current = dayMenu || { isConfirmed: true };
+    const meal = current[mealKey] || { food: [], beverages: [] };
+    const currentFood = meal.food || [];
     let updatedFood;
     if (currentFood.includes(dishId)) {
       updatedFood = currentFood.filter((id) => id !== dishId);
@@ -70,21 +73,21 @@ export default function AdminPanel() {
     }
 
     const updatedDay = {
-      ...dayMenu,
+      ...current,
       [mealKey]: {
-        ...dayMenu[mealKey],
+        ...meal,
         food: updatedFood,
       },
     };
     setDayMenu(updatedDay);
-    updateDayMenu(selectedDayName, updatedDay);
+    updateDayMenu(selectedDayName, updatedDay, selectedDate);
     triggerAutoSaveToast();
   };
 
   const handleReset = () => {
     if (confirm("Reset all custom menu edits back to default?")) {
       resetMenuOverrides();
-      setDayMenu(getDayMenu(selectedDayName));
+      setDayMenu(getDayMenu(selectedDayName, selectedDate));
       triggerAutoSaveToast();
     }
   };
@@ -109,6 +112,8 @@ export default function AdminPanel() {
       selectedCategory === "All" || dish.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  const safeDayMenu = dayMenu || { isConfirmed: false };
 
   return (
     <div className="admin-page page-enter">
@@ -182,17 +187,17 @@ export default function AdminPanel() {
             <h3 className="admin-card-day">{formattedSelectedDate} ({selectedDayName})</h3>
             <p className="admin-card-sub">
               Menu Status:{" "}
-              <strong style={{ color: dayMenu.isConfirmed ? "#10B981" : "#F59E0B" }}>
-                {dayMenu.isConfirmed ? "Confirmed Menu" : "Planned Menu (Subject to change)"}
+              <strong style={{ color: safeDayMenu.isConfirmed ? "#10B981" : "#F59E0B" }}>
+                {safeDayMenu.isConfirmed ? "Confirmed Menu" : "Planned Menu (Subject to change)"}
               </strong>
             </p>
           </div>
 
           <button
-            className={`admin-toggle-switch ${dayMenu.isConfirmed ? "confirmed" : "planned"}`}
+            className={`admin-toggle-switch ${safeDayMenu.isConfirmed ? "confirmed" : "planned"}`}
             onClick={handleConfirmationToggle}
           >
-            {dayMenu.isConfirmed ? (
+            {safeDayMenu.isConfirmed ? (
               <>
                 <CheckCircle size={14} /> Confirmed
               </>
@@ -209,7 +214,7 @@ export default function AdminPanel() {
       <div className="admin-meal-tabs">
         {MEAL_ORDER.map((mealKey) => {
           const mealTitle = MEAL_NAMES[mealKey] || mealKey;
-          const count = dayMenu[mealKey]?.food?.length || 0;
+          const count = safeDayMenu[mealKey]?.food?.length || 0;
 
           return (
             <button
@@ -237,7 +242,7 @@ export default function AdminPanel() {
 
         {/* Selected Dishes Chips */}
         <div className="admin-selected-dishes-chips">
-          {(dayMenu[activeMealEdit]?.food || []).map((dishId) => (
+          {(safeDayMenu[activeMealEdit]?.food || []).map((dishId) => (
             <span key={dishId} className="admin-selected-chip">
               <span>{getDishName(dishId)}</span>
               <button
@@ -249,7 +254,7 @@ export default function AdminPanel() {
               </button>
             </span>
           ))}
-          {(dayMenu[activeMealEdit]?.food || []).length === 0 && (
+          {(safeDayMenu[activeMealEdit]?.food || []).length === 0 && (
             <p className="no-dishes-text">No dishes selected for {MEAL_NAMES[activeMealEdit]}. Tap below to add.</p>
           )}
         </div>
@@ -280,7 +285,7 @@ export default function AdminPanel() {
 
         <div className="prefed-dishes-grid" style={{ maxHeight: "220px" }}>
           {filteredCatalog.map((dish) => {
-            const isSelected = (dayMenu[activeMealEdit]?.food || []).includes(dish.id);
+            const isSelected = (safeDayMenu[activeMealEdit]?.food || []).includes(dish.id);
 
             return (
               <button
