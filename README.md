@@ -27,6 +27,23 @@ The platform helps students instantly know **what's actually being served**, mea
 - **Multi-Day Planning** — Prepare menus in advance for upcoming days.
 ---
 
+## 📸 Screenshots
+
+<table>
+  <tr>
+    <td align="center"><img src="screenshots/welcome.png" width="220"/><br/><sub>Welcome</sub></td>
+    <td align="center"><img src="screenshots/today-light.png" width="220"/><br/><sub>Today's Live Menu</sub></td>
+    <td align="center"><img src="screenshots/calendar.png" width="220"/><br/><sub>Calendar / Weekly Menu</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="screenshots/favourites.png" width="220"/><br/><sub>Favourite Dishes</sub></td>
+    <td align="center"><img src="screenshots/today-dark.png" width="220"/><br/><sub>Dark Mode</sub></td>
+    <td align="center"><img src="screenshots/admin-panel.png" width="220"/><br/><sub>Manager / Admin Panel</sub></td>
+  </tr>
+</table>
+
+---
+
 ## 🎯 Problem
 
 The hostel shares a monthly menu, but the food served often differs from the schedule.
