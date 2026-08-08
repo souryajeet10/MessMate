@@ -44,7 +44,7 @@ export default function CalendarView() {
     selectedDate.getMonth() === today.getMonth() &&
     selectedDate.getFullYear() === today.getFullYear();
 
-  const dayMenu = getDayMenu(selectedDayName);
+  const dayMenu = getDayMenu(selectedDayName, selectedDate);
 
   const formattedMonthYear = `${MONTH_NAMES[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
 

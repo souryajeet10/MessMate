@@ -1,4 +1,4 @@
-import weeklyMenu from "../data/menuData";
+import { weeklyMenu1And3, weeklyMenu2And4 } from "../data/menuData";
 import { getDishName } from "../data/dishesCatalog";
 
 const FAVORITE_DISH_IDS_KEY = "messmate_favorite_dish_ids";
@@ -10,13 +10,13 @@ export function getFavoriteDishes() {
   try {
     const raw = localStorage.getItem(FAVORITE_DISH_IDS_KEY);
     if (!raw) {
-      const initial = ["paneer-lababdar", "hakka-noodles", "pani-puri", "chole"];
+      const initial = ["paneer-butter-masala", "hakka-noodles-fried-rice", "panipuri", "amritsari-chhole"];
       localStorage.setItem(FAVORITE_DISH_IDS_KEY, JSON.stringify(initial));
       return initial;
     }
     return JSON.parse(raw);
   } catch {
-    return ["paneer-lababdar", "hakka-noodles"];
+    return ["paneer-butter-masala", "panipuri"];
   }
 }
 
@@ -47,7 +47,7 @@ export function isFavoriteDish(dishId) {
 }
 
 /**
- * Find all upcoming occurrences of saved favorite dish IDs across the weekly menu
+ * Find all upcoming occurrences of saved favorite dish IDs across both rotation menus
  */
 export function getUpcomingFavoritesSchedule() {
   const favorites = getFavoriteDishes();
@@ -55,24 +55,29 @@ export function getUpcomingFavoritesSchedule() {
 
   const matches = [];
 
-  for (const [day, meals] of Object.entries(weeklyMenu)) {
-    for (const [mealKey, mealData] of Object.entries(meals)) {
-      if (mealKey === "isConfirmed") continue;
-      if (!mealData || !mealData.food) continue;
+  const addMatchesFromMenu = (menuObj, weekLabel) => {
+    for (const [day, meals] of Object.entries(menuObj)) {
+      for (const [mealKey, mealData] of Object.entries(meals)) {
+        if (mealKey === "isConfirmed") continue;
+        if (!mealData || !mealData.food) continue;
 
-      const foundDishIds = mealData.food.filter((dishId) => favorites.includes(dishId));
+        const foundDishIds = mealData.food.filter((dishId) => favorites.includes(dishId));
 
-      if (foundDishIds.length > 0) {
-        matches.push({
-          day,
-          mealType: mealKey,
-          dishes: foundDishIds.map((id) => getDishName(id)),
-          timing: mealData.timing,
-          isConfirmed: meals.isConfirmed,
-        });
+        if (foundDishIds.length > 0) {
+          matches.push({
+            day: `${day} (${weekLabel})`,
+            mealType: mealKey,
+            dishes: foundDishIds.map((id) => getDishName(id)),
+            timing: mealData.timing,
+            isConfirmed: meals.isConfirmed,
+          });
+        }
       }
     }
-  }
+  };
+
+  addMatchesFromMenu(weeklyMenu1And3, "W1 & 3");
+  addMatchesFromMenu(weeklyMenu2And4, "W2 & 4");
 
   return matches;
 }

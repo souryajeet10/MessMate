@@ -144,11 +144,14 @@ img {
 
 /* ===== APP LAYOUT ===== */
 .app-layout {
-  max-width: 480px;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   min-height: 100vh;
   position: relative;
   background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
 }
 
 /* ===== HEADER / HERO ===== */
@@ -207,10 +210,11 @@ img {
 .header-meal-label {
   text-align: center;
   color: var(--text-on-dark);
-  font-size: 2rem;
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
   font-weight: 800;
   margin-bottom: 16px;
   line-height: 1.15;
+  word-wrap: break-word;
 }
 
 .header-serving-label {
@@ -227,20 +231,79 @@ img {
   text-underline-offset: 3px;
 }
 
+/* ===== TODAY DATE STRIP ===== */
+.today-date-strip {
+  text-align: center;
+  padding: 10px 16px 2px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.today-date-text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+
 /* ===== MEAL CARDS ===== */
 .meals-container {
   padding: 0 16px 100px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.meals-grid {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  margin-top: -8px;
+}
+
+/* ===== SERVING HERO SECTION ===== */
+.serving-hero-container {
+  padding: 0 16px;
+  max-width: 900px;
+  margin: 4px auto 0;
+  width: 100%;
+}
+
+.serving-hero-section {
+  margin-bottom: 8px;
+}
+
+.serving-hero-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--status-serving);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.serving-hero-section .meal-card {
+  border-left: 5px solid var(--status-serving);
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(16, 185, 129, 0.06) 100%);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.15);
+}
+
+[data-theme="dark"] .serving-hero-section .meal-card {
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(16, 185, 129, 0.1) 100%);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.1);
 }
 
 .today-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 8px;
+  padding: 12px 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .today-label-text {
@@ -256,20 +319,26 @@ img {
 }
 
 .today-label-nav button {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-full);
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--accent);
-  color: white;
-  transition: all 0.2s;
+  background: #F5A623;
+  color: #111;
+  transition: all 0.2s ease;
+  padding: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 2px 8px rgba(245, 166, 35, 0.35);
 }
 
 .today-label-nav button:hover {
-  transform: scale(1.1);
-  background: var(--accent-hover);
+  transform: scale(1.08);
+  background: #E09519;
 }
 
 .meal-card {
@@ -642,20 +711,20 @@ img {
 }
 
 .welcome-top {
-  padding: 60px 28px 0;
+  padding: clamp(30px, 8vh, 60px) clamp(20px, 6vw, 36px) 0;
   position: relative;
   z-index: 2;
 }
 
 .welcome-tagline {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 1rem;
+  font-size: clamp(0.88rem, 3vw, 1.05rem);
   font-weight: 400;
   margin-bottom: 8px;
 }
 
 .welcome-title {
-  font-size: 2.6rem;
+  font-size: clamp(1.8rem, 7vw, 2.8rem);
   font-weight: 800;
   color: #FFFFFF;
   line-height: 1.1;
@@ -665,20 +734,22 @@ img {
 .welcome-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   margin-top: 8px;
+  flex-wrap: wrap;
 }
 
 .welcome-logo {
-  font-size: 2.6rem;
+  font-size: clamp(1.8rem, 7vw, 2.8rem);
   font-weight: 900;
   color: #3B82F6;
 }
 
 .welcome-brand-name {
-  font-size: 2.6rem;
+  font-size: clamp(1.6rem, 6.5vw, 2.8rem);
   font-weight: 800;
   color: #FFFFFF;
+  word-break: break-word;
 }
 
 .welcome-characters {
@@ -686,20 +757,20 @@ img {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 40px 0 0;
+  padding: 30px 0 0;
   position: relative;
-  min-height: 300px;
+  min-height: 220px;
 }
 
 .welcome-characters-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 4px;
-  max-width: 380px;
-  font-size: 4rem;
+  gap: 6px;
+  max-width: 100%;
+  font-size: clamp(2.6rem, 9vw, 4rem);
   line-height: 1;
-  padding: 0 10px;
+  padding: 0 16px;
 }
 
 .welcome-character {
@@ -1131,7 +1202,7 @@ img {
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 480px;
+  max-width: 1100px;
   background: var(--surface-glass);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -2061,9 +2132,6 @@ img {
   }
 
   .meals-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
     padding: 20px 40px 100px;
   }
 
@@ -2126,19 +2194,85 @@ img {
   border-width: 0;
 }
 
-/* ===== MOBILE SPECIFIC OVERRIDES (< 640px) ===== */
+/* ===== MOBILE & TABLET RESPONSIVE OVERRIDES ===== */
+
+/* Tablets & Foldables (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  .app-layout {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .messit-meals-2x2-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .favourites-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 0 20px;
+  }
+}
+
+/* Mobile Devices (< 640px) */
 @media (max-width: 640px) {
+  .header {
+    padding: 16px 16px 0;
+    min-height: 200px;
+  }
+
+  .header-top {
+    margin-bottom: 16px;
+  }
+
   .admin-page,
   .today-page,
   .calendar-page,
+  .weekly-page,
   .favourites-page,
   .messit-meals-grid-container {
-    padding-bottom: 140px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    padding-bottom: 120px !important;
+  }
+
+  .meals-container {
+    padding: 0 12px 120px;
+  }
+
+  .meals-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .meal-card {
+    padding: 14px 14px;
+  }
+
+  .meal-card-body {
+    gap: 10px;
+  }
+
+  .meal-card-illustration {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 2.2rem !important;
+  }
+
+  .meal-card-header {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+  }
+
+  .meal-card-status {
+    position: static !important;
   }
 
   .admin-card-row {
     flex-direction: column !important;
-    align-items: flex-start !important;
+    align-items: stretch !important;
     gap: 12px !important;
   }
 
@@ -2159,18 +2293,67 @@ img {
     font-size: 0.72rem !important;
     flex-direction: column !important;
     gap: 2px !important;
+    text-align: center;
   }
 
   .admin-meal-tab-count {
     font-size: 0.65rem !important;
   }
 
-  .meal-card-header {
-    flex-wrap: wrap !important;
-    gap: 6px !important;
+  .messit-date-carousel {
+    gap: 4px;
+    padding: 0 2px;
   }
 
-  .meal-card-status {
-    position: static !important;
+  .messit-nav-arrow {
+    width: 32px;
+    height: 32px;
+  }
+
+  .messit-date-pill {
+    min-width: 40px;
+    padding: 5px 8px;
+  }
+
+  .messit-pill-day {
+    font-size: 0.68rem;
+  }
+
+  .messit-pill-num {
+    font-size: 0.9rem;
+  }
+
+  .fav-schedule-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Small Mobile Screens (< 380px) */
+@media (max-width: 380px) {
+  .header-meal-label {
+    font-size: 1.35rem;
+  }
+
+  .today-label-text {
+    font-size: 0.85rem;
+  }
+
+  .meal-card-name {
+    font-size: 1rem;
+  }
+
+  .meal-card-food,
+  .meal-card-beverages {
+    font-size: 0.82rem;
+  }
+
+  .bottom-nav-item {
+    padding: 4px 8px;
+    font-size: 0.62rem;
+  }
+
+  .bottom-nav-item svg {
+    width: 20px;
+    height: 20px;
   }
 }

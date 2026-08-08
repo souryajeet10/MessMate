@@ -1,4 +1,4 @@
-import weeklyMenu, { MEAL_ORDER } from "../data/menuData";
+import weeklyMenu, { MEAL_ORDER, getMenuForDate } from "../data/menuData";
 
 const DAY_NAMES = [
   "Sunday",
@@ -81,14 +81,27 @@ export function getTodayName(date = new Date()) {
 }
 
 /**
- * Get a specific day's menu (merged with admin overrides)
+ * Get a specific day's menu (merged with admin overrides and date rotation)
  */
-export function getDayMenu(dayName) {
+export function getDayMenu(dayName, date = new Date()) {
+  const dateMenu = getMenuForDate(date);
+  const baseDayMenu = dateMenu[dayName] || null;
+  if (!baseDayMenu) return null;
+
   const overrides = getMenuOverrides();
-  if (overrides[dayName]) {
-    return overrides[dayName];
+  const overrideDay = overrides[dayName];
+
+  if (overrideDay) {
+    return {
+      ...baseDayMenu,
+      isConfirmed: overrideDay.isConfirmed ?? baseDayMenu.isConfirmed,
+      breakfast: overrideDay.breakfast && baseDayMenu.breakfast ? { ...overrideDay.breakfast, timing: baseDayMenu.breakfast.timing } : baseDayMenu.breakfast,
+      lunch: overrideDay.lunch && baseDayMenu.lunch ? { ...overrideDay.lunch, timing: baseDayMenu.lunch.timing } : baseDayMenu.lunch,
+      hitea: overrideDay.hitea && baseDayMenu.hitea ? { ...overrideDay.hitea, timing: baseDayMenu.hitea.timing } : baseDayMenu.hitea,
+      dinner: overrideDay.dinner && baseDayMenu.dinner ? { ...overrideDay.dinner, timing: baseDayMenu.dinner.timing } : baseDayMenu.dinner,
+    };
   }
-  return weeklyMenu[dayName] || null;
+  return baseDayMenu;
 }
 
 /**
@@ -96,7 +109,7 @@ export function getDayMenu(dayName) {
  */
 export function getTodayMenu(date = new Date()) {
   const dayName = getTodayName(date);
-  return getDayMenu(dayName);
+  return getDayMenu(dayName, date);
 }
 
 /**

@@ -5,7 +5,7 @@ import { MEAL_NAMES, MEAL_ICONS } from "../data/menuData";
 import { getDishName } from "../data/dishesCatalog";
 
 export default function MealCard({ mealKey, mealData, status, day, isConfirmed = true, index = 0 }) {
-  const mealTitle = MEAL_NAMES[mealKey] || mealKey.toUpperCase();
+  const mealTitle = mealData?.title || MEAL_NAMES[mealKey] || mealKey.toUpperCase();
   const emojis = MEAL_ICONS[mealKey] || "🍽️";
 
   const statusLabel = status === "serving" ? "Now" : status === "upcoming" ? "Up Next" : "Ended";
@@ -51,12 +51,12 @@ export default function MealCard({ mealKey, mealData, status, day, isConfirmed =
             <strong>Food : </strong>
             {mealData.food.map((dishId, idx) => {
               const dishName = getDishName(dishId);
-              const isFav = isFavoriteDish(dishId);
+              const isItemFav = isFavoriteDish(dishId);
 
               return (
-                <span key={idx} className={`food-item-span ${isFav ? "is-fav-dish" : ""}`}>
+                <span key={idx} className={`food-item-span ${isItemFav ? "is-fav-dish" : ""}`}>
                   {dishName}
-                  {isFav && (
+                  {isItemFav && (
                     <span className="fav-dish-tag">
                       <Star size={11} fill="currentColor" /> Fav
                     </span>

@@ -1,158 +1,373 @@
 {
-    "university": "Karnavati University",
-    "month": "August",
-    "breakfast": {
-        "daily": [
-            "Bread - Plain/Toasted with Butter and Jam",
-            "Tea & Coffee",
-            "Milk - Hot & Cold",
-            "Cereals - 2 types",
-            "Baked Beans / Sprouts (different veggies in it with different flavour)",
-            "Detox Water"
-        ],
-        "days": {
-            "Monday": [
-                "Aloo Paratha & Mix Veg",
-                "Curd and Pickle"
+    "hostel": "United Homes",
+    "menu_type": "two_week_rotation",
+    "week_1_and_3": {
+        "breakfast": {
+            "daily": [
+                "Cereals - 2 types",
+                "Sprouts - 2 types",
+                "Milk - Hot & Cold",
+                "Tea & Coffee"
             ],
-            "Tuesday": [
-                "Masala Idli",
-                "Fruit (seasonal)",
-                "Chocolate Bread"
-            ],
-            "Wednesday": [
-                "Poha",
-                "Chocolate Bread"
-            ],
-            "Thursday": [
-                "Dal Pakwan"
-            ],
-            "Friday": [
-                "Upma & Uttapam"
-            ],
-            "Saturday": [
-                "Variety of Grilled Sandwich"
-            ],
-            "Sunday": [
-                "Kachori Sabji & Samosa",
-                "Gujarati Snacks",
-                "Jalebi"
-            ]
-        }
-    },
-    "lunch": {
-        "daily": [
-            "Choice of Salad"
-        ],
-        "days": {
-            "Monday": {
-                "drink": "Nimbu Paani",
-                "curry1": "Veg Kofta Makhanwala",
-                "curry2": "Cabbage Muttor",
-                "dal": "Arhar Dal Tadka",
-                "rice_bread": "Steam Rice",
-                "bread_dal_salad": "Phulka"
-            },
-            "Tuesday": {
-                "drink": "Buttermilk",
-                "curry1": "Rajma Raseela",
-                "curry2": "Mix Veg",
-                "dal": "Jeera Rice",
-                "rice_bread": "Phulka",
-                "bread_dal_salad": "Onions Salad"
-            },
-            "Wednesday": {
-                "drink": "Buttermilk",
-                "curry1": "Paneer Lababdar",
-                "curry2": "Methi Allu",
-                "dal": "Dal Fry",
-                "rice_bread": "Jeera Rice",
-                "bread_dal_salad": "Phulka"
-            },
-            "Thursday": {
-                "drink": "Buttermilk",
-                "curry1": "Bhindi Punjabi",
-                "curry2": "Dum Allu",
-                "dal": "Pakoda Kadhi",
-                "rice_bread": "Rice",
-                "bread_dal_salad": "Phulka"
-            },
-            "Friday": {
-                "drink": "Rasna",
-                "curry1": "Chole",
-                "curry2": "Laccha Pyaaz",
-                "dal": "Boondi Raita",
-                "rice_bread": "Veg Biryani",
-                "bread_dal_salad": "Bhatura"
-            },
-            "Saturday": {
-                "drink": "Buttermilk",
-                "curry1": "Sukha Allu",
-                "curry2": "Palak Paneer Gravy",
-                "dal": "Dal Fry",
-                "rice_bread": "Rice",
-                "bread_dal_salad": "Phulka"
-            },
-            "Sunday": {}
-        }
-    },
-    "evening_snacks": {
-        "days": {
-            "Monday": "Bhelpuri",
-            "Tuesday": "Cutlet",
-            "Wednesday": "Dahi Bhalla",
-            "Thursday": "Vada Pav",
-            "Friday": "Aloo Pyaaz Ki Kachori",
-            "Saturday": "Pani Puri",
-            "Sunday": "Mexican Sandwich"
-        }
-    },
-    "dinner": {
-        "days": {
-            "Monday": {
-                "main_course": "Rajasthani / Gujarati Meal (non sweet base)",
-                "extra1": "Fryums",
-                "extra2_dessert": "Coconut Ladoo",
-                "extra3": "Salad & Butter Milk"
-            },
-            "Tuesday": {
-                "main_course": "Mexican Rice with Beans & Chipotle Wrap",
-                "extra3": "Tomato Soup"
-            },
-            "Wednesday": {
-                "main_course": "Uttapam & Idli & Wada",
-                "rice": "Lemon Rice",
-                "dal": "Sambhar",
-                "extra1": "Coconut Chutney",
-                "extra2_dessert": "Disco Papad"
-            },
-            "Thursday": {
-                "main_course": "Hakka Noodles",
-                "rice": "Fried Rice",
-                "dal": "Manchurian",
-                "extra1": "Manchow Soup",
-                "extra2_dessert": "Custard",
-                "extra3": "Kimchi"
-            },
-            "Friday": {
-                "main_course": "Pav Bhaji & Pulao",
-                "extra1": "Papad Chur",
-                "extra2_dessert": "Shahi Tukda",
-                "extra3": "Chopped Onions"
-            },
-            "Saturday": {
-                "main_course": "Paneer Bhurji",
-                "rice": "Frozen Laccha Paratha",
-                "dal": "Dal Makhni",
-                "extra1": "Vanilla Ice Cream",
-                "extra2_dessert": "Green Salad",
-                "extra3": "Buttermilk"
-            },
-            "Sunday": {
-                "main_course": "Pasta, Risotto & Garlic Bread",
-                "dal": "Soup"
+            "days": {
+                "Monday": {
+                    "item": "Ghee Podi Idli",
+                    "side": "Coconut+Tomato Chutney",
+                    "fruit": "Banana",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Lemon+Mint"
+                },
+                "Tuesday": {
+                    "item": "Aloo Parantha+Curd",
+                    "side": "Pickle",
+                    "bread": "Bun Maska",
+                    "detox_water": "Cucumber+Mint"
+                },
+                "Wednesday": {
+                    "item": "Poha",
+                    "side": "Ratlami Sev & Onion",
+                    "fruit": "Papaya",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Ginger+Lemon"
+                },
+                "Thursday": {
+                    "item": "Stuffed Moong Dal/Besan Cheela",
+                    "side": "Green Chutney",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Cucumber+Lemon"
+                },
+                "Friday": {
+                    "item": "Veg Uttapam+Sambar",
+                    "side": "Coconut Chutney",
+                    "fruit": "Watermelon",
+                    "bread": "Maska Bun",
+                    "detox_water": "Lemon+Mint+Saunf"
+                },
+                "Saturday": {
+                    "item": "Thepla+Curd",
+                    "side": "Pickle",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Tulsi+Ginger"
+                },
+                "Sunday": {
+                    "item": "Kachori+Sabzi+Khandvi",
+                    "side": "Jeera Curd+Pickle",
+                    "bread": "Hot Jalebi+Fafda",
+                    "detox_water": "Cucumber+Lemon+Sabja Seeds"
+                }
+            }
+        },
+        "lunch": {
+            "days": {
+                "Monday": {
+                    "salad": "Green Salad",
+                    "curry1": "Bhindi Do Pyaza",
+                    "curry2": "Paneer Butter Masala",
+                    "dal": "Arhar Dal Tadka",
+                    "rice": "Jeera Rice",
+                    "bread": "Phulka",
+                    "drink": "Buttermilk"
+                },
+                "Tuesday": {
+                    "salad": "Kachumbar Salad",
+                    "curry1": "Cabbage Peas",
+                    "curry2": "Gatta Curry",
+                    "dal": "Moong Dal Fry",
+                    "rice": "Steamed Rice",
+                    "bread": "Phulka",
+                    "drink": "Buttermilk"
+                },
+                "Wednesday": {
+                    "salad": "Pyaz Imli Chutney",
+                    "curry1": "Amritsari Chhole",
+                    "curry2": "Bhature",
+                    "rice": "Veg Pulao",
+                    "bread": "Phulka (Optional)",
+                    "drink": "Boondi Raita"
+                },
+                "Thursday": {
+                    "salad": "Cucumber Salad",
+                    "curry1": "Aloo Capsicum",
+                    "curry2": "Kadi Pakoda",
+                    "dal": "Dal Paanchmel",
+                    "rice": "Steamed Rice",
+                    "bread": "Phulka",
+                    "drink": "Jaljeera"
+                },
+                "Friday": {
+                    "salad": "Macroni Salad",
+                    "curry1": "Matar Mushroom",
+                    "curry2": "Veg Kofta",
+                    "dal": "Sabut Masoor Dal Tadka",
+                    "rice": "Jeera Rice",
+                    "bread": "Phulka",
+                    "drink": "Buttermilk"
+                },
+                "Saturday": {
+                    "salad": "Peanut Salad",
+                    "curry2": "Dum Aloo",
+                    "dal": "Dal Tadka",
+                    "rice": "Peas Pulao",
+                    "bread": "Matar Puri & Roti",
+                    "drink": "Buttermilk"
+                },
+                "Sunday": {}
+            }
+        },
+        "hi_tea": {
+            "days": {
+                "Monday": "Veg Vermicelli",
+                "Tuesday": "Aloo Chaat",
+                "Wednesday": "Bhel",
+                "Thursday": "Misal Pav",
+                "Friday": "Veg Cutlet",
+                "Saturday": "Khaman",
+                "Sunday": "Mini Samosa"
+            }
+        },
+        "dinner": {
+            "days": {
+                "Monday": {
+                    "soup": "Lemon Coriander Soup",
+                    "starter": "Chopped Onion with Lemon Wedges",
+                    "main_course": "Pav Bhaji",
+                    "rice": "Tawa Pulao",
+                    "bread": "Pav",
+                    "bread2": "Phulka (Optional)",
+                    "drink": "Rasna"
+                },
+                "Tuesday": {
+                    "starter": "Corn+Capsicum Salad+Salsa Dip",
+                    "main_course": "Mexican Rice+ Soft Tacos with Mexican Bean Filling",
+                    "rice": "Optional (Roti+Sabji)",
+                    "dessert": "Payasam"
+                },
+                "Wednesday": {
+                    "starter": "Coconut Chutney+Appalam",
+                    "side2": "Uttapam",
+                    "main_course": "Sambar+Medu Vada+Mysore Bonda",
+                    "rice": "Tomato Rice",
+                    "bread2": "Optional (Roti+Sabji)"
+                },
+                "Thursday": {
+                    "side2": "Lachha Pyaz",
+                    "main_course": "Dal Baati+Sev Tamatar",
+                    "rice": "Steamed Rice",
+                    "bread": "Baati",
+                    "bread2": "Roti",
+                    "drink": "Mint Cooler",
+                    "dessert": "Churma"
+                },
+                "Friday": {
+                    "soup": "Hot N Sour Soup",
+                    "starter": "Crispy Corn",
+                    "main_course": "Veg Manchurian Gravy",
+                    "rice": "Burnt Garlic Noodles",
+                    "bread": "Kimchi Rice",
+                    "bread2": "Optional (Roti+Sabji)"
+                },
+                "Saturday": {
+                    "soup": "Kachumber",
+                    "main_course": "Paneer Masala+ Dal Makhni",
+                    "bread": "Lachha Parantha",
+                    "dessert": "Coconut Ladoo"
+                },
+                "Sunday": {
+                    "starter": "Cheese Corn Balls",
+                    "side2": "Greek Salad",
+                    "main_course": "Pasta+Thai Curry",
+                    "rice": "Steamed Rice",
+                    "bread": "Garlic Bread",
+                    "bread2": "Optional (Roti+Sabji)",
+                    "drink": "Ice Tea"
+                }
             }
         }
     },
-    "note": "Prepare Khichdi every day as a light meal option"
+    "week_2_and_4": {
+        "breakfast": {
+            "daily": [
+                "Cereals - 2 types",
+                "Sprouts - 2 types",
+                "Milk - Hot & Cold",
+                "Tea & Coffee"
+            ],
+            "days": {
+                "Monday": {
+                    "item": "Veg Upma",
+                    "side": "Coconut Chutney",
+                    "fruit": "Banana",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Lemon+Mint"
+                },
+                "Tuesday": {
+                    "item": "Mix Veg Paratha+Curd",
+                    "side": "Pickle",
+                    "bread": "Bun Maska",
+                    "detox_water": "Cucumber+Mint"
+                },
+                "Wednesday": {
+                    "item": "Aloo Toast Sandwich",
+                    "fruit": "Papaya",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Ginger+Lemon"
+                },
+                "Thursday": {
+                    "item": "Idli Sambhar",
+                    "side": "Coconut Chutney",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Cucumber+Lemon"
+                },
+                "Friday": {
+                    "item": "Thepla+Masala Dahi",
+                    "side": "Lehsun Chutney",
+                    "fruit": "Watermelon",
+                    "bread": "Maska Bun",
+                    "detox_water": "Lemon+Mint+Saunf"
+                },
+                "Saturday": {
+                    "item": "Vermicelli Upma",
+                    "side": "Pickle",
+                    "bread": "Bread/Butter/Jam",
+                    "detox_water": "Tulsi+Ginger"
+                },
+                "Sunday": {
+                    "item": "Dal Pakwan+Sindhi Aloo Tuk+Navtad Samosa+Papdi Chaat",
+                    "side": "Jeera Curd+Pickle",
+                    "bread": "Gulab Jamun",
+                    "detox_water": "Cucumber+Lemon+Sabja Seeds"
+                }
+            }
+        },
+        "lunch": {
+            "days": {
+                "Monday": {
+                    "salad": "Kachumber Salad",
+                    "curry1": "Patta Gobhi Tamatar",
+                    "curry2": "Lasaniya Bataka",
+                    "dal": "Moong Dal Tadka",
+                    "rice": "Steamed Rice",
+                    "bread": "Phulka",
+                    "drink": "Buttermilk"
+                },
+                "Tuesday": {
+                    "salad": "Cucumber Salad",
+                    "curry1": "Jeera Aloo",
+                    "curry2": "Chana Masala",
+                    "dal": "Moong Dal Fry",
+                    "rice": "Jeera Rice",
+                    "bread": "Phulka",
+                    "drink": "Buttermilk"
+                },
+                "Wednesday": {
+                    "salad": "Green Salad",
+                    "curry1": "Mix Veg",
+                    "curry2": "Shahi Paneer",
+                    "dal": "Chana Dal Tadka",
+                    "rice": "Kashmiri Pulao",
+                    "bread": "Phulka",
+                    "drink": "Rasna"
+                },
+                "Thursday": {
+                    "salad": "Sliced Onion with Lemon",
+                    "curry1": "Aloo Gobhi",
+                    "curry2": "Rajma Rasedar",
+                    "dal": "Dal Fry",
+                    "rice": "Jeera Rice",
+                    "bread": "Phulka",
+                    "drink": "Jaljeera"
+                },
+                "Friday": {
+                    "salad": "Macroni Salad",
+                    "curry1": "Bhindi Masala",
+                    "curry2": "Aloo Soyabean Curry",
+                    "dal": "Arhar Dal",
+                    "rice": "Jeera Rice",
+                    "bread": "Phulka",
+                    "drink": "Buttermilk"
+                },
+                "Saturday": {
+                    "salad": "Peanut Salad",
+                    "curry1": "Gwarfali",
+                    "curry2": "Rajasthani Kadhi",
+                    "dal": "Dhaba Style Dal",
+                    "rice": "Steamed Rice",
+                    "bread": "Matar Puri & Roti",
+                    "drink": "Buttermilk"
+                },
+                "Sunday": {}
+            }
+        },
+        "hi_tea": {
+            "days": {
+                "Monday": "Panipuri",
+                "Tuesday": "Mini Dal Kachori",
+                "Wednesday": "Steamed Dhokla",
+                "Thursday": "Bhel",
+                "Friday": "Maggi Masala",
+                "Saturday": "Batata Vada",
+                "Sunday": "Khaman"
+            }
+        },
+        "dinner": {
+            "days": {
+                "Monday": {
+                    "soup": "Manchow Soup",
+                    "main_course": "Schezwan Paneer Chilli",
+                    "rice": "Hakka Noodles+ Fried Rice",
+                    "bread2": "Optional (Roti+Sabji)",
+                    "dessert": "Fruit Custard"
+                },
+                "Tuesday": {
+                    "starter": "Hummus+Pickled Cucu/Carrot/Beet (in Vinegar)",
+                    "side2": "Falafel",
+                    "main_course": "Chickpea Stew",
+                    "rice": "Lebanese Rice",
+                    "bread2": "Optional (Roti+Sabji)",
+                    "drink": "Mint Cooler"
+                },
+                "Wednesday": {
+                    "starter": "Onion in Imli Chutney",
+                    "main_course": "Amritsari Nutri Kulcha",
+                    "rice": "Matar Pulao",
+                    "bread": "Bakery Kulcha",
+                    "bread2": "Roti",
+                    "dessert": "Kheer"
+                },
+                "Thursday": {
+                    "soup": "Tomato Soup",
+                    "side2": "Herb Potatoes",
+                    "main_course": "Spaghetti in Red Sauce+Garlic Bread",
+                    "rice": "Herb or Butter Rice",
+                    "bread2": "Optional (Roti+Sabji)",
+                    "drink": "Orange Rasna"
+                },
+                "Friday": {
+                    "starter": "Cucumber Kosambari",
+                    "side2": "Veg Uttapam",
+                    "main_course": "Potato Fry+Rasam",
+                    "rice": "Lemon Rice",
+                    "bread2": "Roti Optional"
+                },
+                "Saturday": {
+                    "starter": "Papad",
+                    "side2": "Lilva Kachori",
+                    "main_course": "Sev Tomato Shaak+Gujrati Kadhi(Non Sweet)",
+                    "rice": "Veg Khichdi",
+                    "bread": "Roti",
+                    "dessert": "Mohanthal"
+                },
+                "Sunday": {
+                    "starter": "Kimchi Salad",
+                    "side2": "Korean Pancake",
+                    "main_course": "Korean Veg Stew",
+                    "rice": "Soy Garlic Noodles",
+                    "bread": "Spicy Korean Rice",
+                    "bread2": "Optional (Roti+Sabji)",
+                    "drink": "Ice Tea"
+                }
+            }
+        }
+    },
+    "note": "KHICHDI in small portions daily"
 }
