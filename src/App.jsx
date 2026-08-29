@@ -21,7 +21,7 @@ function AppContent() {
 
   // Check notification for favorite dishes on load
   useEffect(() => {
-    checkTodayFavoriteDishesAndNotify();
+    void checkTodayFavoriteDishesAndNotify();
   }, []);
 
   // Listen for welcome completion

@@ -28,7 +28,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
       <nav className={`sidebar ${isOpen ? "open" : ""}`} id="sidebar">
         <div className="sidebar-brand">
-          <span className="sidebar-brand-logo">M</span>
+          <img src="/lgo.svg" alt="MessMate Logo" className="sidebar-brand-logo" />
           <span className="sidebar-brand-name">MESSMATE @ UH</span>
         </div>
 

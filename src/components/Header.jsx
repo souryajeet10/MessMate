@@ -16,6 +16,7 @@ export default function Header({ onMenuClick }) {
         >
           <Menu size={24} />
         </button>
+        <img src="/lgo.svg" alt="MessMate Logo" className="header-logo" />
       </div>
       <p className="header-greeting">{greeting} !</p>
       <h1 className="header-meal-label">{mealLabel}</h1>

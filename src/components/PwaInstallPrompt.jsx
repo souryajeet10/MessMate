@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Smartphone, Bell, X, Download, CheckCircle } from "lucide-react";
-import { requestNotificationPermission, isNotificationEnabled } from "../utils/notificationUtils";
+import { requestNotificationPermission, isNotificationEnabled, isNotificationSupported, checkTodayFavoriteDishesAndNotify } from "../utils/notificationUtils";
 
 export default function PwaInstallPrompt() {
   const location = useLocation();
@@ -58,18 +58,29 @@ export default function PwaInstallPrompt() {
   };
 
   const handleEnableNotifications = async () => {
+    // Guard: Notification API requires HTTPS or localhost
+    if (!isNotificationSupported()) {
+      alert(
+        "Notification Note:\nPush notifications require a secure HTTPS connection.\n\nIn-app ⭐ dish highlights remain active even without notifications!"
+      );
+      return;
+    }
+
     try {
       const granted = await requestNotificationPermission();
       setNotifEnabled(granted);
       if (granted) {
-        alert("Notifications Enabled! You will receive live alerts when your favorite dishes are served.");
-      } else {
+        // Fire immediately with forceShow — bypass the "already shown today" guard
+        checkTodayFavoriteDishesAndNotify(true);
+      } else if (Notification.permission === "denied") {
         alert(
-          "Notification Note:\nBrowsers require an HTTPS secure connection or 'localhost' to enable system push notifications. On local IP (HTTP), in-app ⭐ dish highlights remain active!"
+          "Notifications Blocked.\nTo enable them, click the 🔒 lock icon in your browser's address bar and allow notifications for this site."
         );
+      } else {
+        alert("Notification permission was not granted. You can try again anytime.");
       }
     } catch {
-      alert("Please allow notification permission in your browser site settings.");
+      alert("Could not request notification permission. Please check your browser settings.");
     }
   };
 

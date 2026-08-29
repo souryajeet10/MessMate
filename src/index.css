@@ -184,6 +184,12 @@ img {
   background: rgba(255, 255, 255, 0.15);
 }
 
+.header-logo {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+}
+
 .header-avatar {
   width: 44px;
   height: 44px;
@@ -711,9 +717,16 @@ img {
 }
 
 .welcome-top {
+  text-align: center;
   padding: clamp(30px, 8vh, 60px) clamp(20px, 6vw, 36px) 0;
   position: relative;
   z-index: 2;
+}
+
+.welcome-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .welcome-tagline {
@@ -734,15 +747,16 @@ img {
 .welcome-brand {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   margin-top: 8px;
   flex-wrap: wrap;
 }
 
 .welcome-logo {
-  font-size: clamp(1.8rem, 7vw, 2.8rem);
-  font-weight: 900;
-  color: #3B82F6;
+  height: clamp(6rem, 25vw, 10rem);
+  width: auto;
+  object-fit: contain;
 }
 
 .welcome-brand-name {
@@ -870,9 +884,9 @@ img {
 }
 
 .sidebar-brand-logo {
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: #3B82F6;
+  height: 1.8rem;
+  width: auto;
+  object-fit: contain;
 }
 
 .sidebar-brand-name {
