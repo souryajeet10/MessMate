@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, CheckCircle, AlertCircle, RotateCcw, Check, ChevronLeft, ChevronRight, Plus, X, Search, Zap, Filter } from "lucide-react";
+import { Shield, CheckCircle, AlertCircle, RotateCcw, Check, ChevronLeft, ChevronRight, Plus, X, Search, Zap, Lock, Eye, EyeOff } from "lucide-react";
 import { getDayMenu, updateDayMenu, resetMenuOverrides } from "../utils/menuUtils";
 import { DAY_ORDER, MEAL_ORDER, MEAL_NAMES } from "../data/menuData";
 import { DISHES_CATALOG, getDishName } from "../data/dishesCatalog";
+import { useMenuOverrides } from "../hooks/useMenuOverrides";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -14,20 +15,121 @@ const DAY_NAMES_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const DISH_CATEGORIES = ["All", "Breakfast", "HI-TEA", "Main Course", "Rice & Biryani", "Breads", "Sweets", "Sides"];
 
+// Passphrase is stored in .env — never hardcoded in source
+const ADMIN_PASSPHRASE = import.meta.env.VITE_ADMIN_PASSPHRASE || "";
+
+// ─── Passphrase Gate ──────────────────────────────────────────────────────────
+
+function PassphraseGate({ onUnlock }) {
+  const [input, setInput] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (input === ADMIN_PASSPHRASE) {
+      sessionStorage.setItem("messmate_admin_auth", "true");
+      onUnlock();
+    } else {
+      setError(true);
+      setInput("");
+      setTimeout(() => setError(false), 2000);
+    }
+  };
+
+  return (
+    <div className="admin-gate-wrap">
+      <motion.div
+        className="admin-gate-card"
+        initial={{ opacity: 0, y: 30, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.4 }}
+      >
+        <div className="admin-gate-icon">
+          <Lock size={28} />
+        </div>
+        <h2 className="admin-gate-title">Manager Access</h2>
+        <p className="admin-gate-sub">
+          Enter the admin passphrase to manage the mess menu.
+          Changes sync instantly to all student devices.
+        </p>
+
+        <form onSubmit={handleSubmit} className="admin-gate-form">
+          <div className={`admin-gate-input-wrap ${error ? "error" : ""}`}>
+            <input
+              type={showPass ? "text" : "password"}
+              className="admin-gate-input"
+              placeholder="Enter passphrase..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              autoFocus
+              id="admin-passphrase-input"
+            />
+            <button
+              type="button"
+              className="admin-gate-eye"
+              onClick={() => setShowPass((p) => !p)}
+              aria-label="Toggle visibility"
+            >
+              {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+
+          <AnimatePresence>
+            {error && (
+              <motion.p
+                className="admin-gate-error"
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                ❌ Incorrect passphrase. Try again.
+              </motion.p>
+            )}
+          </AnimatePresence>
+
+          <button type="submit" className="admin-gate-btn" id="admin-passphrase-submit">
+            <Shield size={16} /> Unlock Admin Portal
+          </button>
+        </form>
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── Main Admin Panel ─────────────────────────────────────────────────────────
+
 export default function AdminPanel() {
+  // Check if already authenticated this session
+  const [isAuthed, setIsAuthed] = useState(
+    () => sessionStorage.getItem("messmate_admin_auth") === "true"
+  );
+
+  if (!isAuthed) {
+    return <PassphraseGate onUnlock={() => setIsAuthed(true)} />;
+  }
+
+  return <AdminPanelContent />;
+}
+
+function AdminPanelContent() {
   const today = new Date();
   const [selectedDate, setSelectedDate] = useState(today);
   const [startDateOffset, setStartDateOffset] = useState(-3);
 
+  // Live Firebase overrides — reactive to all remote saves
+  const { overrides } = useMenuOverrides();
+
   // Selected day name
-  const selectedDayName = DAY_ORDER[selectedDate.getDay() === 0 ? 6 : selectedDate.getDay() - 1]; // Convert Sun(0)->Sunday(6)
-  
-  // State for the selected day's menu
-  const [dayMenu, setDayMenu] = useState(() => getDayMenu(selectedDayName, today));
+  const selectedDayName = DAY_ORDER[selectedDate.getDay() === 0 ? 6 : selectedDate.getDay() - 1];
+
+  // State for the selected day's menu (derived from Firebase overrides)
+  const [dayMenu, setDayMenu] = useState(() => getDayMenu(selectedDayName, today, {}));
   const [activeMealEdit, setActiveMealEdit] = useState("breakfast");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [dishSearchQuery, setDishSearchQuery] = useState("");
   const [autoSaveToast, setAutoSaveToast] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Generate 14-day date window for calendar carousel
   const datesList = [];
@@ -43,25 +145,27 @@ export default function AdminPanel() {
   const handleDateSelect = (dateObj) => {
     setSelectedDate(dateObj);
     const dayName = DAY_ORDER[dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1];
-    setDayMenu(getDayMenu(dayName, dateObj));
+    setDayMenu(getDayMenu(dayName, dateObj, overrides));
     setAutoSaveToast(false);
   };
 
   const handlePrevDays = () => setStartDateOffset((prev) => prev - 7);
   const handleNextDays = () => setStartDateOffset((prev) => prev + 7);
 
-  // Instant Auto-Save on Confirmation Status Toggle
-  const handleConfirmationToggle = () => {
+  // Instant Auto-Save on Confirmation Status Toggle — writes to Firebase
+  const handleConfirmationToggle = async () => {
     const current = dayMenu || { isConfirmed: false };
     const newStatus = !current.isConfirmed;
     const updatedDay = { ...current, isConfirmed: newStatus };
     setDayMenu(updatedDay);
-    updateDayMenu(selectedDayName, updatedDay, selectedDate);
+    setIsSaving(true);
+    await updateDayMenu(selectedDayName, updatedDay, selectedDate);
+    setIsSaving(false);
     triggerAutoSaveToast();
   };
 
-  // Instant Auto-Save on Dish Tap
-  const handleToggleDishInMeal = (mealKey, dishId) => {
+  // Instant Auto-Save on Dish Tap — writes to Firebase
+  const handleToggleDishInMeal = async (mealKey, dishId) => {
     const current = dayMenu || { isConfirmed: true };
     const meal = current[mealKey] || { food: [], beverages: [] };
     const currentFood = meal.food || [];
@@ -80,14 +184,18 @@ export default function AdminPanel() {
       },
     };
     setDayMenu(updatedDay);
-    updateDayMenu(selectedDayName, updatedDay, selectedDate);
+    setIsSaving(true);
+    await updateDayMenu(selectedDayName, updatedDay, selectedDate);
+    setIsSaving(false);
     triggerAutoSaveToast();
   };
 
-  const handleReset = () => {
-    if (confirm("Reset all custom menu edits back to default?")) {
-      resetMenuOverrides();
-      setDayMenu(getDayMenu(selectedDayName, selectedDate));
+  const handleReset = async () => {
+    if (confirm("Reset all custom menu edits back to default? This will affect ALL devices.")) {
+      setIsSaving(true);
+      await resetMenuOverrides();
+      setIsSaving(false);
+      setDayMenu(getDayMenu(selectedDayName, selectedDate, {}));
       triggerAutoSaveToast();
     }
   };
@@ -117,7 +225,7 @@ export default function AdminPanel() {
 
   return (
     <div className="admin-page page-enter">
-      {/* Floating Instant Auto-Save Toast */}
+      {/* Floating Auto-Save Toast */}
       <AnimatePresence>
         {autoSaveToast && (
           <motion.div
@@ -128,7 +236,7 @@ export default function AdminPanel() {
             transition={{ duration: 0.2 }}
           >
             <Zap size={15} fill="#10B981" color="#10B981" />
-            <span>Auto-saved Live!</span>
+            <span>Synced to all devices!</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -139,7 +247,8 @@ export default function AdminPanel() {
         </div>
         <h1 className="admin-title">Manager Menu Editor</h1>
         <p className="admin-subtitle">
-          Tap any date on calendar to toggle Confirmed/Planned & pick pre-fed dishes (Auto-saved live).
+          Tap any date to toggle Confirmed/Planned &amp; pick dishes.
+          Changes sync instantly to all student devices via Firebase.
         </p>
       </div>
 
@@ -196,6 +305,7 @@ export default function AdminPanel() {
           <button
             className={`admin-toggle-switch ${safeDayMenu.isConfirmed ? "confirmed" : "planned"}`}
             onClick={handleConfirmationToggle}
+            disabled={isSaving}
           >
             {safeDayMenu.isConfirmed ? (
               <>
@@ -293,6 +403,7 @@ export default function AdminPanel() {
                 className={`prefed-dish-btn ${isSelected ? "selected" : ""}`}
                 onClick={() => handleToggleDishInMeal(activeMealEdit, dish.id)}
                 type="button"
+                disabled={isSaving}
               >
                 {isSelected ? <Check size={14} color="#0284C7" /> : <Plus size={14} color="var(--text-muted)" />}
                 <span>{dish.name}</span>
@@ -304,7 +415,7 @@ export default function AdminPanel() {
 
       {/* Reset Action */}
       <div className="admin-actions" style={{ marginTop: "20px", justifyContent: "center" }}>
-        <button className="admin-reset-btn" onClick={handleReset}>
+        <button className="admin-reset-btn" onClick={handleReset} disabled={isSaving}>
           <RotateCcw size={16} /> Reset Menu to Default
         </button>
       </div>

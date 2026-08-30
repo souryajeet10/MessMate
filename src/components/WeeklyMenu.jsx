@@ -3,7 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { getDayMenu, getTodayName, getMealStatus } from "../utils/menuUtils";
 import { DAY_ORDER, MEAL_ORDER } from "../data/menuData";
+import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import MealCard from "./MealCard";
+import NoMenuBanner from "./NoMenuBanner";
 
 export default function WeeklyMenu() {
   const todayName = getTodayName();
@@ -11,7 +13,9 @@ export default function WeeklyMenu() {
   const [selectedIndex, setSelectedIndex] = useState(todayIndex);
 
   const selectedDay = DAY_ORDER[selectedIndex];
-  const dayMenu = getDayMenu(selectedDay);
+  const { overrides } = useMenuOverrides();
+  const dayMenu = getDayMenu(selectedDay, new Date(), overrides);
+  const currentMonthName = new Date().toLocaleDateString("en-IN", { month: "long" });
 
   const goNext = () => {
     setSelectedIndex((prev) => (prev + 1) % 7);
@@ -82,11 +86,12 @@ export default function WeeklyMenu() {
             transition={{ duration: 0.25 }}
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
-            {dayMenu &&
+            {!dayMenu ? (
+              <NoMenuBanner month={currentMonthName} />
+            ) : (
               MEAL_ORDER.map((mealKey, i) => {
                 const mealData = dayMenu[mealKey];
                 if (!mealData) return null;
-                // Only show live status for today
                 const status =
                   selectedDay === todayName
                     ? getMealStatus(mealKey, mealData)
@@ -101,7 +106,8 @@ export default function WeeklyMenu() {
                     index={i}
                   />
                 );
-              })}
+              })
+            )}
           </motion.div>
         </AnimatePresence>
       </div>

@@ -4,8 +4,10 @@ import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { getDayMenu, getTodayName, getMealStatus, formatDate } from "../utils/menuUtils";
 import { MEAL_ORDER, DAY_ORDER } from "../data/menuData";
+import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import Header from "../components/Header";
 import MealCard from "../components/MealCard";
+import NoMenuBanner from "../components/NoMenuBanner";
 
 export default function TodayPage({ onMenuClick }) {
   const navigate = useNavigate();
@@ -13,13 +15,14 @@ export default function TodayPage({ onMenuClick }) {
   const todayName = getTodayName(today);
 
   const [dayOffset, setDayOffset] = useState(0);
+  const { overrides } = useMenuOverrides();
 
   // Compute the selected date based on offset
   const selectedDate = new Date(today);
   selectedDate.setDate(today.getDate() + dayOffset);
 
   const selectedDayName = getTodayName(selectedDate);
-  const dayMenu = getDayMenu(selectedDayName, selectedDate);
+  const dayMenu = getDayMenu(selectedDayName, selectedDate, overrides);
   const isToday = dayOffset === 0;
 
   const formattedDate = selectedDate.toLocaleDateString("en-IN", {
@@ -117,7 +120,11 @@ export default function TodayPage({ onMenuClick }) {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.25 }}
           >
-            {otherMeals.length > 0 && (
+            {!dayMenu ? (
+              <NoMenuBanner
+                month={selectedDate.toLocaleDateString("en-IN", { month: "long" })}
+              />
+            ) : otherMeals.length > 0 ? (
               <div className="meals-grid">
                 {otherMeals.map((m, i) => (
                   <MealCard
@@ -131,7 +138,7 @@ export default function TodayPage({ onMenuClick }) {
                   />
                 ))}
               </div>
-            )}
+            ) : null}
           </motion.div>
         </AnimatePresence>
       </div>

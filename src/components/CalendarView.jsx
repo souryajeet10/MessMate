@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Info } from "lucide-react";
 import { getDayMenu, getMealStatus } from "../utils/menuUtils";
 import { DAY_ORDER, MEAL_ORDER } from "../data/menuData";
+import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import MealCard from "./MealCard";
 
 const MONTH_NAMES = [
@@ -15,6 +16,7 @@ const DAY_NAMES_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export default function CalendarView() {
   const today = new Date();
   const [selectedDate, setSelectedDate] = useState(today);
+  const { overrides } = useMenuOverrides();
 
   // Generate 14-day window around selected date or month
   const [startDateOffset, setStartDateOffset] = useState(-3); // Start 3 days before today
@@ -44,7 +46,7 @@ export default function CalendarView() {
     selectedDate.getMonth() === today.getMonth() &&
     selectedDate.getFullYear() === today.getFullYear();
 
-  const dayMenu = getDayMenu(selectedDayName, selectedDate);
+  const dayMenu = getDayMenu(selectedDayName, selectedDate, overrides);
 
   const formattedMonthYear = `${MONTH_NAMES[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
 

@@ -148,13 +148,13 @@ export function getMenuRotationKey(date = new Date()) {
     return "week_1_and_3";
   }
 
-  // Fallback for other months
-  const weekNum = Math.ceil(dayOfMonth / 7);
-  return weekNum % 2 === 1 ? "week_1_and_3" : "week_2_and_4";
+  // No menu loaded for other months — return null so NoMenuBanner is shown
+  return null;
 }
 
 export function getMenuForDate(date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
+  if (!rotationKey) return null; // No menu data for this month
   return rotationKey === "week_1_and_3" ? weeklyMenu1And3 : weeklyMenu2And4;
 }
 
