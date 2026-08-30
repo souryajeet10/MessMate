@@ -33,6 +33,9 @@ export default function MealCard({ mealKey, mealData, status, day, isConfirmed =
               </>
             )}
           </span>
+          {!isConfirmed && (
+            <p className="meal-card-subject-to-change">⚠️ Subject to change on the day</p>
+          )}
         </div>
         <span className={`meal-card-status ${status}`}>{statusLabel}</span>
       </div>
