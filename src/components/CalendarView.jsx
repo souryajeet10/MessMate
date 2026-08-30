@@ -5,6 +5,7 @@ import { getDayMenu, getMealStatus } from "../utils/menuUtils";
 import { DAY_ORDER, MEAL_ORDER } from "../data/menuData";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import MealCard from "./MealCard";
+import NoMenuBanner from "./NoMenuBanner";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -108,7 +109,11 @@ export default function CalendarView() {
             transition={{ duration: 0.25 }}
             className="messit-meals-2x2-grid"
           >
-            {dayMenu &&
+            {!dayMenu ? (
+              <NoMenuBanner
+                month={selectedDate.toLocaleDateString("en-IN", { month: "long" })}
+              />
+            ) : (
               MEAL_ORDER.map((mealKey, i) => {
                 const mealData = dayMenu[mealKey];
                 if (!mealData) return null;
@@ -124,7 +129,8 @@ export default function CalendarView() {
                     index={i}
                   />
                 );
-              })}
+              })
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
