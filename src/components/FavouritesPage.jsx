@@ -1,130 +1,302 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, Bell, Calendar, Search, CheckCircle, AlertCircle } from "lucide-react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
-  getFavoriteDishes,
-  toggleFavoriteDish,
-  getUpcomingFavoritesSchedule,
-} from "../utils/favouritesUtils";
-import { DISHES_CATALOG } from "../data/dishesCatalog";
-import { requestNotificationPermission, isNotificationEnabled } from "../utils/notificationUtils";
-import { MEAL_NAMES } from "../data/menuData";
+  Sparkles,
+  Heart,
+  Bell,
+  Calendar,
+  UtensilsCrossed,
+  ArrowRight,
+  Construction,
+  Clock,
+} from "lucide-react";
 
 export default function FavouritesPage() {
-  const [favoriteIds, setFavoriteIds] = useState(getFavoriteDishes());
-  const [filterQuery, setFilterQuery] = useState("");
-  const [notifEnabled, setNotifEnabled] = useState(isNotificationEnabled());
+  const navigate = useNavigate();
 
-  const schedule = getUpcomingFavoritesSchedule();
-
-  const handleToggleDish = (dishId) => {
-    const updated = toggleFavoriteDish(dishId);
-    setFavoriteIds(updated);
-  };
-
-  const handleToggleNotifications = async () => {
-    const granted = await requestNotificationPermission();
-    setNotifEnabled(granted);
-  };
-
-  const filteredDishes = DISHES_CATALOG.filter((dish) =>
-    dish.name.toLowerCase().includes(filterQuery.toLowerCase()) ||
-    dish.category.toLowerCase().includes(filterQuery.toLowerCase())
-  );
+  const upcomingFeatures = [
+    {
+      icon: <Heart size={20} className="feature-icon heart" />,
+      title: "Dish Bookmarking",
+      desc: "Save your favorite curries, biryanis & desserts with a single tap.",
+    },
+    {
+      icon: <Bell size={20} className="feature-icon bell" />,
+      title: "Smart Serving Alerts",
+      desc: "Get notified the moment your favorite dish is being served in mess.",
+    },
+    {
+      icon: <Calendar size={20} className="feature-icon calendar" />,
+      title: "Weekly Favorite Forecast",
+      desc: "See a customized calendar highlighting all upcoming favorite meals.",
+    },
+  ];
 
   return (
     <div className="favourites-page page-enter">
-      <div className="favourites-header">
-        <span className="favourites-mascot">⭐🥘🍕</span>
-        <h1 className="favourites-title">Favorite Dishes</h1>
-        <p className="favourites-subtitle">
-          Tap any dish below to mark it as a favorite & get served alerts!
-        </p>
-
-        <button
-          className={`notif-toggle-btn ${notifEnabled ? "active" : ""}`}
-          onClick={handleToggleNotifications}
+      <div className="under-dev-container">
+        {/* Animated Status Pill */}
+        <motion.div
+          className="under-dev-pill"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
         >
-          <Bell size={16} />
-          {notifEnabled ? "Notifications On" : "Turn On Dish Notifications"}
-        </button>
-      </div>
+          <Construction size={15} className="under-dev-pill-icon" />
+          <span>Under Active Development</span>
+        </motion.div>
 
-      {/* Selectable Master Dishes Catalog */}
-      <div className="prefed-dishes-card">
-        <div className="prefed-search-bar">
-          <Search size={16} color="var(--text-muted)" />
-          <input
-            type="text"
-            className="prefed-search-input"
-            placeholder="Search mess dishes..."
-            value={filterQuery}
-            onChange={(e) => setFilterQuery(e.target.value)}
-          />
-        </div>
+        {/* Hero Visual Section: Side-by-Side Food Mascot & Animated Developer Coding Scene */}
+        <motion.div
+          className="under-dev-hero-row"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          {/* Left: Food Mascot Bubble */}
+          <div className="under-dev-icon-bubble">
+            <span className="under-dev-mascot">🥘</span>
+            <motion.div
+              className="under-dev-float-icon fav-heart"
+              animate={{ y: [-4, 4, -4] }}
+              transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+            >
+              <Heart size={20} fill="#EF4444" color="#EF4444" />
+            </motion.div>
+            <motion.div
+              className="under-dev-float-icon fav-sparkle"
+              animate={{ y: [4, -4, 4], rotate: [0, 15, -15, 0] }}
+              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+            >
+              <Sparkles size={16} color="#F59E0B" fill="#F59E0B" />
+            </motion.div>
+          </div>
 
-        <div className="prefed-dishes-grid">
-          {filteredDishes.map((dish) => {
-            const isFav = favoriteIds.includes(dish.id);
+          {/* Central Animated Pulse / Synergy */}
+          <motion.div
+            className="under-dev-hero-connector"
+            animate={{ opacity: [0.5, 1, 0.5], scale: [0.92, 1.08, 0.92] }}
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          >
+            <span className="connector-spark">⚡</span>
+          </motion.div>
 
-            return (
-              <button
-                key={dish.id}
-                className={`prefed-dish-btn ${isFav ? "selected" : ""}`}
-                onClick={() => handleToggleDish(dish.id)}
-                type="button"
-              >
-                <Star
-                  size={15}
-                  fill={isFav ? "#F59E0B" : "none"}
-                  color={isFav ? "#F59E0B" : "var(--text-muted)"}
-                />
-                <span>{dish.name}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+          {/* Right: Custom Interactive Animated Developer Coding Scene */}
+          <div className="under-dev-coding-scene">
+            {/* Floating Code Bracket Badge */}
+            <motion.div
+              className="scene-floating-badge code-badge"
+              animate={{ y: [-3, 4, -3], rotate: [-3, 3, -3] }}
+              transition={{ repeat: Infinity, duration: 2.8, ease: "easeInOut" }}
+            >
+              <span>&lt;/&gt;</span>
+            </motion.div>
 
-      {/* Upcoming Dish Schedule Section */}
-      <div className="fav-schedule-section">
-        <h2 className="fav-schedule-title">
-          <Calendar size={18} /> Favorite Dishes on Menu ({favoriteIds.length} selected)
-        </h2>
+            {/* Floating Coffee Badge with Animated Steam */}
+            <motion.div
+              className="scene-floating-badge coffee-badge"
+              animate={{ y: [3, -4, 3] }}
+              transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+            >
+              <span>☕</span>
+            </motion.div>
 
-        {schedule.length > 0 ? (
-          <div className="fav-schedule-grid">
-            {schedule.map((item, idx) => {
-              const mealTitle = MEAL_NAMES[item.mealType] || item.mealType;
-              return (
-                <div key={idx} className="fav-schedule-card">
-                  <div className="fav-schedule-header">
-                    <span className="fav-schedule-day">{item.day}</span>
-                    <span className={`meal-confirmation-badge ${item.isConfirmed ? "confirmed" : "planned"}`}>
-                      {item.isConfirmed ? <CheckCircle size={10} /> : <AlertCircle size={10} />}
-                      {item.isConfirmed ? "Confirmed" : "Planned"}
-                    </span>
-                  </div>
-                  <div className="fav-schedule-meal">
-                    <strong>{mealTitle}</strong> ({item.timing.start} - {item.timing.end})
-                  </div>
-                  <div className="fav-schedule-dishes">
-                    {item.dishes.map((d, i) => (
-                      <span key={i} className="fav-dish-pill">
-                        ⭐ {d}
-                      </span>
-                    ))}
-                  </div>
+            {/* Animated SVG Developer at Desk */}
+            <svg
+              viewBox="0 0 150 110"
+              className="developer-coding-svg"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Desk */}
+              <rect x="12" y="86" width="126" height="5" rx="2.5" fill="var(--border)" />
+              <rect x="22" y="91" width="5" height="15" rx="2" fill="var(--border)" opacity="0.6" />
+              <rect x="123" y="91" width="5" height="15" rx="2" fill="var(--border)" opacity="0.6" />
+
+              {/* Ergonomic Chair */}
+              <rect x="32" y="44" width="14" height="38" rx="5" fill="#64748B" opacity="0.35" />
+              <path d="M39 82V96" stroke="#64748B" strokeWidth="3.5" strokeLinecap="round" opacity="0.35" />
+
+              {/* Developer Body / Hoodie */}
+              <path
+                d="M44 62 C44 54, 64 54, 64 62 L67 86 L41 86 Z"
+                fill="url(#devHoodieGrad)"
+              />
+
+              {/* Developer Head */}
+              <circle cx="54" cy="40" r="12" fill="#FBBF24" />
+
+              {/* Hair / Cap */}
+              <path
+                d="M43 38 C43 28, 64 26, 66 35 C64 31, 48 30, 45 38 Z"
+                fill="#1E293B"
+              />
+
+              {/* Headphones */}
+              <path
+                d="M42 40 C42 29, 66 29, 66 40"
+                stroke="#3B82F6"
+                strokeWidth="3"
+                strokeLinecap="round"
+                fill="none"
+              />
+              <circle cx="42" cy="40" r="3.5" fill="#2563EB" />
+              <circle cx="66" cy="40" r="3.5" fill="#2563EB" />
+
+              {/* Typing Arm with Motion Animation */}
+              <motion.path
+                d="M57 70 Q72 74 80 78"
+                stroke="#FBBF24"
+                strokeWidth="4"
+                strokeLinecap="round"
+                fill="none"
+                animate={{
+                  d: [
+                    "M57 70 Q72 74 80 78",
+                    "M57 70 Q72 72 80 76",
+                    "M57 70 Q72 74 80 78",
+                  ],
+                }}
+                transition={{ repeat: Infinity, duration: 0.5, ease: "easeInOut" }}
+              />
+
+              {/* Laptop Base */}
+              <rect x="76" y="80" width="40" height="4" rx="2" fill="#94A3B8" />
+
+              {/* Laptop Screen */}
+              <rect
+                x="82"
+                y="44"
+                width="34"
+                height="34"
+                rx="3.5"
+                fill="#0F172A"
+                stroke="#3B82F6"
+                strokeWidth="1.2"
+              />
+
+              {/* Animated Glowing Code Syntax Lines on Screen */}
+              <motion.rect
+                x="86"
+                y="50"
+                width="16"
+                height="2.2"
+                rx="1"
+                fill="#38BDF8"
+                animate={{ width: [8, 22, 16], opacity: [0.7, 1, 0.7] }}
+                transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+              />
+              <motion.rect
+                x="86"
+                y="56"
+                width="22"
+                height="2.2"
+                rx="1"
+                fill="#F59E0B"
+                animate={{ width: [12, 24, 14], opacity: [0.6, 1, 0.6] }}
+                transition={{ repeat: Infinity, duration: 2.1, ease: "easeInOut", delay: 0.2 }}
+              />
+              <motion.rect
+                x="90"
+                y="62"
+                width="14"
+                height="2.2"
+                rx="1"
+                fill="#10B981"
+                animate={{ width: [10, 18, 10], opacity: [0.6, 1, 0.6] }}
+                transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut", delay: 0.4 }}
+              />
+              <motion.rect
+                x="90"
+                y="68"
+                width="10"
+                height="2.2"
+                rx="1"
+                fill="#EC4899"
+                animate={{ opacity: [0, 1, 0] }}
+                transition={{ repeat: Infinity, duration: 0.7 }}
+              />
+
+              {/* Gradient Defs */}
+              <defs>
+                <linearGradient id="devHoodieGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="#3B82F6" />
+                  <stop offset="100%" stopColor="#8B5CF6" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </motion.div>
+
+        {/* Title & Description */}
+        <motion.div
+          className="under-dev-text-group"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+        >
+          <h1 className="under-dev-title">
+            Cookin' Up Something <span className="highlight-text">Special!</span>
+          </h1>
+          <p className="under-dev-subtitle">
+            <strong>Favourites & Dish Alerts</strong> is on its way. Soon you'll be able to bookmark favorite meals and get notified whenever they're on the menu.
+          </p>
+        </motion.div>
+
+        {/* Feature Roadmap Preview */}
+        <motion.div
+          className="under-dev-features-card"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+        >
+          <div className="under-dev-features-header">
+            <Clock size={16} />
+            <span>What's coming soon</span>
+          </div>
+
+          <div className="under-dev-features-grid">
+            {upcomingFeatures.map((feat, idx) => (
+              <div key={idx} className="under-dev-feature-item">
+                <div className="under-dev-feature-icon-box">{feat.icon}</div>
+                <div className="under-dev-feature-info">
+                  <h4>{feat.title}</h4>
+                  <p>{feat.desc}</p>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
-        ) : (
-          <div className="favourites-empty">
-            <p>Select favorite dishes above to view when they appear on the menu.</p>
-          </div>
-        )}
+        </motion.div>
+
+        {/* Action Buttons */}
+        <motion.div
+          className="under-dev-actions"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+        >
+          <button
+            className="under-dev-primary-btn"
+            onClick={() => navigate("/")}
+            id="under-dev-today-btn"
+          >
+            <UtensilsCrossed size={18} />
+            <span>Today's Menu</span>
+            <ArrowRight size={16} />
+          </button>
+
+          <button
+            className="under-dev-secondary-btn"
+            onClick={() => navigate("/calendar")}
+            id="under-dev-calendar-btn"
+          >
+            <Calendar size={18} />
+            <span>View Calendar</span>
+          </button>
+        </motion.div>
       </div>
     </div>
   );
 }
+
+

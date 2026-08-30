@@ -9,8 +9,7 @@ import Sidebar from "./components/Sidebar";
 import BottomNav from "./components/BottomNav";
 import AdminPanel from "./components/AdminPanel";
 import Footer from "./components/Footer";
-import PwaInstallPrompt from "./components/PwaInstallPrompt";
-import { checkTodayFavoriteDishesAndNotify } from "./utils/notificationUtils";
+import InstallPrompt from "./components/InstallPrompt";
 
 function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -18,11 +17,6 @@ function AppContent() {
     return localStorage.getItem("messmate_welcomed") === "true";
   });
   const location = useLocation();
-
-  // Check notification for favorite dishes on load
-  useEffect(() => {
-    void checkTodayFavoriteDishesAndNotify();
-  }, []);
 
   // Listen for welcome completion
   useEffect(() => {
@@ -90,7 +84,7 @@ function AppContent() {
 
       {!isWelcomePage && <Footer />}
       {!isWelcomePage && hasWelcomed && <BottomNav />}
-      {!isWelcomePage && hasWelcomed && <PwaInstallPrompt />}
+      {!isWelcomePage && hasWelcomed && <InstallPrompt />}
     </div>
   );
 }
