@@ -19,7 +19,7 @@ export default function NoMenuBanner({ month = "this month" }) {
         <h2 className="no-menu-title">Menu Not Yet Announced</h2>
         <p className="no-menu-subtitle">
           The mess team is still cooking up the <strong>{month}</strong> menu.
-          Check back soon — something delicious is on its way! 🥘
+          Check back soon!
         </p>
       </div>
 
