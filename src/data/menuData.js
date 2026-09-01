@@ -119,7 +119,7 @@ export function buildWeeklyMenu(rawWeekData) {
       dinner: {
         timing: dayTimings.dinner,
         food: dinnerFoodRaw.map(slugify),
-        beverages: [dinnerDrink || "Milk", "Water"].filter(Boolean),
+        beverages: [dinnerDrink, "Water"].filter(Boolean),
       },
     };
   });
