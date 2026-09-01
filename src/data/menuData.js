@@ -131,7 +131,7 @@ export const weeklyMenu1And3 = buildWeeklyMenu(rawAugustMenu.week_1_and_3 || raw
 export const weeklyMenu2And4 = buildWeeklyMenu(rawAugustMenu.week_2_and_4 || rawAugustMenu);
 
 export function getMenuRotationKey(date = new Date()) {
-  const month = date.getMonth(); // 0-indexed, August = 7
+  const month = date.getMonth(); // 0-indexed, August = 7, September = 8
   const dayOfMonth = date.getDate();
 
   // August 2026 rotation schedule (Aug 1 = Saturday):
@@ -145,6 +145,20 @@ export function getMenuRotationKey(date = new Date()) {
     if (dayOfMonth <= 15) return "week_2_and_4";
     if (dayOfMonth <= 22) return "week_1_and_3";
     if (dayOfMonth <= 29) return "week_2_and_4";
+    return "week_1_and_3";
+  }
+
+  // September 2026 rotation schedule (continuing from August, Sep 1 = Tuesday):
+  // Week 1: Sep 1–5  (Tue–Sat) -> week_1_and_3  (same week as Aug 30–31)
+  // Week 2: Sep 6–12 (Sun–Sat) -> week_2_and_4
+  // Week 3: Sep 13–19 (Sun–Sat) -> week_1_and_3
+  // Week 4: Sep 20–26 (Sun–Sat) -> week_2_and_4
+  // Week 5: Sep 27–30 (Sun–Wed) -> week_1_and_3
+  if (month === 8) {
+    if (dayOfMonth <= 5) return "week_1_and_3";
+    if (dayOfMonth <= 12) return "week_2_and_4";
+    if (dayOfMonth <= 19) return "week_1_and_3";
+    if (dayOfMonth <= 26) return "week_2_and_4";
     return "week_1_and_3";
   }
 
