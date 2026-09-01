@@ -10,6 +10,7 @@ import BottomNav from "./components/BottomNav";
 import AdminPanel from "./components/AdminPanel";
 import Footer from "./components/Footer";
 import InstallPrompt from "./components/InstallPrompt";
+import { Analytics } from "@vercel/analytics/react";
 
 function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -95,6 +96,7 @@ export default function App() {
       <BrowserRouter>
         <AppContent />
       </BrowserRouter>
+      <Analytics />
     </ThemeProvider>
   );
 }
