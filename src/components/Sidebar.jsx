@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, UtensilsCrossed, Calendar, Heart, Shield, Moon, Sun } from "lucide-react";
+import { X, UtensilsCrossed, Calendar, Shield, Moon, Sun } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -9,7 +9,6 @@ export default function Sidebar({ isOpen, onClose }) {
   const links = [
     { to: "/", icon: <UtensilsCrossed size={20} />, label: "Today's Menu" },
     { to: "/calendar", icon: <Calendar size={20} />, label: "Calendar Menu" },
-    { to: "/favourites", icon: <Heart size={20} />, label: "Favourites" },
   ];
 
   return (

@@ -109,7 +109,7 @@ export function buildWeeklyMenu(rawWeekData) {
       lunch: day === "Sunday" ? null : {
         timing: dayTimings.lunch,
         food: (lunchFoodRaw.length > 0 ? lunchFoodRaw : ["Khichdi", "Choice of Salad"]).map(slugify),
-        beverages: [lunchDrink, "Water"].filter(Boolean),
+        beverages: [lunchDrink].filter(Boolean),
       },
       hitea: {
         timing: dayTimings.hitea,
@@ -119,7 +119,7 @@ export function buildWeeklyMenu(rawWeekData) {
       dinner: {
         timing: dayTimings.dinner,
         food: dinnerFoodRaw.map(slugify),
-        beverages: [dinnerDrink, "Water"].filter(Boolean),
+        beverages: [dinnerDrink].filter(Boolean),
       },
     };
   });

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Clock, Star, CheckCircle, AlertCircle } from "lucide-react";
-import { isFavoriteDish } from "../utils/favouritesUtils";
+import { Clock, CheckCircle, AlertCircle } from "lucide-react";
 import { MEAL_NAMES, MEAL_ICONS } from "../data/menuData";
 import { getDishName } from "../data/dishesCatalog";
 
@@ -47,23 +46,16 @@ export default function MealCard({ mealKey, mealData, status, day, isConfirmed =
         </span>
       </div>
 
-      {/* Food items with favorite dish highlights */}
+      {/* Food items */}
       <div className="meal-card-body">
         <div className="meal-card-info">
           <div className="meal-card-food-items">
             <strong>Food : </strong>
             {mealData.food.map((dishId, idx) => {
               const dishName = getDishName(dishId);
-              const isItemFav = isFavoriteDish(dishId);
-
               return (
-                <span key={idx} className={`food-item-span ${isItemFav ? "is-fav-dish" : ""}`}>
+                <span key={idx} className="food-item-span">
                   {dishName}
-                  {isItemFav && (
-                    <span className="fav-dish-tag">
-                      <Star size={11} fill="currentColor" /> Fav
-                    </span>
-                  )}
                   {idx < mealData.food.length - 1 ? " , " : ""}
                 </span>
               );

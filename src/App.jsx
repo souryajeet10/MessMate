@@ -4,7 +4,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import WelcomeScreen from "./components/WelcomeScreen";
 import TodayPage from "./pages/TodayPage";
 import CalendarView from "./components/CalendarView";
-import FavouritesPage from "./components/FavouritesPage";
+
 import Sidebar from "./components/Sidebar";
 import BottomNav from "./components/BottomNav";
 import AdminPanel from "./components/AdminPanel";
@@ -69,16 +69,7 @@ function AppContent() {
           }
         />
         <Route path="/weekly" element={<Navigate to="/calendar" replace />} />
-        <Route
-          path="/favourites"
-          element={
-            !hasWelcomed ? (
-              <Navigate to="/welcome" replace />
-            ) : (
-              <FavouritesPage />
-            )
-          }
-        />
+
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

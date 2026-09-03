@@ -1,15 +1,15 @@
-import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, Star, Calendar, Trash2, Search, ChefHat } from "lucide-react";
 import {
-  Sparkles,
-  Heart,
-  Bell,
-  Calendar,
-  UtensilsCrossed,
-  ArrowRight,
-  Construction,
-  Clock,
-} from "lucide-react";
+  getFavoriteDishes,
+  toggleFavoriteDish,
+  getUpcomingFavoritesSchedule,
+} from "../utils/favouritesUtils";
+import { getDishName, DISHES_CATALOG } from "../data/dishesCatalog";
+
+const MEAL_LABEL = { breakfast: "Breakfast", lunch: "Lunch", hitea: "HI-TEA", dinner: "Dinner" };
+const MEAL_ICON = { breakfast: "☀️", lunch: "🍛", hitea: "☕", dinner: "🌙" };
 
 export default function FavouritesPage() {
   const navigate = useNavigate();

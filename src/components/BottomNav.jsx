@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { UtensilsCrossed, Calendar, Heart } from "lucide-react";
+import { UtensilsCrossed, Calendar } from "lucide-react";
 
 export default function BottomNav() {
   const location = useLocation();
@@ -10,7 +10,6 @@ export default function BottomNav() {
   const tabs = [
     { to: "/", icon: <UtensilsCrossed size={22} />, label: "Today" },
     { to: "/calendar", icon: <Calendar size={22} />, label: "Calendar" },
-    { to: "/favourites", icon: <Heart size={22} />, label: "Favourites" },
   ];
 
   return (
