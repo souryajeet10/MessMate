@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, CheckCircle, AlertCircle, RotateCcw, Check, ChevronLeft, ChevronRight, Plus, X, Search, Zap, Lock, Eye, EyeOff } from "lucide-react";
+import { Shield, CheckCircle, AlertCircle, RotateCcw, Check, ChevronLeft, ChevronRight, Plus, X, Search, Zap, Lock, Eye, EyeOff, Smartphone } from "lucide-react";
 import { getDayMenu, updateDayMenu, resetMenuOverrides } from "../utils/menuUtils";
 import { DAY_ORDER, MEAL_ORDER, MEAL_NAMES } from "../data/menuData";
 import { DISHES_CATALOG, getDishName } from "../data/dishesCatalog";
@@ -130,6 +130,9 @@ function AdminPanelContent() {
   const [dishSearchQuery, setDishSearchQuery] = useState("");
   const [autoSaveToast, setAutoSaveToast] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Dev tool: reset install state toast
+  const [resetInstallToast, setResetInstallToast] = useState(false);
 
   // Generate 14-day date window for calendar carousel
   const datesList = [];
@@ -417,6 +420,57 @@ function AdminPanelContent() {
       <div className="admin-actions" style={{ marginTop: "20px", justifyContent: "center" }}>
         <button className="admin-reset-btn" onClick={handleReset} disabled={isSaving}>
           <RotateCcw size={16} /> Reset Menu to Default
+        </button>
+      </div>
+
+      {/* ── Dev Tools: Reset Install State ─────────────────────────────── */}
+      {/* Clears ONLY the two PWA install flags so you can re-test the      */}
+      {/* install flow without uninstalling the PWA from your device.        */}
+      <div
+        className="admin-card"
+        style={{ marginTop: "28px", borderTop: "2px dashed var(--border-color, #e5e7eb)", paddingTop: "18px" }}
+      >
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", marginBottom: "12px" }}>
+          <div className="admin-gate-icon" style={{ minWidth: 36, height: 36, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Smartphone size={18} />
+          </div>
+          <div>
+            <h3 style={{ margin: 0, fontSize: "0.95rem", fontWeight: 600 }}>Dev Tools — Reset Install State</h3>
+            <p className="admin-card-sub" style={{ marginTop: 4 }}>
+              Clears <code>messmate_install_dismissed</code> and{" "}
+              <code>messmate_app_installed</code> only. Does not affect any other
+              app data or actually uninstall the PWA from your device.
+            </p>
+          </div>
+        </div>
+
+        <AnimatePresence>
+          {resetInstallToast && (
+            <motion.div
+              className="admin-autosave-toast"
+              initial={{ opacity: 0, y: -10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              style={{ position: "relative", marginBottom: "10px" }}
+            >
+              <CheckCircle size={15} color="#10B981" />
+              <span>Install state cleared — reload the page to re-test.</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <button
+          className="admin-reset-btn"
+          id="dev-reset-install-state"
+          onClick={() => {
+            localStorage.removeItem("messmate_install_dismissed");
+            localStorage.removeItem("messmate_app_installed");
+            setResetInstallToast(true);
+            setTimeout(() => setResetInstallToast(false), 3000);
+          }}
+        >
+          <RotateCcw size={16} /> Clear Install Flags
         </button>
       </div>
     </div>

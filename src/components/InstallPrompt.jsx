@@ -1,93 +1,174 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Smartphone, X, Download, ArrowUpRight } from "lucide-react";
 
+// ─── localStorage keys (only these two are managed by this component) ───────
+const KEY_DISMISSED = "messmate_install_dismissed";
+const KEY_INSTALLED = "messmate_app_installed";
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+/** Returns true when the app is genuinely running as an installed PWA. */
+function detectStandalone() {
+  return (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true ||
+    document.referrer.includes("android-app://")
+  );
+}
+
+/** True on iOS/iPadOS where beforeinstallprompt is not available. */
+function detectIOS() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
 export default function InstallPrompt() {
   const location = useLocation();
-  const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [isInstalled, setIsInstalled] = useState(false);
+
+  // The deferred browser prompt — stored in a ref so it survives re-renders
+  // without triggering them, and is never stale inside async callbacks.
+  const deferredPromptRef = useRef(null);
+
+  // Three separate, independent state concepts:
+  const [isInstalled, setIsInstalled] = useState(false);   // standalone OR appinstalled fired
+  const [showModal, setShowModal] = useState(false);        // modal card visibility
+  const [isIOS, setIsIOS] = useState(false);                // iOS/Safari fallback mode
 
   const isAdminPage = location.pathname === "/admin";
   const isWelcomePage = location.pathname === "/welcome";
 
+  // ── Initialise on mount ───────────────────────────────────────────────────
   useEffect(() => {
-    // Check if the user is already running the installed standalone PWA
-    const checkStandalone = () => {
-      const isStandalone =
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true ||
-        document.referrer.includes("android-app://");
-      
-      setIsInstalled(isStandalone);
-      return isStandalone;
-    };
-
-    if (checkStandalone()) return;
-
-    // Listen for native PWA installation event
-    const handleAppInstalled = () => {
+    // Strongest signal: app is already running as a PWA — hide everything.
+    if (detectStandalone()) {
       setIsInstalled(true);
-      setShowModal(false);
-    };
-    window.addEventListener("appinstalled", handleAppInstalled);
+      return;
+    }
 
-    // Capture beforeinstallprompt event from browser
+    // Soft signal: we previously recorded a confirmed install via appinstalled.
+    // Only use this when standalone mode is NOT active (e.g. browser tab after install).
+    if (localStorage.getItem(KEY_INSTALLED) === "true") {
+      setIsInstalled(true);
+      return;
+    }
+
+    setIsIOS(detectIOS());
+  }, []);
+
+  // ── Listen for browser events ─────────────────────────────────────────────
+  useEffect(() => {
+    // Already installed — no need to set up listeners.
+    if (isInstalled) return;
+
+    // ── beforeinstallprompt ──────────────────────────────────────────────────
+    // Fired by Chrome/Android when the site is installable.
+    // Calling e.preventDefault() is required to suppress the mini-infobar and
+    // take full control of when to trigger the native prompt.
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault();
-      setDeferredPrompt(e);
-      if (!isAdminPage && !isWelcomePage) {
+      deferredPromptRef.current = e;
+
+      // Auto-show the modal only when the user hasn't explicitly dismissed it
+      // this session, and we're not on a suppressed page.
+      const wasDismissed = localStorage.getItem(KEY_DISMISSED) === "true";
+      if (!wasDismissed && !isAdminPage && !isWelcomePage) {
         setShowModal(true);
       }
     };
+
+    // ── appinstalled ─────────────────────────────────────────────────────────
+    // Fired by the browser after the user confirms installation through the
+    // native prompt or via the browser menu. This is the authoritative signal.
+    const handleAppInstalled = () => {
+      localStorage.setItem(KEY_INSTALLED, "true");
+      // Clean up the dismissed flag — it is no longer relevant.
+      localStorage.removeItem(KEY_DISMISSED);
+      deferredPromptRef.current = null;
+      setIsInstalled(true);
+      setShowModal(false);
+    };
+
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
 
-    // If on mobile browser and not in standalone app mode, show modal on visit
-    const isMobile =
-      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
-
-    if (isMobile && !isAdminPage && !isWelcomePage) {
-      const timer = setTimeout(() => {
-        if (!checkStandalone()) {
-          setShowModal(true);
-        }
-      }, 1000);
-      return () => clearTimeout(timer);
-    }
-
+    // Always clean up both listeners — fixes the previous cleanup bug where
+    // the mobile branch returned only clearTimeout, leaking these handlers.
     return () => {
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
       window.removeEventListener("appinstalled", handleAppInstalled);
     };
-  }, [isAdminPage, isWelcomePage]);
+  }, [isInstalled, isAdminPage, isWelcomePage]);
 
+  // ── Install button handler ────────────────────────────────────────────────
   const handleInstallClick = async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
+    const prompt = deferredPromptRef.current;
+
+    if (prompt) {
+      // Native prompt path — Android/Chrome and other supporting browsers.
+      // The browser shows its own confirmation dialog; we must not bypass it.
+      prompt.prompt();
+      const { outcome } = await prompt.userChoice;
+      deferredPromptRef.current = null;
+
       if (outcome === "accepted") {
-        setIsInstalled(true);
+        // appinstalled will fire shortly and update state — no need to
+        // setIsInstalled(true) here; that would be redundant and could race.
         setShowModal(false);
       }
-      setDeferredPrompt(null);
+      // If dismissed in the native dialog, leave the modal open so the user
+      // can try again or close it themselves.
+    } else if (isIOS) {
+      // iOS/Safari manual path — shown only when the user explicitly taps the pill.
+      // The modal content already explains the Share → Add to Home Screen flow.
+      // Nothing extra needed here; the modal is already open at this point.
     } else {
+      // Fallback for browsers without beforeinstallprompt that are not iOS.
+      // Show a concise browser-agnostic instruction.
       alert(
-        "Direct 1-Click Install:\n\n• On Android (Chrome): Tap the menu (⋮) -> 'Install app' or 'Add to Home screen'.\n• On iOS (Safari): Tap the Share button (⎋) -> 'Add to Home Screen'."
+        "To install this app:\n\n" +
+        "• Android (Chrome): Tap ⋮ menu → 'Install app' or 'Add to Home screen'.\n" +
+        "• iOS (Safari): Tap the Share button → 'Add to Home Screen'.\n" +
+        "• Desktop (Chrome/Edge): Click the install icon in the address bar."
       );
     }
   };
 
+  // ── Dismiss handler ───────────────────────────────────────────────────────
+  // "Maybe Later" closes the modal but keeps the floating pill.
+  // We persist the dismissed flag so the modal does NOT auto-reopen on
+  // subsequent page loads. The pill stays available for the user to re-open it.
   const handleDismissModal = () => {
+    localStorage.setItem(KEY_DISMISSED, "true");
     setShowModal(false);
   };
 
-  // If already installed and opened from home screen, or on admin/welcome, do not show anything
+  // ── Pill click ────────────────────────────────────────────────────────────
+  // Opens the modal. On iOS this also clears the dismissed flag so the modal
+  // shows with the manual instructions (explicit user intent).
+  const handlePillClick = () => {
+    // Clear the dismissed flag when the user actively requests the modal.
+    localStorage.removeItem(KEY_DISMISSED);
+    setShowModal(true);
+  };
+
+  // ── Render guards ─────────────────────────────────────────────────────────
+  // Hide everything when: genuinely installed, on admin page, on welcome page.
   if (isInstalled || isAdminPage || isWelcomePage) return null;
+
+  // Decide what the primary action button should say and do.
+  // On iOS with no native prompt, "Add to Home Screen" opens the instructions.
+  const primaryButtonLabel = deferredPromptRef.current
+    ? "Add to Home Screen"
+    : isIOS
+    ? "How to Install on iOS"
+    : "Add to Home Screen";
 
   return (
     <>
-      {/* 1. Modal Popup Reminder */}
+      {/* ── 1. Modal card ─────────────────────────────────────────────── */}
       <AnimatePresence>
         {showModal && (
           <div className="install-card-backdrop" onClick={handleDismissModal}>
@@ -119,20 +200,35 @@ export default function InstallPrompt() {
               </div>
 
               <div className="install-card-body">
-                <p>
-                  Add <strong>MESSMATE @ UH</strong> to your home screen for quick daily meal checks, calendar schedules, and instant offline access without opening your browser!
-                </p>
+                {isIOS ? (
+                  /* iOS manual instructions */
+                  <p>
+                    Tap the <strong>Share</strong> button (
+                    <span aria-label="share icon">⎋</span>) at the bottom of
+                    Safari, then select <strong>&quot;Add to Home Screen&quot;</strong> to
+                    install <strong>MESSMATE @ UH</strong>.
+                  </p>
+                ) : (
+                  <p>
+                    Add <strong>MESSMATE @ UH</strong> to your home screen for
+                    quick daily meal checks, calendar schedules, and instant
+                    offline access without opening your browser!
+                  </p>
+                )}
               </div>
 
               <div className="install-card-actions">
-                <button
-                  className="install-card-primary-btn"
-                  onClick={handleInstallClick}
-                  id="install-prompt-action-btn"
-                >
-                  <Download size={16} />
-                  <span>Add to Home Screen</span>
-                </button>
+                {/* On iOS this button is informational; on Android it triggers the native prompt */}
+                {!isIOS && (
+                  <button
+                    className="install-card-primary-btn"
+                    onClick={handleInstallClick}
+                    id="install-prompt-action-btn"
+                  >
+                    <Download size={16} />
+                    <span>{primaryButtonLabel}</span>
+                  </button>
+                )}
                 <button
                   className="install-card-secondary-btn"
                   onClick={handleDismissModal}
@@ -145,11 +241,12 @@ export default function InstallPrompt() {
         )}
       </AnimatePresence>
 
-      {/* 2. Persistent Floating Install Badge (Stays visible until added to homescreen) */}
+      {/* ── 2. Persistent floating install pill ───────────────────────── */}
+      {/* Stays visible until the app is confirmed installed/standalone.    */}
       {!showModal && (
         <motion.button
           className="persistent-install-pill"
-          onClick={() => setShowModal(true)}
+          onClick={handlePillClick}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
@@ -166,4 +263,3 @@ export default function InstallPrompt() {
     </>
   );
 }
-
