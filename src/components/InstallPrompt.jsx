@@ -3,8 +3,9 @@ import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Smartphone, X, Download, ArrowUpRight } from "lucide-react";
 
-// ─── localStorage keys (only these two are managed by this component) ───────
-const KEY_DISMISSED = "messmate_install_dismissed";
+// ─── localStorage key ────────────────────────────────────────────────────────
+// KEY_DISMISSED is intentionally removed — dismiss only hides the popup for
+// the current session so it re-appears on every new visit until installed.
 const KEY_INSTALLED = "messmate_app_installed";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -71,10 +72,9 @@ export default function InstallPrompt() {
       e.preventDefault();
       deferredPromptRef.current = e;
 
-      // Auto-show the modal only when the user hasn't explicitly dismissed it
-      // this session, and we're not on a suppressed page.
-      const wasDismissed = localStorage.getItem(KEY_DISMISSED) === "true";
-      if (!wasDismissed && !isAdminPage && !isWelcomePage) {
+      // Always show the modal on every visit if not on a suppressed page.
+      // No dismissed flag — popup reappears each visit until app is installed.
+      if (!isAdminPage && !isWelcomePage) {
         setShowModal(true);
       }
     };
@@ -84,8 +84,6 @@ export default function InstallPrompt() {
     // native prompt or via the browser menu. This is the authoritative signal.
     const handleAppInstalled = () => {
       localStorage.setItem(KEY_INSTALLED, "true");
-      // Clean up the dismissed flag — it is no longer relevant.
-      localStorage.removeItem(KEY_DISMISSED);
       deferredPromptRef.current = null;
       setIsInstalled(true);
       setShowModal(false);
@@ -120,12 +118,10 @@ export default function InstallPrompt() {
       window.removeEventListener("click", handleFirstInteraction, { capture: true });
 
       if (deferredPromptRef.current) {
-        // Native prompt is ready — show the modal regardless of dismissed flag.
-        localStorage.removeItem(KEY_DISMISSED);
+        // Native prompt is ready — show the modal.
         setShowModal(true);
       } else if (isIOS) {
         // iOS: show manual instructions on first tap.
-        localStorage.removeItem(KEY_DISMISSED);
         setShowModal(true);
       }
       // If no prompt and not iOS, the floating pill remains as a fallback.
@@ -175,20 +171,15 @@ export default function InstallPrompt() {
   };
 
   // ── Dismiss handler ───────────────────────────────────────────────────────
-  // "Maybe Later" closes the modal but keeps the floating pill.
-  // We persist the dismissed flag so the modal does NOT auto-reopen on
-  // subsequent page loads. The pill stays available for the user to re-open it.
+  // "Maybe Later" closes the modal for this session only — no localStorage.
+  // On the next visit the popup will appear again automatically.
   const handleDismissModal = () => {
-    localStorage.setItem(KEY_DISMISSED, "true");
     setShowModal(false);
   };
 
   // ── Pill click ────────────────────────────────────────────────────────────
-  // Opens the modal. On iOS this also clears the dismissed flag so the modal
-  // shows with the manual instructions (explicit user intent).
+  // Opens the modal when the user taps the floating pill.
   const handlePillClick = () => {
-    // Clear the dismissed flag when the user actively requests the modal.
-    localStorage.removeItem(KEY_DISMISSED);
     setShowModal(true);
   };
 
