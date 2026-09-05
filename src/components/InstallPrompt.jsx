@@ -102,6 +102,44 @@ export default function InstallPrompt() {
     };
   }, [isInstalled, isAdminPage, isWelcomePage]);
 
+  // ── Show popup on first tap/click anywhere on the page ───────────────────
+  // As soon as the user interacts with the page for the first time, if the
+  // browser's deferred install prompt is ready, we show the install modal.
+  // This gives a seamless "tap anywhere → install popup" experience on mobile.
+  useEffect(() => {
+    if (isInstalled || isAdminPage || isWelcomePage) return;
+
+    let triggered = false;
+
+    const handleFirstInteraction = () => {
+      if (triggered) return;
+      triggered = true;
+
+      // Remove listeners immediately — we only want to trigger once.
+      window.removeEventListener("touchstart", handleFirstInteraction, { capture: true });
+      window.removeEventListener("click", handleFirstInteraction, { capture: true });
+
+      if (deferredPromptRef.current) {
+        // Native prompt is ready — show the modal regardless of dismissed flag.
+        localStorage.removeItem(KEY_DISMISSED);
+        setShowModal(true);
+      } else if (isIOS) {
+        // iOS: show manual instructions on first tap.
+        localStorage.removeItem(KEY_DISMISSED);
+        setShowModal(true);
+      }
+      // If no prompt and not iOS, the floating pill remains as a fallback.
+    };
+
+    window.addEventListener("touchstart", handleFirstInteraction, { capture: true, once: true });
+    window.addEventListener("click", handleFirstInteraction, { capture: true, once: true });
+
+    return () => {
+      window.removeEventListener("touchstart", handleFirstInteraction, { capture: true });
+      window.removeEventListener("click", handleFirstInteraction, { capture: true });
+    };
+  }, [isInstalled, isAdminPage, isWelcomePage, isIOS]);
+
   // ── Install button handler ────────────────────────────────────────────────
   const handleInstallClick = async () => {
     const prompt = deferredPromptRef.current;
