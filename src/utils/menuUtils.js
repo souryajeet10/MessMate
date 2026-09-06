@@ -135,9 +135,12 @@ export function getDayMenu(dayName, date = new Date(), overrides = null) {
 
   const resolvedOverrides = overrides ?? readLocalCache();
   const rotationKey = getMenuRotationKey(date);
-  const overrideDay =
-    resolvedOverrides[`${rotationKey}_${dayName}`] ||
-    resolvedOverrides[dayName];
+  // Only use rotation-scoped overrides (e.g. "week_1_and_3_Sunday")
+  // The legacy plain dayName fallback is intentionally removed — it caused
+  // week_2_and_4 overrides to bleed into week_1_and_3 days (and vice versa).
+  const overrideDay = rotationKey
+    ? resolvedOverrides[`${rotationKey}_${dayName}`]
+    : null;
 
   if (overrideDay) {
     const mergeMeal = (mealKey) => {
