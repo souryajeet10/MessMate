@@ -8,6 +8,7 @@ import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import Header from "../components/Header";
 import MealCard from "../components/MealCard";
 import NoMenuBanner from "../components/NoMenuBanner";
+import MenuUpdateBanner from "../components/MenuUpdateBanner";
 
 export default function TodayPage({ onMenuClick }) {
   const navigate = useNavigate();
@@ -59,6 +60,9 @@ export default function TodayPage({ onMenuClick }) {
   return (
     <div className="page-enter">
       <Header onMenuClick={onMenuClick} />
+
+      {/* Dismissible Menu Update Announcement Banner */}
+      <MenuUpdateBanner currentView="today" />
 
       {/* Date display */}
       <div className="today-date-strip">

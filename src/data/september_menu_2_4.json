@@ -43,7 +43,8 @@
         "maincourse": "Veggies in Tomato Sauce",
         "rice_noodles": "Mexican Rice",
         "breads": "Phulka (Optional)",
-        "beverage": "Baigan Ki Sabji (Optional)",
+        "optional_dish": "Baigan Ki Sabji (Optional)",
+        "beverage": null,
         "dessert": null
       }
     },
@@ -84,8 +85,8 @@
         "starters": null,
         "maincourse": "Paneer Keema Masala + Dal Makhni",
         "rice_noodles": "Steamed Rice",
-        "breads": "Tawa Parantha",
-        "beverage": "Roti",
+        "breads": "Tawa Parantha / Roti",
+        "beverage": null,
         "dessert": "Mini Gulab Jamun"
       }
     },
@@ -127,7 +128,8 @@
         "maincourse": "Veggies in Schezwan Sauce",
         "rice_noodles": "Hakka Noodles",
         "breads": "Fried Roti",
-        "beverage": "Aloo Matar Sabji",
+        "optional_dish": "Aloo Matar Sabji",
+        "beverage": null,
         "dessert": null
       }
     },
@@ -169,7 +171,8 @@
         "maincourse": "Avial in Little Gravy Batana (Semi-Undhiyu) +",
         "rice_noodles": "Tamarind Rice",
         "breads": "Roti",
-        "beverage": "Soya Ki Sabji",
+        "optional_dish": "Soya Ki Sabji",
+        "beverage": null,
         "dessert": "Coconut Ladoo"
       }
     },
@@ -295,7 +298,8 @@
         "maincourse": "Pink Sauce Pasta",
         "rice_noodles": "Rice Hotpot",
         "breads": "Roti",
-        "beverage": "Aloo Tamatar Ki Sabji",
+        "optional_dish": "Aloo Tamatar Ki Sabji",
+        "beverage": null,
         "dessert": null
       }
     }

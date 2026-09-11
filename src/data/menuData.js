@@ -187,6 +187,7 @@ export function buildFlatDayMenu(rawData) {
       dinner.salad_sauces_dips,
       dinner.starters,
       dinner.maincourse,
+      dinner.optional_dish,
       dinner.rice_noodles,
       dinner.breads,
       dinner.dessert,

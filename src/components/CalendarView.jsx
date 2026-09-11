@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Info } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getDayMenu, getMealStatus } from "../utils/menuUtils";
 import { DAY_ORDER, MEAL_ORDER } from "../data/menuData";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import MealCard from "./MealCard";
 import NoMenuBanner from "./NoMenuBanner";
+import MenuUpdateBanner from "./MenuUpdateBanner";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -53,6 +54,9 @@ export default function CalendarView() {
 
   return (
     <div className="weekly-page page-enter">
+      {/* Dismissible Menu Update Announcement Banner */}
+      <MenuUpdateBanner currentView="calendar" />
+
       {/* Month Year Header matching Messit Web */}
       <div className="messit-calendar-header">
         <h2 className="messit-month-title">{formattedMonthYear}</h2>
