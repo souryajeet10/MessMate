@@ -1,6 +1,8 @@
 // MESSMATE Weekly & Monthly Menu Data for Karnavati University
 // Dynamically imported from auguyst menu.json for 100% accurate notifications & favorite tracking.
 import rawAugustMenu from "./auguyst menu.json" with { type: "json" };
+// September 2nd & 4th week menu (flat per-day format from canteen)
+import rawSep2And4Menu from "./september_menu_2_4.json" with { type: "json" };
 
 const DAY_ORDER_LIST = [
   "Monday",
@@ -127,8 +129,106 @@ export function buildWeeklyMenu(rawWeekData) {
   return menu;
 }
 
+/**
+ * Builds a weekly menu from the September flat-per-day format:
+ * { days: { Monday: { breakfast: {}, lunch: {}, hi_tea: {}, dinner: {} }, ... } }
+ */
+export function buildFlatDayMenu(rawData) {
+  if (!rawData || !rawData.days) return {};
+  const menu = {};
+
+  DAY_ORDER_LIST.forEach((day) => {
+    const dayTimings =
+      day === "Sunday"
+        ? sundayTimings
+        : day === "Saturday"
+        ? saturdayTimings
+        : defaultTimings;
+
+    const dayData = rawData.days[day] || {};
+
+    // Breakfast
+    const bf = dayData.breakfast || {};
+    const bfFoodRaw = [
+      bf.mains,
+      bf.sides,
+      bf.fruits,
+      bf.extras,
+      ...(Array.isArray(bf.cereals) ? bf.cereals : bf.cereals ? [bf.cereals] : []),
+      bf.boiled_sprouts,
+      bf.beverages,
+      bf.milk,
+    ].filter((v) => v && typeof v === "string" && v.trim().length > 0);
+
+    // Lunch
+    const lunch = dayData.lunch || {};
+    const lunchDrink = lunch.beverage || "Buttermilk";
+    const lunchFoodRaw = [
+      lunch.salad,
+      lunch.dry_veg,
+      lunch.curry,
+      lunch.dal,
+      lunch.rice,
+      lunch.breads,
+    ].filter((v) => v && typeof v === "string" && v.trim().length > 0);
+
+    // Hi-Tea
+    const hiTea = dayData.hi_tea || {};
+    const snackFoodRaw = [hiTea.snacks].filter(
+      (v) => v && typeof v === "string" && v.trim().length > 0
+    );
+
+    // Dinner
+    const dinner = dayData.dinner || {};
+    const dinnerDrink = dinner.beverage || null;
+    const dinnerFoodRaw = [
+      dinner.theme ? `Theme: ${dinner.theme}` : null,
+      dinner.soup,
+      dinner.salad_sauces_dips,
+      dinner.starters,
+      dinner.maincourse,
+      dinner.rice_noodles,
+      dinner.breads,
+      dinner.dessert,
+    ].filter((v) => v && typeof v === "string" && v.trim().length > 0);
+
+    menu[day] = {
+      isConfirmed: true,
+      breakfast: {
+        title: day === "Sunday" ? "Sunday Brunch" : "Breakfast",
+        timing: dayTimings.breakfast,
+        food: bfFoodRaw.map(slugify),
+        beverages: ["Milk", "Tea", "Coffee", "Detox Water"],
+      },
+      lunch: day === "Sunday" ? null : {
+        timing: dayTimings.lunch,
+        food: (lunchFoodRaw.length > 0 ? lunchFoodRaw : ["Khichdi", "Choice of Salad"]).map(slugify),
+        beverages: [lunchDrink].filter(Boolean),
+      },
+      hitea: {
+        timing: dayTimings.hitea,
+        food: snackFoodRaw.map(slugify),
+        beverages: ["Tea", "Coffee"],
+      },
+      dinner: {
+        timing: dayTimings.dinner,
+        food: dinnerFoodRaw.map(slugify),
+        beverages: [dinnerDrink].filter(Boolean),
+      },
+    };
+  });
+
+  return menu;
+}
+
+// ── August menus (week rotation) ──────────────────────────────────────────────
 export const weeklyMenu1And3 = buildWeeklyMenu(rawAugustMenu.week_1_and_3 || rawAugustMenu);
 export const weeklyMenu2And4 = buildWeeklyMenu(rawAugustMenu.week_2_and_4 || rawAugustMenu);
+
+// ── September menus ───────────────────────────────────────────────────────────
+// Sep 2nd & 4th week menu built from new flat-per-day format
+export const septWeeklyMenu2And4 = buildFlatDayMenu(rawSep2And4Menu);
+// Sep 1st & 3rd week — no data available yet
 
 export function getMenuRotationKey(date = new Date()) {
   const month = date.getMonth(); // 0-indexed, August = 7, September = 8
@@ -167,8 +267,16 @@ export function getMenuRotationKey(date = new Date()) {
 }
 
 export function getMenuForDate(date = new Date()) {
+  const month = date.getMonth();
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null; // No menu data for this month
+
+  // September: only 2nd & 4th week has data; 1st & 3rd shows NO DATA
+  if (month === 8) {
+    return rotationKey === "week_2_and_4" ? septWeeklyMenu2And4 : null;
+  }
+
+  // August (and fallback): serve the August menus
   return rotationKey === "week_1_and_3" ? weeklyMenu1And3 : weeklyMenu2And4;
 }
 
@@ -193,4 +301,3 @@ export const MEAL_ICONS = {
 };
 
 export default weeklyMenu;
-

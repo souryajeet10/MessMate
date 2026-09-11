@@ -1,0 +1,307 @@
+{
+  "menu_name": "2nd & 4th Week September Menu",
+  "weeks": [
+    2,
+    4
+  ],
+  "days": {
+    "Monday": {
+      "breakfast": {
+        "mains": "Steam Idli / Sambar",
+        "sides": "Coconut Chutney / Tomato Chutney",
+        "fruits": "Banana",
+        "extras": "Bread / Butter / Jam",
+        "cereals": [
+          "Cereals (2 Types)"
+        ],
+        "boiled_sprouts": "Boiled Sprouts (2 Types)",
+        "beverages": "Detox Water - Ginger Lemon",
+        "milk": "Hot Milk & Cold Milk",
+        "tea_coffee": "Tea / Coffee"
+      },
+      "lunch": {
+        "salad": "Green Salad",
+        "dry_veg": "Subzi Miloni",
+        "curry": "Kadhai Paneer",
+        "dal": "Dal Yellow Tadka",
+        "rice": "Jeera Rice",
+        "breads": "Phulka",
+        "beverage": "Buttermilk"
+      },
+      "hi_tea": {
+        "snacks": "Chocolate Pancake",
+        "beverages": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      "dinner": {
+        "theme": "Fiesta Mexicana",
+        "soup": "Mexican Tortilla Soup",
+        "salad_sauces_dips": "Three Bean Salad",
+        "starters": "Corn Cheese Bullet",
+        "maincourse": "Veggies in Tomato Sauce",
+        "rice_noodles": "Mexican Rice",
+        "breads": "Phulka (Optional)",
+        "beverage": "Baigan Ki Sabji (Optional)",
+        "dessert": null
+      }
+    },
+    "Tuesday": {
+      "breakfast": {
+        "mains": "Aloo Pyaz Paratha",
+        "sides": "Plain Curd / Pickle",
+        "fruits": null,
+        "extras": "Maska Bun",
+        "cereals": [
+          "Cereals (2 Types)"
+        ],
+        "boiled_sprouts": "Sprouts (2 Types)",
+        "beverages": "Detox Water - Orange Mint",
+        "milk": "Hot Milk & Cold Milk",
+        "tea_coffee": "Tea / Coffee"
+      },
+      "lunch": {
+        "salad": "Khichiya Papad",
+        "dry_veg": "Lehsuni Matar Palak",
+        "curry": "Rajma Rasila",
+        "dal": "Dal Tadka",
+        "rice": "Plain Rice",
+        "breads": "Phulka",
+        "beverage": "Buttermilk"
+      },
+      "hi_tea": {
+        "snacks": "Kali Mari Khakman",
+        "beverages": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      "dinner": {
+        "theme": "Punjab Da Swag",
+        "soup": null,
+        "salad_sauces_dips": "Masala Laccha Pyaaz",
+        "starters": null,
+        "maincourse": "Paneer Keema Masala + Dal Makhni",
+        "rice_noodles": "Steamed Rice",
+        "breads": "Tawa Parantha",
+        "beverage": "Roti",
+        "dessert": "Mini Gulab Jamun"
+      }
+    },
+    "Wednesday": {
+      "breakfast": {
+        "mains": "Indori Poha",
+        "sides": "RatlamI Sev / Lemon",
+        "fruits": "Water Melon",
+        "extras": "Bread / Butter / Jam",
+        "cereals": [
+          "Cereals (2 Types)"
+        ],
+        "boiled_sprouts": "Boiled Sprouts (2 Types)",
+        "beverages": "Detox Water - Cucumber Carrot",
+        "milk": "Hot Milk & Cold Milk",
+        "tea_coffee": "Tea / Coffee"
+      },
+      "lunch": {
+        "salad": "Green Salad",
+        "dry_veg": "Jeera Aloo",
+        "curry": "Punjabi Kadhi Pakoda",
+        "dal": null,
+        "rice": "Steamed Rice",
+        "breads": "Phulka",
+        "beverage": "Rasna"
+      },
+      "hi_tea": {
+        "snacks": "Bhelpuri",
+        "beverages": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      "dinner": {
+        "theme": "Wok This Way",
+        "soup": "Manchow Soup",
+        "salad_sauces_dips": null,
+        "starters": "Dry Manchurian",
+        "maincourse": "Veggies in Schezwan Sauce",
+        "rice_noodles": "Hakka Noodles",
+        "breads": "Fried Roti",
+        "beverage": "Aloo Matar Sabji",
+        "dessert": null
+      }
+    },
+    "Thursday": {
+      "breakfast": {
+        "mains": "Bread Moonglet",
+        "sides": "Green Chutney / Tomato Ketchup",
+        "fruits": null,
+        "extras": "Bread / Butter / Jam",
+        "cereals": [
+          "Cereals (2 Types)"
+        ],
+        "boiled_sprouts": "Boiled Sprouts (2 Types)",
+        "beverages": "Detox Water - Lemon Mint",
+        "milk": "Hot Milk & Cold Milk",
+        "tea_coffee": "Tea / Coffee"
+      },
+      "lunch": {
+        "salad": "Sliced Onion With Lemon",
+        "dry_veg": "Veg. Raita",
+        "curry": "Cholle Bhature",
+        "dal": null,
+        "rice": "Veg Biryani",
+        "breads": "Phulka",
+        "beverage": "Rasna"
+      },
+      "hi_tea": {
+        "snacks": "Dabeli",
+        "beverages": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      "dinner": {
+        "theme": "Vanakkam Night",
+        "soup": "Rasam",
+        "salad_sauces_dips": "Chutney",
+        "starters": "Keerai Vadai",
+        "maincourse": "Avial in Little Gravy Batana (Semi-Undhiyu) +",
+        "rice_noodles": "Tamarind Rice",
+        "breads": "Roti",
+        "beverage": "Soya Ki Sabji",
+        "dessert": "Coconut Ladoo"
+      }
+    },
+    "Friday": {
+      "breakfast": {
+        "mains": "Daliya Upma",
+        "sides": "Green Chutney",
+        "fruits": "Papaya",
+        "extras": "Maska Bun",
+        "cereals": [
+          "Cereals (2 Types)"
+        ],
+        "boiled_sprouts": "Sprouts (2 Types)",
+        "beverages": "Detox Water - Mint Beet Root",
+        "milk": "Hot Milk & Cold Milk",
+        "tea_coffee": "Tea / Coffee"
+      },
+      "lunch": {
+        "salad": "Macroni Salad",
+        "dry_veg": "Cabbage Matar",
+        "curry": "Lobhiya Masala",
+        "dal": "Arhar Dal",
+        "rice": "Jeera Rice",
+        "breads": "Phulka",
+        "beverage": "Buttermilk"
+      },
+      "hi_tea": {
+        "snacks": "Ragda Panipuri",
+        "beverages": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      "dinner": {
+        "theme": "Kathiyawadi Jalso",
+        "soup": "Buttermilk",
+        "salad_sauces_dips": "Kachumber",
+        "starters": "Lasaniya Bataka - Turiya Patra",
+        "maincourse": "Lasaniya Bataka - Turiya Patra (continued)",
+        "rice_noodles": "Rice",
+        "breads": "Puri / Phulka",
+        "beverage": "Gujarati Dal (No Sweet)",
+        "dessert": null
+      }
+    },
+    "Saturday": {
+      "breakfast": {
+        "mains": "Vegetable Tawa Handvo",
+        "sides": "Green Chutney",
+        "fruits": null,
+        "extras": "Bread / Butter / Jam",
+        "cereals": [
+          "Cereals (2 Types)"
+        ],
+        "boiled_sprouts": "Boiled Sprouts (2 Types)",
+        "beverages": "Detox Water - Ginger Carrot",
+        "milk": "Hot Milk & Cold Milk",
+        "tea_coffee": "Tea / Coffee"
+      },
+      "lunch": {
+        "salad": "Kachumber Salad",
+        "dry_veg": "Aloo Capsicum",
+        "curry": "Amritsari Paneer",
+        "dal": "Dhaba Style Dal",
+        "rice": "Steamed Rice",
+        "breads": "Matar Puri / Phulka (Optional)",
+        "beverage": "Buttermilk"
+      },
+      "hi_tea": {
+        "snacks": "Bread Pakoda",
+        "beverages": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      "dinner": {
+        "theme": "Seoul Street",
+        "soup": null,
+        "salad_sauces_dips": "Kimchi Salad",
+        "starters": "Crispy Cauliflower",
+        "maincourse": "Korean Chilli Garlic Vegetables",
+        "rice_noodles": "Kimchi Rice",
+        "breads": "Phulka",
+        "beverage": "Ice Tea",
+        "dessert": "Custard"
+      }
+    },
+    "Sunday": {
+      "breakfast": {
+        "mains": "Jodhpuri Kadi Kachori",
+        "sides": "Sev Khmani",
+        "fruits": null,
+        "extras": "Dahi Bhalla",
+        "cereals": [
+          "Cereals (2 Types)"
+        ],
+        "boiled_sprouts": "Boiled Sprouts (2 Types)",
+        "beverages": "Detox Water - Orange Mint Ginger",
+        "milk": "Hot Milk & Cold Milk",
+        "tea_coffee": "Tea / Coffee"
+      },
+      "lunch": {
+        "salad": "Dal + Rice",
+        "dry_veg": null,
+        "curry": null,
+        "dal": null,
+        "rice": null,
+        "breads": null,
+        "beverage": null
+      },
+      "hi_tea": {
+        "snacks": "Veg Puff",
+        "beverages": [
+          "Tea",
+          "Coffee"
+        ]
+      },
+      "dinner": {
+        "theme": "Continental Carnival",
+        "soup": null,
+        "salad_sauces_dips": "Greek Salad",
+        "starters": "Arancini Balls",
+        "maincourse": "Pink Sauce Pasta",
+        "rice_noodles": "Rice Hotpot",
+        "breads": "Roti",
+        "beverage": "Aloo Tamatar Ki Sabji",
+        "dessert": null
+      }
+    }
+  },
+  "notes": [
+    "Dessert is served on any 3 days.",
+    "Khichdi in small portions daily."
+  ]
+}
