@@ -156,10 +156,10 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
                 <h3 className="menu-update-title">Special Schedule for Saturday</h3>
               </div>
               <p className="menu-update-desc">
-                To facilitate routine deep cleaning of the mess facilities and to give our staff some
-                well-deserved respite, there will be a wholesome <strong>Brunch</strong> service and
-                an extended <strong>High Tea till 8 PM</strong> tomorrow.{" "}
-                <em>There will be no separate Dinner service.</em>
+                Tomorrow there will be a wholesome <strong>Brunch</strong> service and an extended{" "}
+                <strong>High Tea till 8 PM</strong>.{" "}
+                <em>There will be no separate Dinner service.</em>{" "}
+                This is to facilitate routine deep cleaning of the mess facilities and to give our mess staff some well-deserved respite.
               </p>
             </div>
 
