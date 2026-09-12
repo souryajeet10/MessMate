@@ -153,7 +153,7 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
             <div className="menu-update-content">
               <div className="menu-update-header">
                 <span className="menu-update-badge special-day-badge">Today · 13 Sep</span>
-                <h3 className="menu-update-title">Special Schedule Today (Saturday)</h3>
+                <h3 className="menu-update-title">Special Schedule Today (Sunday)</h3>
               </div>
               <p className="menu-update-desc">
                 Today there will be a wholesome <strong>Brunch</strong> service and an extended{" "}
