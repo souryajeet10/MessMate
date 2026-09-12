@@ -2,6 +2,8 @@
 
 > **Know What's on Your Plate.**
 
+🌐 **Live App:** [krishilink-production.up.railway.app/app.html](https://krishilink-production.up.railway.app/app.html)
+
 **MESS MATE @ UH** is a modern, mobile-first mess menu platform built for **United Homes (UH)**, the off-site hostel of **Karnavati University**.
 
 It helps students quickly find **what is actually being served**, while clearly distinguishing between the planned monthly menu and the confirmed menu for the day.
