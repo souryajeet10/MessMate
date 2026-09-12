@@ -159,7 +159,7 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
                 Today there will be a wholesome <strong>Brunch</strong> service and an extended{" "}
                 <strong>High Tea till 8 PM</strong>.{" "}
                 <em>There will be no separate Dinner service.</em>{" "}
-                This is to facilitate routine deep cleaning of the mess facilities and to give our mess staff some well-deserved respite.
+                This is to facilitate routine deep cleaning of the mess facilities and to give mess staff some well-deserved respite.
               </p>
             </div>
 
