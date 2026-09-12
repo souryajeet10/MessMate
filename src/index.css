@@ -2799,6 +2799,38 @@ img {
   background: rgba(255, 255, 255, 0.1);
 }
 
+/* ── Special Day Banner variant (amber / warm) ── */
+.special-day-banner {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(245, 158, 11, 0.08));
+  border-color: rgba(251, 191, 36, 0.35);
+}
+.special-day-banner::before {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+[data-theme="dark"] .special-day-banner {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.14), rgba(245, 158, 11, 0.09));
+  border-color: rgba(251, 191, 36, 0.3);
+}
+.special-day-icon {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.12));
+  color: #d97706;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+[data-theme="dark"] .special-day-icon {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.25);
+}
+.special-day-badge {
+  background: rgba(251, 191, 36, 0.15);
+  color: #b45309;
+  border-color: rgba(251, 191, 36, 0.35);
+}
+[data-theme="dark"] .special-day-badge {
+  background: rgba(251, 191, 36, 0.12);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.25);
+}
+
 /* ===== ADMIN PASSPHRASE GATE ===== */
 .admin-gate-wrap {
   display: flex;
