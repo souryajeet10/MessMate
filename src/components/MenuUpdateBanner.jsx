@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, X, ChevronRight, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const STORAGE_KEY = "messmate_sep_update_dismissed_v1";
+const STORAGE_KEY = "messmate_sep_update_dismissed_v2";
 
 export default function MenuUpdateBanner({ currentView = "today" }) {
   const [isVisible, setIsVisible] = useState(() => {
@@ -44,11 +44,11 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
 
           <div className="menu-update-content">
             <div className="menu-update-header">
-              <span className="menu-update-badge">Updated Menu</span>
-              <h3 className="menu-update-title">September Menu Live</h3>
+              <span className="menu-update-badge">Menu Updated ✨</span>
+              <h3 className="menu-update-title">Full September Menu Live!</h3>
             </div>
             <p className="menu-update-desc">
-              Menu is updated for <strong>2nd &amp; 4th Week</strong> (Sep 8–14 &amp; Sep 22–28). Remaining days are being updated soon!
+              All 4 weeks are now updated — <strong>Week 1 &amp; 3</strong> (Sep 1–7 &amp; Sep 15–21) and <strong>Week 2 &amp; 4</strong> (Sep 8–14 &amp; Sep 22–28).
             </p>
 
             {currentView === "today" && (

@@ -3,6 +3,8 @@
 import rawAugustMenu from "./auguyst menu.json" with { type: "json" };
 // September 2nd & 4th week menu (flat per-day format from canteen)
 import rawSep2And4Menu from "./september_menu_2_4.json" with { type: "json" };
+// September 1st & 3rd week menu (flat array format)
+import rawSep1And3Menu from "./menu_week_1_3.json" with { type: "json" };
 
 const DAY_ORDER_LIST = [
   "Monday",
@@ -222,14 +224,99 @@ export function buildFlatDayMenu(rawData) {
   return menu;
 }
 
+/**
+ * Builds a weekly menu from the flat array format:
+ * { days: { Monday: { breakfast: [...], lunch: [...], hi_tea: [...], dinner: [...], dinner_theme: "..." } } }
+ */
+export function buildArrayDayMenu(rawData) {
+  if (!rawData || !rawData.days) return {};
+  const menu = {};
+
+  DAY_ORDER_LIST.forEach((day) => {
+    const dayTimings =
+      day === "Sunday"
+        ? sundayTimings
+        : day === "Saturday"
+        ? saturdayTimings
+        : defaultTimings;
+
+    const dayData = rawData.days[day] || {};
+
+    // Breakfast — skip the last entry (Tea/Coffee) as it's in beverages
+    const bfArr = Array.isArray(dayData.breakfast) ? dayData.breakfast : [];
+    // filter out beverage-like items already covered by beverages field
+    const bfFoodRaw = bfArr.filter(
+      (v) => v && typeof v === "string" && v.trim().length > 0 &&
+             !/(tea|coffee)/i.test(v)
+    );
+
+    // Lunch
+    const lunchArr = Array.isArray(dayData.lunch) ? dayData.lunch : [];
+    // last item may be a drink (Buttermilk / Jaljeera / Rasna / Shikanji)
+    const drinkKeywords = /buttermilk|jaljeera|rasna|shikanji|chaas|lassi/i;
+    const lunchDrinkItem = lunchArr.find((v) => drinkKeywords.test(v));
+    const lunchDrink = lunchDrinkItem || "Buttermilk";
+    const lunchFoodRaw = lunchArr.filter(
+      (v) => v && typeof v === "string" && v.trim().length > 0 && !drinkKeywords.test(v)
+    );
+
+    // Hi-Tea
+    const hiTeaArr = Array.isArray(dayData.hi_tea) ? dayData.hi_tea : [];
+    const snackFoodRaw = hiTeaArr.filter(
+      (v) => v && typeof v === "string" && v.trim().length > 0 &&
+             !/(tea|coffee)/i.test(v)
+    );
+
+    // Dinner
+    const dinnerArr = Array.isArray(dayData.dinner) ? dayData.dinner : [];
+    const dinnerDrinkItem = dinnerArr.find((v) => /ice tea|rasna|jaljeera|chaas|mint cooler/i.test(v));
+    const dinnerDrink = dinnerDrinkItem || null;
+    const theme = dayData.dinner_theme || null;
+    const dinnerFoodRaw = [
+      theme ? `Theme: ${theme}` : null,
+      ...dinnerArr.filter(
+        (v) => v && typeof v === "string" && v.trim().length > 0 && v !== dinnerDrinkItem
+      ),
+    ].filter(Boolean);
+
+    menu[day] = {
+      isConfirmed: true,
+      breakfast: {
+        title: day === "Sunday" ? "Sunday Brunch" : "Breakfast",
+        timing: dayTimings.breakfast,
+        food: bfFoodRaw.map(slugify),
+        beverages: ["Milk", "Tea", "Coffee", "Detox Water"],
+      },
+      lunch: day === "Sunday" ? null : {
+        timing: dayTimings.lunch,
+        food: (lunchFoodRaw.length > 0 ? lunchFoodRaw : ["Khichdi", "Choice of Salad"]).map(slugify),
+        beverages: [lunchDrink].filter(Boolean),
+      },
+      hitea: {
+        timing: dayTimings.hitea,
+        food: snackFoodRaw.map(slugify),
+        beverages: ["Tea", "Coffee"],
+      },
+      dinner: {
+        timing: dayTimings.dinner,
+        food: dinnerFoodRaw.map(slugify),
+        beverages: [dinnerDrink].filter(Boolean),
+      },
+    };
+  });
+
+  return menu;
+}
+
 // ── August menus (week rotation) ──────────────────────────────────────────────
 export const weeklyMenu1And3 = buildWeeklyMenu(rawAugustMenu.week_1_and_3 || rawAugustMenu);
 export const weeklyMenu2And4 = buildWeeklyMenu(rawAugustMenu.week_2_and_4 || rawAugustMenu);
 
 // ── September menus ───────────────────────────────────────────────────────────
-// Sep 2nd & 4th week menu built from new flat-per-day format
+// Sep 2nd & 4th week menu built from flat-object-per-day format
 export const septWeeklyMenu2And4 = buildFlatDayMenu(rawSep2And4Menu);
-// Sep 1st & 3rd week — no data available yet
+// Sep 1st & 3rd week menu built from flat-array-per-day format
+export const septWeeklyMenu1And3 = buildArrayDayMenu(rawSep1And3Menu);
 
 export function getMenuRotationKey(date = new Date()) {
   const month = date.getMonth(); // 0-indexed, August = 7, September = 8
@@ -272,9 +359,9 @@ export function getMenuForDate(date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null; // No menu data for this month
 
-  // September: only 2nd & 4th week has data; 1st & 3rd shows NO DATA
+  // September: both week rotations now have data
   if (month === 8) {
-    return rotationKey === "week_2_and_4" ? septWeeklyMenu2And4 : null;
+    return rotationKey === "week_2_and_4" ? septWeeklyMenu2And4 : septWeeklyMenu1And3;
   }
 
   // August (and fallback): serve the August menus
