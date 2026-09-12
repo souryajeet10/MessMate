@@ -48,7 +48,7 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
               <h3 className="menu-update-title">Full September Menu Live!</h3>
             </div>
             <p className="menu-update-desc">
-              All 4 weeks are now updated — <strong>Week 1 &amp; 3</strong> (Sep 1–7 &amp; Sep 15–21) and <strong>Week 2 &amp; 4</strong> (Sep 8–14 &amp; Sep 22–28).
+              September menu has been updated. Check out this week's meals!
             </p>
 
             {currentView === "today" && (
