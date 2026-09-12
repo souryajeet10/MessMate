@@ -382,6 +382,13 @@ img {
   margin-bottom: 10px;
 }
 
+.meal-card-theme {
+  margin: 4px 0 8px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
 .meal-card-name {
   font-size: 1.15rem;
   font-weight: 700;

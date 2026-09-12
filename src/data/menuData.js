@@ -184,7 +184,6 @@ export function buildFlatDayMenu(rawData) {
     const dinner = dayData.dinner || {};
     const dinnerDrink = dinner.beverage || null;
     const dinnerFoodRaw = [
-      dinner.theme ? `Theme: ${dinner.theme}` : null,
       dinner.soup,
       dinner.salad_sauces_dips,
       dinner.starters,
@@ -214,6 +213,8 @@ export function buildFlatDayMenu(rawData) {
         beverages: ["Tea", "Coffee"],
       },
       dinner: {
+        title: "Dinner",
+        theme: dinner.theme?.trim() || null,
         timing: dayTimings.dinner,
         food: dinnerFoodRaw.map(slugify),
         beverages: [dinnerDrink].filter(Boolean),
@@ -273,7 +274,6 @@ export function buildArrayDayMenu(rawData) {
     const dinnerDrink = dinnerDrinkItem || null;
     const theme = dayData.dinner_theme || null;
     const dinnerFoodRaw = [
-      theme ? `Theme: ${theme}` : null,
       ...dinnerArr.filter(
         (v) => v && typeof v === "string" && v.trim().length > 0 && v !== dinnerDrinkItem
       ),
@@ -298,6 +298,8 @@ export function buildArrayDayMenu(rawData) {
         beverages: ["Tea", "Coffee"],
       },
       dinner: {
+        title: "Dinner",
+        theme: theme?.trim() || null,
         timing: dayTimings.dinner,
         food: dinnerFoodRaw.map(slugify),
         beverages: [dinnerDrink].filter(Boolean),

@@ -127,6 +127,23 @@ export function getTodayName(date = new Date()) {
  * Accepts an optional `overrides` map — pass from useMenuOverrides hook for
  * reactive re-renders. Falls back to localStorage cache if not provided.
  */
+function applyDateMenuException(dayMenu, dayName, date) {
+  // One-off combined service on September 13, 2026 only.
+  if (date.getFullYear() !== 2026 || date.getMonth() !== 8 ||
+      date.getDate() !== 13 || dayName !== "Sunday") return dayMenu;
+
+  return {
+    ...dayMenu,
+    hitea: null,
+    dinner: {
+      title: "HI-TEA & Dinner",
+      timing: { start: "5:30 PM", end: "8:00 PM" },
+      food: ["veg-puff", "pink-sauce-pasta", "hot-pot-rice"],
+      beverages: ["Tea", "Coffee"],
+    },
+  };
+}
+
 export function getDayMenu(dayName, date = new Date(), overrides = null) {
   const dateMenu = getMenuForDate(date);
   if (!dateMenu) return null; // No menu loaded for this month
@@ -154,16 +171,16 @@ export function getDayMenu(dayName, date = new Date(), overrides = null) {
       };
     };
 
-    return {
+    return applyDateMenuException({
       ...baseDayMenu,
       isConfirmed: overrideDay.isConfirmed ?? baseDayMenu.isConfirmed,
       breakfast: mergeMeal("breakfast"),
       lunch: mergeMeal("lunch"),
       hitea: mergeMeal("hitea"),
       dinner: mergeMeal("dinner"),
-    };
+    }, dayName, date);
   }
-  return baseDayMenu;
+  return applyDateMenuException(baseDayMenu, dayName, date);
 }
 
 export function getTodayMenu(date = new Date(), overrides = null) {

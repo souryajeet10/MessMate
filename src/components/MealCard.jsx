@@ -21,6 +21,7 @@ export default function MealCard({ mealKey, mealData, status, day, isConfirmed =
       <div className="meal-card-header">
         <div>
           <h3 className="meal-card-name">{mealTitle}</h3>
+          {mealData.theme && <p className="meal-card-theme">Theme: {mealData.theme}</p>}
           <span className={`meal-confirmation-badge ${isConfirmed ? "confirmed" : "planned"}`}>
             {isConfirmed ? (
               <>
