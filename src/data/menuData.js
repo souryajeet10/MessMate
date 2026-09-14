@@ -338,17 +338,17 @@ export function getMenuRotationKey(date = new Date()) {
     return "week_1_and_3";
   }
 
-  // September 2026 rotation schedule (continuing from August, Sep 1 = Tuesday):
-  // Week 1: Sep 1–7  (Tue–Sun) -> week_1_and_3  (same week as Aug 30–31, ends on Sunday)
-  // Week 2: Sep 8–14 (Mon–Sun) -> week_2_and_4
-  // Week 3: Sep 15–21 (Mon–Sun) -> week_1_and_3
-  // Week 4: Sep 22–28 (Mon–Sun) -> week_2_and_4
-  // Week 5: Sep 29–30 (Mon–Tue) -> week_1_and_3
+  // September 2026 rotation schedule (Sep 1 = Tuesday):
+  // Week 1: Sep 1–7   (Tue–Sun) -> week_1_and_3
+  // Week 2: Sep 8–13  (Mon–Sat) -> week_2_and_4  (Sun Sep 13 = end of week 2)
+  // Week 3: Sep 14–20 (Mon–Sun) -> week_1_and_3  ← today (Sep 14) starts here
+  // Week 4: Sep 21–27 (Mon–Sun) -> week_2_and_4
+  // Week 5: Sep 28–30 (Mon–Wed) -> week_1_and_3
   if (month === 8) {
     if (dayOfMonth <= 7) return "week_1_and_3";
-    if (dayOfMonth <= 14) return "week_2_and_4";
-    if (dayOfMonth <= 21) return "week_1_and_3";
-    if (dayOfMonth <= 28) return "week_2_and_4";
+    if (dayOfMonth <= 13) return "week_2_and_4";
+    if (dayOfMonth <= 20) return "week_1_and_3";
+    if (dayOfMonth <= 27) return "week_2_and_4";
     return "week_1_and_3";
   }
 

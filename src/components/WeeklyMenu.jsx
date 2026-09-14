@@ -8,14 +8,23 @@ import MealCard from "./MealCard";
 import NoMenuBanner from "./NoMenuBanner";
 
 export default function WeeklyMenu() {
-  const todayName = getTodayName();
+  const today = new Date();
+  const todayName = getTodayName(today);
   const todayIndex = DAY_ORDER.indexOf(todayName);
   const [selectedIndex, setSelectedIndex] = useState(todayIndex);
 
   const selectedDay = DAY_ORDER[selectedIndex];
   const { overrides } = useMenuOverrides();
-  const dayMenu = getDayMenu(selectedDay, new Date(), overrides);
-  const currentMonthName = new Date().toLocaleDateString("en-IN", { month: "long" });
+
+  // Compute the actual calendar date for the selected day so the rotation key
+  // (week_1_and_3 vs week_2_and_4) resolves correctly even when viewing a day
+  // that falls in a different week than today.
+  const dayOffset = selectedIndex - todayIndex;
+  const selectedDate = new Date(today);
+  selectedDate.setDate(today.getDate() + dayOffset);
+
+  const dayMenu = getDayMenu(selectedDay, selectedDate, overrides);
+  const currentMonthName = selectedDate.toLocaleDateString("en-IN", { month: "long" });
 
   const goNext = () => {
     setSelectedIndex((prev) => (prev + 1) % 7);
