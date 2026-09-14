@@ -334,6 +334,13 @@ export function getMenuRotationKey(date = new Date()) {
   return weekNumber % 2 === 1 ? "week_1_and_3" : "week_2_and_4";
 }
 
+export function getMenuOverrideKey(dayName, date = new Date()) {
+  const rotationKey = getMenuRotationKey(date);
+  if (!rotationKey) return null;
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  return `${date.getFullYear()}_${month}_${rotationKey}_${dayName}`;
+}
+
 export function getMenuForDate(date = new Date()) {
   const month = date.getMonth();
   const rotationKey = getMenuRotationKey(date);

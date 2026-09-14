@@ -1,6 +1,6 @@
-import weeklyMenu, { MEAL_ORDER, getMenuForDate, getMenuRotationKey } from "../data/menuData.js";
+import { MEAL_ORDER, getMenuForDate, getMenuOverrideKey } from "../data/menuData.js";
 import { db } from "../services/firebase.js";
-import { ref, set, remove, get } from "firebase/database";
+import { ref, set, remove } from "firebase/database";
 
 const DAY_NAMES = [
   "Sunday",
@@ -50,8 +50,8 @@ export function getMenuOverrides() {
  * Also updates local cache immediately so the writing device sees the change instantly.
  */
 export async function updateDayMenu(dayName, dayObj, date = new Date()) {
-  const rotationKey = getMenuRotationKey(date);
-  const key = `${rotationKey}_${dayName}`;
+  const key = getMenuOverrideKey(dayName, date);
+  if (!key) return;
 
   // Update local cache instantly (writing device gets immediate feedback)
   const current = readLocalCache();
@@ -71,8 +71,8 @@ export async function updateDayMenu(dayName, dayObj, date = new Date()) {
  * Save confirmation status for a day.
  */
 export async function setDayConfirmation(dayName, isConfirmed, date = new Date()) {
-  const rotationKey = getMenuRotationKey(date);
-  const key = `${rotationKey}_${dayName}`;
+  const key = getMenuOverrideKey(dayName, date);
+  if (!key) return;
   const overrides = readLocalCache();
   const baseDay = getMenuForDate(date)[dayName];
 
@@ -151,12 +151,11 @@ export function getDayMenu(dayName, date = new Date(), overrides = null) {
   if (!baseDayMenu) return null;
 
   const resolvedOverrides = overrides ?? readLocalCache();
-  const rotationKey = getMenuRotationKey(date);
-  // Only use rotation-scoped overrides (e.g. "week_1_and_3_Sunday")
-  // The legacy plain dayName fallback is intentionally removed — it caused
-  // week_2_and_4 overrides to bleed into week_1_and_3 days (and vice versa).
-  const overrideDay = rotationKey
-    ? resolvedOverrides[`${rotationKey}_${dayName}`]
+  const overrideKey = getMenuOverrideKey(dayName, date);
+  // Unscoped legacy edits have no month provenance and must not replace a
+  // different month's published menu. Keep them stored, but do not apply them.
+  const overrideDay = overrideKey
+    ? resolvedOverrides[overrideKey]
     : null;
 
   if (overrideDay) {
@@ -166,6 +165,7 @@ export function getDayMenu(dayName, date = new Date(), overrides = null) {
       if (!overMeal) return baseMeal;
       if (!baseMeal) return overMeal;
       return {
+        ...baseMeal,
         ...overMeal,
         timing: baseMeal.timing || overMeal.timing,
       };
