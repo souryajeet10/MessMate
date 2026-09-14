@@ -5,6 +5,7 @@ import { getDayMenu, updateDayMenu, resetMenuOverrides } from "../utils/menuUtil
 import { DAY_ORDER, MEAL_ORDER, MEAL_NAMES } from "../data/menuData";
 import { DISHES_CATALOG, getDishName } from "../data/dishesCatalog";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
+import { getMealPackages, applyMealPackage } from "../utils/mealPackages";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -99,6 +100,38 @@ function PassphraseGate({ onUnlock }) {
 
 // ─── Main Admin Panel ─────────────────────────────────────────────────────────
 
+function MealPackagePicker({ date, mealKey, disabled, onApply }) {
+  const packages = getMealPackages(date, mealKey);
+  const [selectedId, setSelectedId] = useState("");
+  const selected = packages.find((item) => item.id === selectedId);
+
+  return (
+    <div className="admin-package-picker">
+      <label htmlFor="meal-package-select"><strong>Choose a meal package</strong></label>
+      <p className="admin-dish-picker-sub">
+        Pick a weekly menu package to replace this meal’s dishes and drinks in one step.
+      </p>
+      <select id="meal-package-select" value={selectedId} disabled={disabled || !packages.length}
+        onChange={(event) => setSelectedId(event.target.value)}>
+        <option value="">{packages.length ? "Select a day and week…" : "No packages available for this month"}</option>
+        {packages.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
+      </select>
+      {selected && (
+        <div className="admin-package-preview">
+          <p>{selected.meal.food.map(getDishName).join(" · ")}</p>
+          {selected.meal.beverages?.length > 0 && <p>Drinks: {selected.meal.beverages.join(" · ")}</p>}
+          {selected.meal.theme && <p>Theme: {selected.meal.theme}</p>}
+        </div>
+      )}
+      <button type="button" className="admin-save-btn" disabled={disabled || !selected}
+        onClick={() => onApply(selected.meal)}>
+        <Check size={16} /> Apply package to {MEAL_NAMES[mealKey]}
+      </button>
+      <p className="admin-dish-picker-sub">Applies immediately. Serving times stay the same. You can fine-tune dishes below.</p>
+    </div>
+  );
+}
+
 export default function AdminPanel() {
   // Check if already authenticated this session
   const [isAuthed, setIsAuthed] = useState(
@@ -124,7 +157,8 @@ function AdminPanelContent() {
   const selectedDayName = DAY_ORDER[selectedDate.getDay() === 0 ? 6 : selectedDate.getDay() - 1];
 
   // State for the selected day's menu (derived from Firebase overrides)
-  const [dayMenu, setDayMenu] = useState(() => getDayMenu(selectedDayName, today, {}));
+  const [dayMenu, setDayMenu] = useState(null);
+  const resolvedDayMenu = dayMenu ?? getDayMenu(selectedDayName, selectedDate, overrides);
   const [activeMealEdit, setActiveMealEdit] = useState("breakfast");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [dishSearchQuery, setDishSearchQuery] = useState("");
@@ -147,8 +181,7 @@ function AdminPanelContent() {
 
   const handleDateSelect = (dateObj) => {
     setSelectedDate(dateObj);
-    const dayName = DAY_ORDER[dateObj.getDay() === 0 ? 6 : dateObj.getDay() - 1];
-    setDayMenu(getDayMenu(dayName, dateObj, overrides));
+    setDayMenu(null);
     setAutoSaveToast(false);
   };
 
@@ -157,7 +190,7 @@ function AdminPanelContent() {
 
   // Instant Auto-Save on Confirmation Status Toggle — writes to Firebase
   const handleConfirmationToggle = async () => {
-    const current = dayMenu || { isConfirmed: false };
+    const current = resolvedDayMenu || { isConfirmed: false };
     const newStatus = !current.isConfirmed;
     const updatedDay = { ...current, isConfirmed: newStatus };
     setDayMenu(updatedDay);
@@ -169,7 +202,7 @@ function AdminPanelContent() {
 
   // Instant Auto-Save on Dish Tap — writes to Firebase
   const handleToggleDishInMeal = async (mealKey, dishId) => {
-    const current = dayMenu || { isConfirmed: true };
+    const current = resolvedDayMenu || { isConfirmed: true };
     const meal = current[mealKey] || { food: [], beverages: [] };
     const currentFood = meal.food || [];
     let updatedFood;
@@ -191,6 +224,19 @@ function AdminPanelContent() {
     await updateDayMenu(selectedDayName, updatedDay, selectedDate);
     setIsSaving(false);
     triggerAutoSaveToast();
+  };
+
+  const handleApplyPackage = async (sourceMeal) => {
+    if (isSaving || !resolvedDayMenu?.[activeMealEdit]) return;
+    const updatedDay = applyMealPackage(resolvedDayMenu, activeMealEdit, sourceMeal);
+    setDayMenu(updatedDay);
+    setIsSaving(true);
+    try {
+      await updateDayMenu(selectedDayName, updatedDay, selectedDate);
+      triggerAutoSaveToast();
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleReset = async () => {
@@ -224,7 +270,7 @@ function AdminPanelContent() {
     return matchesSearch && matchesCategory;
   });
 
-  const safeDayMenu = dayMenu || { isConfirmed: false };
+  const safeDayMenu = resolvedDayMenu || { isConfirmed: false };
 
   return (
     <div className="admin-page page-enter">
@@ -250,7 +296,7 @@ function AdminPanelContent() {
         </div>
         <h1 className="admin-title">Manager Menu Editor</h1>
         <p className="admin-subtitle">
-          Tap any date to toggle Confirmed/Planned &amp; pick dishes.
+          Choose a date and meal, then apply a weekly menu package or edit individual dishes.
           Changes sync instantly to all student devices via Firebase.
         </p>
       </div>
@@ -279,6 +325,7 @@ function AdminPanelContent() {
                 key={dateObj.toISOString()}
                 className={`messit-date-pill ${isSelected ? "selected" : ""}`}
                 onClick={() => handleDateSelect(dateObj)}
+                disabled={isSaving}
               >
                 <span className="messit-pill-day">{dayName}</span>
                 <span className="messit-pill-num">{dateObj.getDate()}</span>
@@ -334,6 +381,7 @@ function AdminPanelContent() {
               key={mealKey}
               className={`admin-meal-tab ${activeMealEdit === mealKey ? "active" : ""}`}
               onClick={() => setActiveMealEdit(mealKey)}
+              disabled={isSaving}
             >
               <span>{mealTitle}</span>
               <span className="admin-meal-tab-count">{count}</span>
@@ -343,6 +391,16 @@ function AdminPanelContent() {
       </div>
 
       {/* Selected Meal Pre-fed Dish Selector */}
+      <MealPackagePicker
+        key={`${selectedDate.toDateString()}_${activeMealEdit}`}
+        date={selectedDate}
+        mealKey={activeMealEdit}
+        disabled={isSaving || !safeDayMenu[activeMealEdit]}
+        onApply={handleApplyPackage}
+      />
+      {!safeDayMenu[activeMealEdit] && (
+        <p className="admin-dish-picker-sub">This meal is not scheduled on the selected date.</p>
+      )}
       <div className="admin-dish-picker-card">
         <div className="admin-dish-picker-header">
           <div>
@@ -362,6 +420,7 @@ function AdminPanelContent() {
                 type="button"
                 onClick={() => handleToggleDishInMeal(activeMealEdit, dishId)}
                 aria-label="Remove dish"
+                disabled={isSaving}
               >
                 <X size={13} />
               </button>

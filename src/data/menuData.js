@@ -4,7 +4,7 @@ import rawAugustMenu from "./auguyst menu.json" with { type: "json" };
 // September 2nd & 4th week menu (flat per-day format from canteen)
 import rawSep2And4Menu from "./september_menu_2_4.json" with { type: "json" };
 // September 1st & 3rd week menu (flat array format)
-import rawSep1And3Menu from "./menu_week_1_3.json" with { type: "json" };
+import rawSep1And3Menu from "./september_menu_1_3.json" with { type: "json" };
 
 const DAY_ORDER_LIST = [
   "Monday",
@@ -321,39 +321,17 @@ export const septWeeklyMenu2And4 = buildFlatDayMenu(rawSep2And4Menu);
 export const septWeeklyMenu1And3 = buildArrayDayMenu(rawSep1And3Menu);
 
 export function getMenuRotationKey(date = new Date()) {
-  const month = date.getMonth(); // 0-indexed, August = 7, September = 8
-  const dayOfMonth = date.getDate();
+  const month = date.getMonth();
+  // Only August and September have menu files loaded.
+  if (month !== 7 && month !== 8) return null;
 
-  // August 2026 rotation schedule (Aug 1 = Saturday):
-  // Week 1: Aug 1–8  (Sat–Sat) -> week_1_and_3
-  // Week 2: Aug 9–15 (Sun–Sat) -> week_2_and_4
-  // Week 3: Aug 16–22 (Sun–Sat) -> week_1_and_3
-  // Week 4: Aug 23–29 (Sun–Sat) -> week_2_and_4
-  // Week 5: Aug 30–31 (Sun–Mon) -> week_1_and_3
-  if (month === 7) {
-    if (dayOfMonth <= 8) return "week_1_and_3";
-    if (dayOfMonth <= 15) return "week_2_and_4";
-    if (dayOfMonth <= 22) return "week_1_and_3";
-    if (dayOfMonth <= 29) return "week_2_and_4";
-    return "week_1_and_3";
-  }
+  // Weeks run Monday–Sunday. The partial week containing the 1st is week 1.
+  // September 2026: 1–6, 7–13, 14–20, 21–27, 28–30.
+  const firstDay = new Date(date.getFullYear(), month, 1);
+  const mondayOffset = (firstDay.getDay() + 6) % 7;
+  const weekNumber = Math.floor((date.getDate() - 1 + mondayOffset) / 7) + 1;
 
-  // September 2026 rotation schedule (Sep 1 = Tuesday):
-  // Week 1: Sep 1–7   (Tue–Sun) -> week_1_and_3
-  // Week 2: Sep 8–13  (Mon–Sat) -> week_2_and_4  (Sun Sep 13 = end of week 2)
-  // Week 3: Sep 14–20 (Mon–Sun) -> week_1_and_3  ← today (Sep 14) starts here
-  // Week 4: Sep 21–27 (Mon–Sun) -> week_2_and_4
-  // Week 5: Sep 28–30 (Mon–Wed) -> week_1_and_3
-  if (month === 8) {
-    if (dayOfMonth <= 7) return "week_1_and_3";
-    if (dayOfMonth <= 13) return "week_2_and_4";
-    if (dayOfMonth <= 20) return "week_1_and_3";
-    if (dayOfMonth <= 27) return "week_2_and_4";
-    return "week_1_and_3";
-  }
-
-  // No menu loaded for other months — return null so NoMenuBanner is shown
-  return null;
+  return weekNumber % 2 === 1 ? "week_1_and_3" : "week_2_and_4";
 }
 
 export function getMenuForDate(date = new Date()) {
