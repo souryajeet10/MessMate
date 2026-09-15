@@ -2,8 +2,9 @@ import { motion } from "framer-motion";
 import { Clock, CheckCircle, AlertCircle } from "lucide-react";
 import { MEAL_NAMES, MEAL_ICONS } from "../data/menuData";
 import { getDishName } from "../data/dishesCatalog";
+import MealVote from "./MealVote";
 
-export default function MealCard({ mealKey, mealData, status, day, isConfirmed = true, index = 0 }) {
+export default function MealCard({ mealKey, mealData, status, date, isConfirmed = true, index = 0 }) {
   const mealTitle = mealData?.title || MEAL_NAMES[mealKey] || mealKey.toUpperCase();
   const emojis = MEAL_ICONS[mealKey] || "🍽️";
 
@@ -72,6 +73,7 @@ export default function MealCard({ mealKey, mealData, status, day, isConfirmed =
         </div>
         <div className="meal-card-illustration">{emojis}</div>
       </div>
+      {date && <MealVote date={date} mealKey={mealKey} mealTitle={mealTitle} timing={mealData.timing} />}
     </motion.div>
   );
 }

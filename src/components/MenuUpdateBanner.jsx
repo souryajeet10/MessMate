@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, X, ChevronRight, Calendar, Coffee } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useSiteClock } from "../hooks/useSiteClock";
 
 // ── Menu Update Banner ────────────────────────────────────────────────────────
 const UPDATE_STORAGE_KEY = "messmate_sep_update_dismissed_v2";
@@ -38,10 +39,9 @@ function initUpdateVisible() {
 const SPECIAL_DAY_STORAGE_KEY = "messmate_sept13_notice_dismissed";
 const SPECIAL_DAY_DATE = "2026-09-13"; // the day the special schedule applies
 
-function shouldShowSpecialNotice() {
+function shouldShowSpecialNotice(today) {
   try {
     if (localStorage.getItem(SPECIAL_DAY_STORAGE_KEY) === "true") return false;
-    const today = new Date();
     const todayStr = today.toISOString().slice(0, 10);
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -56,8 +56,9 @@ function shouldShowSpecialNotice() {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function MenuUpdateBanner({ currentView = "today" }) {
+  const { now } = useSiteClock();
   const [updateVisible, setUpdateVisible] = useState(initUpdateVisible);
-  const [specialVisible, setSpecialVisible] = useState(shouldShowSpecialNotice);
+  const [specialVisible, setSpecialVisible] = useState(() => shouldShowSpecialNotice(now));
   const navigate = useNavigate();
 
   const handleDismissUpdate = (e) => {

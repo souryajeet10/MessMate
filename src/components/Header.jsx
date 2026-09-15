@@ -1,9 +1,11 @@
 import { Menu } from "lucide-react";
 import { getGreeting, getCurrentMealLabel } from "../utils/menuUtils";
+import { useSiteClock } from "../hooks/useSiteClock";
 
 export default function Header({ onMenuClick }) {
-  const greeting = getGreeting();
-  const mealLabel = getCurrentMealLabel();
+  const { now } = useSiteClock();
+  const greeting = getGreeting(now);
+  const mealLabel = getCurrentMealLabel(now);
 
   return (
     <header className="header">

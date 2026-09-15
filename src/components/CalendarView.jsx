@@ -7,6 +7,7 @@ import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import MealCard from "./MealCard";
 import NoMenuBanner from "./NoMenuBanner";
 import MenuUpdateBanner from "./MenuUpdateBanner";
+import { useSiteClock } from "../hooks/useSiteClock";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -16,7 +17,7 @@ const MONTH_NAMES = [
 const DAY_NAMES_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export default function CalendarView() {
-  const today = new Date();
+  const { now: today } = useSiteClock();
   const [selectedDate, setSelectedDate] = useState(today);
   const { overrides } = useMenuOverrides();
 
@@ -121,14 +122,14 @@ export default function CalendarView() {
               MEAL_ORDER.map((mealKey, i) => {
                 const mealData = dayMenu[mealKey];
                 if (!mealData) return null;
-                const status = isToday ? getMealStatus(mealKey, mealData) : "upcoming";
+                const status = isToday ? getMealStatus(mealKey, mealData, today) : "upcoming";
                 return (
                   <MealCard
                     key={`${selectedDayName}-${mealKey}`}
                     mealKey={mealKey}
                     mealData={mealData}
                     status={status}
-                    day={selectedDayName}
+                    date={selectedDate}
                     isConfirmed={dayMenu?.isConfirmed ?? false}
                     index={i}
                   />

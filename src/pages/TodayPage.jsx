@@ -9,10 +9,11 @@ import Header from "../components/Header";
 import MealCard from "../components/MealCard";
 import NoMenuBanner from "../components/NoMenuBanner";
 import MenuUpdateBanner from "../components/MenuUpdateBanner";
+import { useSiteClock } from "../hooks/useSiteClock";
 
 export default function TodayPage({ onMenuClick }) {
   const navigate = useNavigate();
-  const today = new Date();
+  const { now: today } = useSiteClock();
   const todayName = getTodayName(today);
 
   const [dayOffset, setDayOffset] = useState(0);
@@ -41,7 +42,7 @@ export default function TodayPage({ onMenuClick }) {
   const allMeals = dayMenu
     ? MEAL_ORDER.map((mealKey) => {
         const mealData = dayMenu[mealKey];
-        const status = isToday ? getMealStatus(mealKey, mealData) : "upcoming";
+        const status = isToday ? getMealStatus(mealKey, mealData, today) : "upcoming";
         return { mealKey, mealData, status };
       }).filter((m) => m.mealData)
     : [];
@@ -78,7 +79,7 @@ export default function TodayPage({ onMenuClick }) {
               mealKey={servingMeal.mealKey}
               mealData={servingMeal.mealData}
               status={servingMeal.status}
-              day={selectedDayName}
+              date={selectedDate}
               isConfirmed={dayMenu?.isConfirmed ?? true}
               index={0}
             />
@@ -136,7 +137,7 @@ export default function TodayPage({ onMenuClick }) {
                     mealKey={m.mealKey}
                     mealData={m.mealData}
                     status={m.status}
-                    day={selectedDayName}
+                    date={selectedDate}
                     isConfirmed={dayMenu?.isConfirmed ?? true}
                     index={i}
                   />

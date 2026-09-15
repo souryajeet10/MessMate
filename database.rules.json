@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "menu_overrides": {
+      ".read": true,
+      ".write": true
+    },
+    "meal_votes": {
+      "$date": {
+        "$meal": {
+          ".read": "$date.matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) && ($meal === 'breakfast' || $meal === 'lunch' || $meal === 'hitea' || $meal === 'dinner')",
+          "$voter": {
+            ".write": "$date.matches(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/) && ($meal === 'breakfast' || $meal === 'lunch' || $meal === 'hitea' || $meal === 'dinner') && $voter.matches(/^[a-zA-Z0-9_-]{20,80}$/) && newData.isString() && (newData.val() === 'up' || newData.val() === 'down')"
+          }
+        }
+      }
+    }
+  }
+}

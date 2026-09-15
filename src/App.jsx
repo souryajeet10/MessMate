@@ -11,6 +11,7 @@ import AdminPanel from "./components/AdminPanel";
 import Footer from "./components/Footer";
 import InstallPrompt from "./components/InstallPrompt";
 import { Analytics } from "@vercel/analytics/react";
+import SiteClockProvider from "./context/SiteClockProvider";
 
 function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -84,10 +85,12 @@ function AppContent() {
 export default function App() {
   return (
     <ThemeProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-      <Analytics />
+      <SiteClockProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+        <Analytics />
+      </SiteClockProvider>
     </ThemeProvider>
   );
 }

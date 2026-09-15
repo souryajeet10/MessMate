@@ -6,6 +6,7 @@ import { DAY_ORDER, MEAL_ORDER, MEAL_NAMES } from "../data/menuData";
 import { DISHES_CATALOG, getDishName } from "../data/dishesCatalog";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import { getMealPackages, applyMealPackage } from "../utils/mealPackages";
+import { useSiteClock } from "../hooks/useSiteClock";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -146,7 +147,7 @@ export default function AdminPanel() {
 }
 
 function AdminPanelContent() {
-  const today = new Date();
+  const { now: today } = useSiteClock();
   const [selectedDate, setSelectedDate] = useState(today);
   const [startDateOffset, setStartDateOffset] = useState(-3);
 

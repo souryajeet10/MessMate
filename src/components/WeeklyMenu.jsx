@@ -6,32 +6,27 @@ import { DAY_ORDER, MEAL_ORDER } from "../data/menuData";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import MealCard from "./MealCard";
 import NoMenuBanner from "./NoMenuBanner";
+import { useSiteClock } from "../hooks/useSiteClock";
+import { dateForWeekday, isSameCalendarDate, shiftCalendarDate } from "../utils/weeklyMenuDate";
 
 export default function WeeklyMenu() {
-  const today = new Date();
+  const { now: today } = useSiteClock();
   const todayName = getTodayName(today);
-  const todayIndex = DAY_ORDER.indexOf(todayName);
-  const [selectedIndex, setSelectedIndex] = useState(todayIndex);
-
+  const [selectedDate, setSelectedDate] = useState(() => new Date(today));
+  const selectedIndex = (selectedDate.getDay() + 6) % 7;
   const selectedDay = DAY_ORDER[selectedIndex];
+  const isToday = isSameCalendarDate(selectedDate, today);
   const { overrides } = useMenuOverrides();
-
-  // Compute the actual calendar date for the selected day so the rotation key
-  // (week_1_and_3 vs week_2_and_4) resolves correctly even when viewing a day
-  // that falls in a different week than today.
-  const dayOffset = selectedIndex - todayIndex;
-  const selectedDate = new Date(today);
-  selectedDate.setDate(today.getDate() + dayOffset);
 
   const dayMenu = getDayMenu(selectedDay, selectedDate, overrides);
   const currentMonthName = selectedDate.toLocaleDateString("en-IN", { month: "long" });
 
   const goNext = () => {
-    setSelectedIndex((prev) => (prev + 1) % 7);
+    setSelectedDate((prev) => shiftCalendarDate(prev, 1));
   };
 
   const goPrev = () => {
-    setSelectedIndex((prev) => (prev - 1 + 7) % 7);
+    setSelectedDate((prev) => shiftCalendarDate(prev, -1));
   };
 
   return (
@@ -51,9 +46,9 @@ export default function WeeklyMenu() {
           <button
             key={day}
             className={`day-tab ${i === selectedIndex ? "active" : ""} ${
-              day === todayName ? "today" : ""
+              day === todayName && isSameCalendarDate(dateForWeekday(selectedDate, i), today) ? "today" : ""
             }`}
-            onClick={() => setSelectedIndex(i)}
+            onClick={() => setSelectedDate((prev) => dateForWeekday(prev, i))}
             id={`day-tab-${day.toLowerCase()}`}
           >
             {day.slice(0, 3)}
@@ -65,14 +60,14 @@ export default function WeeklyMenu() {
       <div className="today-label">
         <span className="today-label-text">
           {selectedDay}
-          {selectedDay === todayName && " (Today)"}
+          {isToday && " (Today)"}
         </span>
         <div className="today-label-nav">
           <button onClick={goPrev} aria-label="Previous day" id="week-nav-prev">
             <ChevronLeft size={16} />
           </button>
           <button
-            onClick={() => setSelectedIndex(todayIndex)}
+            onClick={() => setSelectedDate(new Date(today))}
             aria-label="Go to today"
             id="week-nav-today"
           >
@@ -88,7 +83,7 @@ export default function WeeklyMenu() {
       <div className="meals-container" style={{ paddingBottom: "100px" }}>
         <AnimatePresence mode="wait">
           <motion.div
-            key={selectedDay}
+            key={selectedDate.toDateString()}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
@@ -102,8 +97,8 @@ export default function WeeklyMenu() {
                 const mealData = dayMenu[mealKey];
                 if (!mealData) return null;
                 const status =
-                  selectedDay === todayName
-                    ? getMealStatus(mealKey, mealData)
+                  isToday
+                    ? getMealStatus(mealKey, mealData, today)
                     : "upcoming";
                 return (
                   <MealCard
@@ -111,7 +106,7 @@ export default function WeeklyMenu() {
                     mealKey={mealKey}
                     mealData={mealData}
                     status={status}
-                    day={selectedDay}
+                    date={selectedDate}
                     index={i}
                   />
                 );
