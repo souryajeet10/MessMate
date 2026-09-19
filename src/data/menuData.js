@@ -1,5 +1,4 @@
 // MESSMATE Weekly & Monthly Menu Data for Karnavati University
-// Dynamically imported from auguyst menu.json for 100% accurate notifications & favorite tracking.
 import rawAugustMenu from "./auguyst menu.json" with { type: "json" };
 // September 2nd & 4th week menu (flat per-day format from canteen)
 import rawSep2And4Menu from "./september_menu_2_4.json" with { type: "json" };

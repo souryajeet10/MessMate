@@ -1,5 +1,5 @@
-// Master Catalog of Mess Dishes derived strictly from the current August Menu
-// Used for exact matching of student favorite tracking & notifications
+// Master Catalog of Mess Dishes
+// Used for dish display and meal management in the Admin Panel
 
 export const DISHES_CATALOG = [
   // --- Breakfast ---

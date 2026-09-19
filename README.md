@@ -14,7 +14,6 @@ It helps students quickly find **what is actually being served**, while clearly 
 
 * **Today's Live Menu** — See what's being served right now, what's coming up, and what's already ended.
 * **Calendar View** — Browse the full week's menu using a swipeable date selector.
-* **Favourite Dishes** — Save favourite dishes and get alerts when they're on the menu.
 * **Planned vs Confirmed Menu** — Easily identify whether a menu is planned or officially confirmed.
 * **Meal Timings** — Quickly check breakfast, lunch, snacks, and dinner timings.
 * **Last Updated** — See when the menu was most recently updated.
@@ -129,10 +128,6 @@ Lunch
 Snacks
 Dinner
 ```
-
-### Favourite Dishes
-
-Students can save dishes they like and receive notifications when those dishes appear on the menu.
 
 ### Admin Dashboard
 
