@@ -4,6 +4,7 @@
 export const DISHES_CATALOG = [
   // --- Breakfast ---
   { id: "ghee-podi-idli", name: "Ghee Podi Idli", category: "Breakfast" },
+  { id: "podi-idli-sambhar", name: "Podi Idli Sambhar", category: "Breakfast" },
   { id: "coconut-tomato-chutney", name: "Coconut + Tomato Chutney", category: "Breakfast" },
   { id: "banana", name: "Banana", category: "Breakfast" },
   { id: "bread-butter-jam", name: "Bread / Butter / Jam", category: "Breakfast" },
