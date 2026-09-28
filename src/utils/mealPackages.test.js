@@ -11,7 +11,8 @@ test("September packages include both rotations and use September food", () => {
   const monday = packages.find((item) => item.id === "week_1_and_3_Monday_breakfast");
   assert.match(monday.label, /September.*Weeks 1 & 3.*Monday.*Breakfast/);
   assert.ok(monday.meal.food.includes("mix-veg-paratha"));
-  assert.equal(getMealPackages(new Date(2026, 9, 1), "breakfast").length, 0);
+  assert.equal(getMealPackages(new Date(2026, 9, 1), "breakfast").length, 14);
+  assert.equal(getMealPackages(new Date(2026, 10, 1), "breakfast").length, 0);
   assert.equal(getMealPackages(september, "lunch").length, 12);
 });
 

@@ -27,6 +27,18 @@ test("August also rotates Monday after its initial partial week", () => {
   assert.equal(getMenuRotationKey(new Date(2026, 7, 10)), "week_1_and_3");
 });
 
+test("October repeats the September menus and rotates on Mondays", () => {
+  const weeks = [[1, 4], [5, 11], [12, 18], [19, 25], [26, 31]];
+  weeks.forEach(([start, end], index) => {
+    const odd = index % 2 === 0;
+    for (let day = start; day <= end; day++) {
+      const date = new Date(2026, 9, day, 12);
+      assert.equal(getMenuRotationKey(date), odd ? "week_1_and_3" : "week_2_and_4", `October ${day}`);
+      assert.equal(getMenuForDate(date), odd ? septWeeklyMenu1And3 : septWeeklyMenu2And4);
+    }
+  });
+});
+
 test("months without menu files return no menu", () => {
-  assert.equal(getMenuForDate(new Date(2026, 9, 1)), null);
+  assert.equal(getMenuForDate(new Date(2026, 10, 1)), null);
 });

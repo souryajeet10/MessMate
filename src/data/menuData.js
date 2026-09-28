@@ -321,8 +321,8 @@ export const septWeeklyMenu1And3 = buildArrayDayMenu(rawSep1And3Menu);
 
 export function getMenuRotationKey(date = new Date()) {
   const month = date.getMonth();
-  // Only August and September have menu files loaded.
-  if (month !== 7 && month !== 8) return null;
+  // October repeats the published September menu rotation.
+  if (month !== 7 && month !== 8 && month !== 9) return null;
 
   // Weeks run Monday–Sunday. The partial week containing the 1st is week 1.
   // September 2026: 1–6, 7–13, 14–20, 21–27, 28–30.
@@ -345,8 +345,8 @@ export function getMenuForDate(date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null; // No menu data for this month
 
-  // September: both week rotations now have data
-  if (month === 8) {
+  // September and October use the published September rotations.
+  if (month === 8 || month === 9) {
     return rotationKey === "week_2_and_4" ? septWeeklyMenu2And4 : septWeeklyMenu1And3;
   }
 
