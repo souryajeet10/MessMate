@@ -638,7 +638,7 @@ img {
 
 .welcome-top {
   text-align: center;
-  padding: clamp(16px, 3.5vh, 36px) clamp(16px, 5vw, 32px) 0;
+  padding: clamp(32px, 8vh, 80px) clamp(16px, 5vw, 32px) 0;
   position: relative;
   z-index: 2;
 }
@@ -653,15 +653,22 @@ img {
   color: rgba(255, 255, 255, 0.65);
   font-size: clamp(0.82rem, 2.8vw, 0.98rem);
   font-weight: 400;
-  margin-bottom: 4px;
+  margin-bottom: 20px;
 }
 
 .welcome-title {
-  font-size: clamp(1.6rem, 6vw, 2.4rem);
-  font-weight: 800;
+  font-size: clamp(1.1rem, 4vw, 1.4rem);
+  font-weight: 400;
   color: #FFFFFF;
   line-height: 1.1;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
+}
+
+.welcome-subtitle {
+  margin: 14px auto 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .welcome-brand {
@@ -691,16 +698,16 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 0;
+  padding: 32px 0;
   position: relative;
-  min-height: 0;
+  min-height: 200px;
 }
 
 .welcome-characters-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  gap: 6px;
+  gap: 18px 28px;
   max-width: 320px;
   font-size: clamp(2.2rem, 7.5vw, 3.2rem);
   line-height: 1.2;
@@ -744,7 +751,9 @@ img {
   color: #FFFFFF;
   font-size: clamp(1rem, 3.8vw, 1.15rem);
   font-weight: 700;
-  padding: 14px 38px;
+  padding: 16px 38px;
+  width: min(100%, 320px);
+  justify-content: space-between;
   border-radius: 60px;
   display: flex;
   align-items: center;
@@ -764,6 +773,16 @@ img {
 
 .welcome-cta:active {
   transform: translateY(0);
+}
+
+.welcome-cta:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome-character { animation: none; }
+  .welcome-cta { transition: none; }
 }
 
 /* ===== SIDEBAR ===== */
