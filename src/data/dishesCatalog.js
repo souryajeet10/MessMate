@@ -120,6 +120,7 @@ export const DISHES_CATALOG = [
   { id: "lemon-coriander-soup", name: "Lemon Coriander Soup", category: "Dinner" },
   { id: "chopped-onion-with-lemon-wedges", name: "Chopped Onion with Lemon Wedges", category: "Dinner" },
   { id: "pav-bhaji", name: "Pav Bhaji", category: "Dinner" },
+  { id: "bhaji-pao", name: "Bhaji Pao", category: "Dinner" },
   { id: "tawa-pulao", name: "Tawa Pulao", category: "Dinner" },
   { id: "pav", name: "Pav", category: "Dinner" },
   { id: "corn-capsicum-salad-salsa-dip", name: "Corn + Capsicum Salad + Salsa Dip", category: "Dinner" },
