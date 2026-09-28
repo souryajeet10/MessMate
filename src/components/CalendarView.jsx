@@ -6,7 +6,7 @@ import { DAY_ORDER, MEAL_ORDER } from "../data/menuData";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import MealCard from "./MealCard";
 import NoMenuBanner from "./NoMenuBanner";
-import MenuUpdateBanner from "./MenuUpdateBanner";
+
 import { useSiteClock } from "../hooks/useSiteClock";
 
 const MONTH_NAMES = [
@@ -55,8 +55,6 @@ export default function CalendarView() {
 
   return (
     <div className="weekly-page page-enter">
-      {/* Dismissible Menu Update Announcement Banner */}
-      <MenuUpdateBanner currentView="calendar" />
 
       {/* Month Year Header matching Messit Web */}
       <div className="messit-calendar-header">

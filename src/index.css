@@ -157,9 +157,9 @@ img {
 /* ===== HEADER / HERO ===== */
 .header {
   position: relative;
-  padding: 20px 24px 0;
+  padding: 28px 24px 0;
   background: linear-gradient(180deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 40%, var(--bg-gradient-end) 80%, var(--bg-primary) 100%);
-  min-height: 240px;
+  min-height: 280px;
 }
 
 .header-top {
@@ -246,35 +246,39 @@ img {
 .header-greeting {
   text-align: center;
   color: var(--text-on-dark);
-  opacity: 0.9;
-  font-size: 1.1rem;
-  font-weight: 400;
-  margin-bottom: 6px;
-  letter-spacing: 0.3px;
+  opacity: 0.75;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  margin-top: 4px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
 .header-meal-label {
   text-align: center;
   color: var(--text-on-dark);
-  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  font-size: clamp(1.5rem, 5.5vw, 2.2rem);
   font-weight: 800;
-  margin-bottom: 16px;
-  line-height: 1.15;
+  margin-bottom: 10px;
+  line-height: 1.2;
   word-wrap: break-word;
 }
 
 .header-serving-label {
   text-align: center;
   color: var(--text-on-dark);
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  opacity: 0.85;
-  padding-bottom: 24px;
+  opacity: 0.7;
+  padding-bottom: 28px;
+  letter-spacing: 0.2px;
 }
 
 .header-serving-label span {
   text-decoration: underline;
   text-underline-offset: 3px;
+  opacity: 0.9;
 }
 
 /* ===== TODAY DATE STRIP ===== */

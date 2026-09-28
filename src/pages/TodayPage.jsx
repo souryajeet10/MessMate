@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import Header from "../components/Header";
 import MealCard from "../components/MealCard";
 import NoMenuBanner from "../components/NoMenuBanner";
-import MenuUpdateBanner from "../components/MenuUpdateBanner";
+
 import { useSiteClock } from "../hooks/useSiteClock";
 
 export default function TodayPage({ onMenuClick }) {
@@ -18,6 +18,11 @@ export default function TodayPage({ onMenuClick }) {
 
   const [dayOffset, setDayOffset] = useState(0);
   const { overrides } = useMenuOverrides();
+
+  // Reset scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
 
   // Compute the selected date based on offset
   const selectedDate = new Date(today);
@@ -62,8 +67,6 @@ export default function TodayPage({ onMenuClick }) {
     <div className="page-enter">
       <Header onMenuClick={onMenuClick} />
 
-      {/* Dismissible Menu Update Announcement Banner */}
-      <MenuUpdateBanner currentView="today" />
 
       {/* Date display */}
       <div className="today-date-strip">
