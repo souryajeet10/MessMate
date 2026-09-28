@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Brand from "./Brand";
 
 const FOOD_CHARACTERS = ["🍕", "🍩", "🥦", "🍔", "🧁", "🥕", "🍎", "🌮", "🍳"];
 
@@ -26,13 +27,10 @@ export default function WelcomeScreen() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <div className="welcome-logo-wrapper">
-          <img src="/lgo.svg" alt="MessMate Logo" className="welcome-logo" />
-        </div>
         <p className="welcome-tagline">Look, they're here!</p>
         <h1 className="welcome-title">Welcome To</h1>
         <div className="welcome-brand">
-          <span className="welcome-brand-name">MESSMATE @ UH</span>
+          <Brand />
         </div>
       </motion.div>
 

@@ -184,10 +184,50 @@ img {
   background: rgba(255, 255, 255, 0.15);
 }
 
-.header-logo {
-  height: 32px;
-  width: auto;
-  object-fit: contain;
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-on-dark);
+  font-size: 1.35rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.header-brand-slot { min-height: 40px; display: flex; align-items: center; }
+
+.brand-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: linear-gradient(155deg, var(--bg-gradient-start), var(--bg-gradient-end));
+}
+
+.brand-intro-logo .brand-lockup,
+.welcome-brand .brand-lockup {
+  font-size: clamp(1.6rem, 6vw, 2.8rem);
+}
+
+.brand-intro-progress {
+  position: absolute;
+  top: calc(50% + 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(240px, 65vw);
+  height: 4px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.brand-intro-progress-fill {
+  height: 100%;
+  background: var(--text-on-dark);
+  border-radius: inherit;
+  transform-origin: left;
 }
 
 .header-avatar {
@@ -1095,6 +1135,12 @@ img {
 }
 
 /* ===== BOTTOM NAV ===== */
+/* Keep navigation hidden through the intro's exit animation as well. */
+body:has(.brand-intro) .bottom-nav {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .bottom-nav {
   position: fixed;
   bottom: 0;

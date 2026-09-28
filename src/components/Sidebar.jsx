@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, UtensilsCrossed, Calendar, Shield, Moon, Sun } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
+import Brand from "./Brand";
 
 export default function Sidebar({ isOpen, onClose }) {
   const { theme, toggleTheme } = useTheme();
@@ -27,8 +28,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
       <nav className={`sidebar ${isOpen ? "open" : ""}`} id="sidebar">
         <div className="sidebar-brand">
-          <img src="/lgo.svg" alt="MessMate Logo" className="sidebar-brand-logo" />
-          <span className="sidebar-brand-name">MESSMATE @ UH</span>
+          <Brand />
         </div>
 
         <div className="sidebar-nav">
