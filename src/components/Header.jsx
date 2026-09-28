@@ -15,7 +15,7 @@ export default function Header({ onMenuClick }) {
 
   useEffect(() => {
     headerIntroPlayed = true;
-    const timer = window.setTimeout(() => setShowIntro(false), 1500);
+    const timer = window.setTimeout(() => setShowIntro(false), 1000);
     return () => window.clearTimeout(timer);
   }, []);
 
@@ -40,7 +40,7 @@ export default function Header({ onMenuClick }) {
                   className="brand-intro-progress-fill"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
-                  transition={{ duration: 1.5, ease: "linear" }}
+                  transition={{ duration: 1, ease: "linear" }}
                 />
               </div>
             </motion.div>
