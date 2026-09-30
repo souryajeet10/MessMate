@@ -4,7 +4,7 @@
   "description": "Real-time hostel mess menu and schedule for United Homes students.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F7C668",
+  "background_color": "#F0A661",
   "theme_color": "#38BDF8",
   "icons": [
     {
