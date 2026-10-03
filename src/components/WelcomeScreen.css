@@ -1,0 +1,173 @@
+/* ===== WELCOME SCREEN ===== */
+.welcome-screen {
+  min-height: 100dvh;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  background: #fff9f1;
+  color: #101022;
+}
+.welcome-screen::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 110px -20% auto -15%;
+  height: 850px;
+  border-radius: 45% 35% 44% 40%;
+  transform: rotate(-8deg);
+  background: radial-gradient(ellipse at 85% 48%, #ffbd51 0, #ffdda0 30%, #fff0d8 60%, #fff7ed 78%);
+}
+.welcome-header {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 30px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.welcome-brand { display: inline-flex; align-items: center; gap: 18px; font-size: clamp(22px, 3.9vw, 38px); font-weight: 800; letter-spacing: -1.5px; white-space: nowrap; }
+.welcome-brand-icon { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 20px; background: linear-gradient(120deg, #ffdc89, #ffb64d); }
+.welcome-brand-icon svg { width: 35px; height: 35px; stroke-width: 2.5; }
+.welcome-brand-accent { color: #ec6224; }
+.welcome-location { display: inline-flex; align-items: center; gap: 14px; background: #fff0de; border-radius: 99px; padding: 17px 28px; font-size: 18px; font-weight: 600; white-space: nowrap; }
+.welcome-content { width: 100%; max-width: 1280px; margin: 0 auto; position: relative; }
+.welcome-hero { position: relative; min-height: 640px; display: flex; align-items: center; padding: 45px 48px 85px; }
+.welcome-intro { position: relative; z-index: 2; }
+.welcome-tagline { position: relative; padding-left: 46px; margin-bottom: 38px; text-transform: uppercase; color: #837b71; font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 3px; }
+.welcome-tagline::before { content: ""; position: absolute; left: 0; top: 18px; width: 28px; height: 3px; border-radius: 3px; background: #e98234; }
+.welcome-title { font-size: clamp(54px, 7.4vw, 92px); line-height: 1.02; font-weight: 800; letter-spacing: -4px; }
+.welcome-title span { color: #f56622; }
+.welcome-subtitle { margin-top: 24px; color: #7b787a; font-size: clamp(20px, 2.7vw, 29px); line-height: 1.5; }
+.welcome-cta { margin-top: 42px; display: inline-flex; align-items: center; justify-content: space-between; gap: 38px; border: 1px solid #ffc876; border-radius: 27px; padding: 22px 34px; background: linear-gradient(110deg, #ff7a20, #fc4d12); box-shadow: 0 12px 28px #ee911f33; color: #fffaf0; font-size: 26px; font-weight: 600; transition: transform .2s, box-shadow .2s; }
+.welcome-cta svg { width: 30px; height: 30px; }
+.welcome-cta:hover { transform: translateY(-3px); box-shadow: 0 16px 32px #ee911f55; }
+.welcome-cta:focus-visible, .welcome-meal:focus-visible { outline: 3px solid #101022; outline-offset: 5px; }
+.welcome-hero-art { position: absolute; width: 59%; max-width: none; right: -12%; top: 80px; pointer-events: none; }
+.welcome-spark { position: absolute; right: 29%; top: 80px; color: #f47422; font-size: 90px; transform: rotate(-30deg); }
+.welcome-menu-card { position: relative; z-index: 3; margin: 0 28px; padding: 36px 28px 30px; background: #fffdf9ed; border: 2px solid #fff; border-radius: 40px; box-shadow: 0 14px 30px #bb85400a; }
+.welcome-card-heading { text-align: center; }
+.welcome-eyebrow { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: #7b7785; font-weight: 600; }
+.welcome-card-heading h2 { font-size: clamp(28px, 4.5vw, 46px); font-weight: 800; letter-spacing: -1.5px; margin-top: 4px; }
+.welcome-card-heading::after { content: ""; display: block; margin: 13px auto 16px; width: 44px; height: 3px; border-radius: 4px; background: #f38328; }
+.welcome-meals { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.welcome-meal { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 18px 10px 16px; gap: 8px; border-radius: 28px; background: var(--meal-tint); color: #101022; font-size: clamp(16px, 2.6vw, 25px); font-weight: 600; transition: transform .2s; }
+.welcome-meal:hover { transform: translateY(-5px); }
+.welcome-meal-breakfast { --meal-tint: #fff7e6; --meal-ink: #e87e1d; --art-x: 8.24%; }
+.welcome-meal-lunch { --meal-tint: #fff0f0; --meal-ink: #ec5237; --art-x: 36.08%; }
+.welcome-meal-snacks { --meal-tint: #eaf9f3; --meal-ink: #1caa71; --art-x: 63.92%; }
+.welcome-meal-dinner { --meal-tint: #f4efff; --meal-ink: #8b33d5; --art-x: 91.76%; }
+.welcome-meal-art { display: block; width: 100%; max-width: 210px; aspect-ratio: 180 / 135; background-image: url('/welcome/reference-art.png'); background-size: 491.111% auto; background-position: var(--art-x) 60.4%; border-radius: 20px; mix-blend-mode: multiply; }
+.welcome-meal-arrow { display: grid; place-items: center; width: 44px; height: 44px; color: var(--meal-ink); border-radius: 50%; background: color-mix(in srgb, var(--meal-ink) 9%, transparent); }
+.welcome-meal-arrow svg { width: 23px; }
+.welcome-closing { width: 100%; margin: 24px auto 0; aspect-ratio: 884 / 400; max-height: 510px; background: url('/welcome/reference-art.png') center 94.27% / 100% auto no-repeat; }
+.welcome-footer { position: relative; text-align: center; padding: 16px 20px max(35px, env(safe-area-inset-bottom)); color: #85808a; font-size: 19px; background: #fff9f1; }
+@media (min-width: 1200px) { .welcome-hero-art { right: -12%; width: 54%; top: 95px; } .welcome-closing { background-size: 100% auto; } }
+@media (max-width: 700px) {
+  .welcome-header { padding: 20px 22px; gap: 10px; }
+  .welcome-brand { gap: 10px; font-size: 25px; letter-spacing: -1px; }
+  .welcome-brand-icon { width: 44px; height: 44px; border-radius: 14px; }
+  .welcome-brand-icon svg { width: 26px; height: 26px; }
+  .welcome-location { font-size: 12px; padding: 12px 14px; gap: 8px; }
+  .welcome-location svg { width: 15px; }
+  .welcome-hero { padding: 35px 26px 70px; min-height: 480px; align-items: flex-start; }
+  .welcome-tagline { font-size: 11px; letter-spacing: 2px; padding-left: 32px; margin-bottom: 28px; }
+  .welcome-tagline::before { width: 20px; top: 13px; }
+  .welcome-title { font-size: clamp(38px, 8.9vw, 62px); letter-spacing: -2px; }
+  .welcome-subtitle { font-size: 18px; margin-top: 17px; }
+  .welcome-cta { margin-top: 27px; padding: 17px 21px; font-size: 19px; gap: 22px; border-radius: 21px; }
+  .welcome-cta svg { width: 24px; }
+  .welcome-hero-art { width: 67%; right: -24%; top: 185px; }
+  .welcome-spark { font-size: 56px; right: 13%; top: 110px; }
+  .welcome-menu-card { margin: 0 14px; padding: 23px 14px 18px; border-radius: 28px; }
+  .welcome-eyebrow { font-size: 10px; letter-spacing: 1.8px; }
+  .welcome-card-heading h2 { font-size: 29px; letter-spacing: -1px; }
+  .welcome-meals { gap: 8px; }
+  .welcome-meal { border-radius: 19px; padding: 12px 3px; font-size: 15px; gap: 7px; }
+  .welcome-meal-arrow { width: 31px; height: 31px; }
+  .welcome-meal-arrow svg { width: 18px; }
+  .welcome-footer { font-size: 13px; padding-bottom: 25px; }
+  .welcome-closing { margin-top: 16px; }
+}
+@media (max-width: 380px) {
+  .welcome-header { padding: 18px 16px; }
+  .welcome-brand { font-size: 21px; gap: 7px; }
+  .welcome-location { padding: 10px; font-size: 10px; gap: 5px; }
+  .welcome-brand-icon { width: 36px; height: 36px; }
+  .welcome-hero { padding-left: 20px; min-height: 455px; }
+  .welcome-subtitle { font-size: 16px; }
+  .welcome-meal { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .welcome-cta, .welcome-meal { transition: none; } }
+
+
+/* Keep the complete phone welcome layout within the visible browser viewport. */
+@media (max-width: 700px) {
+  .welcome-screen {
+    height: 100dvh;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 9fr 72fr 14fr 5fr;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .welcome-header {
+    width: 100%;
+    min-height: 0;
+    padding: 8px 20px;
+  }
+  .welcome-brand { font-size: clamp(20px, 5.6vw, 25px); gap: 8px; }
+  .welcome-brand-icon { width: 36px; height: 36px; border-radius: 12px; }
+  .welcome-location { padding: 9px 11px; font-size: 11px; gap: 6px; }
+  .welcome-content {
+    min-height: 0;
+    display: grid;
+    grid-template-rows: 62fr 38fr;
+  }
+  .welcome-hero {
+    min-height: 0;
+    padding: clamp(10px, 2dvh, 20px) 24px 12px;
+    align-items: center;
+  }
+  .welcome-tagline { font-size: clamp(9px, 1.3dvh, 11px); margin-bottom: clamp(12px, 2.4dvh, 23px); }
+  .welcome-title { font-size: clamp(32px, min(9vw, 6.5dvh), 55px); }
+  .welcome-subtitle { font-size: clamp(14px, 2.1dvh, 18px); margin-top: clamp(10px, 1.8dvh, 17px); }
+  .welcome-cta { min-height: 44px; margin-top: clamp(14px, 2.5dvh, 25px); padding: 10px 20px; font-size: clamp(16px, 2.3dvh, 19px); border-radius: 18px; }
+  .welcome-hero-art { width: 62%; top: auto; bottom: -3%; right: -23%; }
+  .welcome-spark { top: 24%; right: 9%; font-size: 45px; }
+  .welcome-menu-card {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0 14px;
+    padding: clamp(9px, 1.7dvh, 16px) 12px 10px;
+    border-radius: 25px;
+  }
+  .welcome-eyebrow { font-size: clamp(8px, 1.2dvh, 10px); letter-spacing: 1.5px; }
+  .welcome-card-heading h2 { font-size: clamp(22px, 3.4dvh, 29px); line-height: 1.15; }
+  .welcome-card-heading::after { margin: 7px auto 9px; }
+  .welcome-meals { flex: 1; min-height: 0; }
+  .welcome-meals li { min-height: 0; }
+  .welcome-meal { height: 100%; padding: 5px 3px; gap: 3px; font-size: clamp(12px, 3.4vw, 15px); justify-content: center; }
+  .welcome-meal-art { min-height: 0; flex: 0 1 auto; width: min(100%, 12dvh); }
+  .welcome-meal-arrow { flex-shrink: 0; width: 25px; height: 25px; }
+  .welcome-closing { min-height: 0; height: 100%; margin: 0; aspect-ratio: auto; background-size: 100% auto; }
+  .welcome-footer { display: grid; place-items: center; min-height: 0; padding: 0 12px; font-size: clamp(10px, 1.6dvh, 13px); }
+}
+@media (max-width: 380px) {
+  .welcome-header { padding-inline: 14px; }
+  .welcome-brand { font-size: 20px; gap: 6px; }
+  .welcome-location { font-size: 10px; padding-inline: 8px; }
+  .welcome-hero { padding-inline: 20px; }
+}
+@media (max-width: 700px) and (max-height: 620px) {
+  .welcome-meal-arrow { display: none; }
+  .welcome-meal-art { flex: none; width: min(100%, 10dvh); }
+  .welcome-hero-art { right: -28%; }
+}
+/* Use the existing MessMate artwork as the circular brand mark. */
+.welcome-brand .welcome-brand-icon {
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}

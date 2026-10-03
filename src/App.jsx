@@ -33,7 +33,7 @@ function AppContent() {
   const isWelcomePage = location.pathname === "/welcome";
 
   return (
-    <div className="app-layout">
+    <div className={`app-layout${location.pathname === "/" ? " app-layout-home" : ""}`}>
       {!isWelcomePage && (
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       )}
@@ -41,13 +41,7 @@ function AppContent() {
       <Routes>
         <Route
           path="/welcome"
-          element={
-            hasWelcomed ? (
-              <Navigate to="/" replace />
-            ) : (
-              <WelcomeScreen />
-            )
-          }
+          element={<WelcomeScreen />}
         />
         <Route
           path="/"

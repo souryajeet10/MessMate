@@ -621,196 +621,6 @@ img {
 }
 
 
-/* ===== WELCOME SCREEN ===== */
-.welcome-screen {
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  padding: 28px 24px calc(24px + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(180deg, var(--bg-gradient-start) 0, var(--bg-gradient-mid) 180px, var(--bg-gradient-end) 320px, var(--bg-primary) 510px);
-  color: var(--text-primary);
-}
-
-.welcome-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.welcome-location {
-  color: var(--text-primary);
-  font-size: 0.75rem;
-  font-weight: 500;
-  padding: 7px 12px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--surface-glass);
-}
-
-.welcome-content {
-  width: 100%;
-  max-width: 480px;
-  margin: auto;
-  padding: 38px 0 28px;
-}
-
-.welcome-intro { text-align: center; }
-
-.welcome-emblem {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 58px;
-  height: 58px;
-  margin-bottom: 18px;
-  border-radius: 19px;
-  background: var(--surface-glass);
-  box-shadow: var(--shadow-sm);
-}
-
-.welcome-tagline {
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-.welcome-title {
-  font-size: clamp(2.65rem, 7vw, 3.6rem);
-  line-height: 1.04;
-  letter-spacing: -0.045em;
-  font-weight: 800;
-}
-
-.welcome-subtitle {
-  max-width: 350px;
-  margin: 18px auto 0;
-  font-size: 0.95rem;
-  line-height: 1.65;
-}
-
-.welcome-menu-card {
-  margin-top: 30px;
-  padding: 24px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  background: var(--surface);
-  box-shadow: var(--shadow-lg);
-}
-
-.welcome-card-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.welcome-card-heading > svg { color: var(--meal-breakfast); flex-shrink: 0; }
-.welcome-eyebrow { font-size: 0.6rem; letter-spacing: 0.12em; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
-.welcome-card-heading h2 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.025em; }
-
-.welcome-meals {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  list-style: none;
-  margin: 22px 0;
-  padding: 0;
-}
-
-.welcome-meal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 2px 12px;
-  border-radius: var(--radius-md);
-  border-bottom: 3px solid var(--welcome-meal-color);
-  background: color-mix(in srgb, var(--welcome-meal-color) 9%, var(--surface));
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-.welcome-meal-breakfast { --welcome-meal-color: var(--meal-breakfast); }
-.welcome-meal-lunch { --welcome-meal-color: var(--meal-lunch); }
-.welcome-meal-snacks { --welcome-meal-color: var(--meal-snacks); }
-.welcome-meal-dinner { --welcome-meal-color: var(--meal-dinner); }
-.welcome-meal-emoji { font-size: 1.75rem; line-height: 1.2; }
-
-.welcome-features { border-top: 1px solid var(--border); padding-top: 20px; display: grid; gap: 16px; }
-.welcome-feature { display: flex; align-items: center; gap: 12px; }
-.welcome-feature-icon { display: grid; place-items: center; width: 36px; height: 36px; flex-shrink: 0; border-radius: 11px; color: var(--accent); background: var(--accent-soft); }
-.welcome-feature h3 { font-size: 0.85rem; font-weight: 600; margin-bottom: 3px; }
-.welcome-feature p { font-size: 0.76rem; line-height: 1.5; color: var(--text-secondary); }
-
-.welcome-bottom { margin-top: 26px; text-align: center; }
-.welcome-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: auto;
-  max-width: 100%;
-  padding: 18px 24px;
-  border-radius: var(--radius-md);
-  background: var(--accent);
-  color: var(--bg-secondary);
-  font-size: 1rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-md);
-  transition: background 0.2s, transform 0.2s;
-}
-.welcome-cta:hover { background: var(--accent-hover); transform: translateY(-2px); }
-.welcome-cta:active { transform: translateY(0); }
-.welcome-cta:focus-visible { outline: 3px solid var(--text-primary); outline-offset: 4px; }
-.welcome-bottom > p { margin-top: 13px; color: var(--text-secondary); font-size: 0.73rem; }
-.welcome-footer { text-align: center; color: var(--text-secondary); font-size: 0.7rem; }
-
-@media (min-width: 768px) {
-  .welcome-screen { min-height: calc(100dvh - 40px); padding: 30px 40px 24px; }
-}
-
-@media (max-width: 360px) {
-  .welcome-screen { padding-left: 16px; padding-right: 16px; }
-  .welcome-header { gap: 8px; }
-  .welcome-header .brand-lockup { font-size: 1.1rem; }
-  .welcome-location { font-size: 0.65rem; padding: 6px 8px; }
-  .welcome-menu-card { padding: 18px; }
-}
-
-/* Keep the entry action in view on shorter phones and preview windows. */
-@media (max-height: 950px) {
-  .welcome-screen { padding-top: 20px; padding-bottom: max(16px, env(safe-area-inset-bottom, 0px)); }
-  .welcome-content { padding: 20px 0 16px; }
-  .welcome-emblem { width: 44px; height: 44px; margin-bottom: 10px; border-radius: 14px; }
-  .welcome-title { font-size: clamp(2.2rem, 6vw, 2.8rem); }
-  .welcome-subtitle { margin-top: 12px; font-size: 0.85rem; line-height: 1.5; }
-  .welcome-menu-card { margin-top: 20px; padding: 18px; }
-  .welcome-meals { margin: 16px 0; }
-  .welcome-meal { padding: 10px 2px; gap: 5px; }
-  .welcome-features { padding-top: 14px; gap: 12px; }
-  .welcome-bottom { margin-top: 18px; }
-  .welcome-cta { padding: 15px 20px; }
-}
-
-@media (max-height: 740px) {
-  .welcome-features { display: none; }
-  .welcome-meals { margin-bottom: 0; }
-  .welcome-content { padding: 16px 0; }
-  .welcome-bottom > p { margin-top: 10px; }
-}
-
-@media (max-height: 570px) {
-  .welcome-screen { padding-top: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)); }
-  .welcome-content { padding: 12px 0 0; }
-  .welcome-emblem, .welcome-tagline, .welcome-footer, .welcome-bottom > p { display: none; }
-  .welcome-title { font-size: 2rem; }
-  .welcome-subtitle { margin-top: 8px; font-size: 0.8rem; }
-  .welcome-menu-card { margin-top: 14px; padding: 14px; }
-  .welcome-card-heading h2 { font-size: 1.1rem; }
-  .welcome-eyebrow { display: none; }
-  .welcome-meals { margin-top: 10px; }
-  .welcome-meal-emoji { font-size: 1.4rem; }
-  .welcome-bottom { margin-top: 14px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .welcome-cta { transition: none; }
-}
 /* ===== SIDEBAR ===== */
 .sidebar-overlay {
   position: fixed;
@@ -2829,4 +2639,75 @@ body:has(.brand-intro) .bottom-nav {
   }
 }
 
+/* Shared MessMate branding and the welcome palette on Today's Menu. */
+.brand-logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.brand-accent { color: #ec6224; }
+.brand-intro { background: #fff9f1; }
+.brand-intro .brand-lockup { color: #101022; }
+.brand-intro .brand-logo { width: 1.65em; height: 1.65em; }
+.brand-intro-progress { background: #ffe1b0; }
+.brand-intro-progress-fill { background: #f56622; }
+.app-layout-home {
+  --bg-primary: #fff9f1;
+  --surface: #fffdf9;
+  --surface-elevated: #ffffff;
+  --surface-glass: rgba(255, 253, 249, .94);
+  --text-primary: #101022;
+  --text-secondary: #716c73;
+  --text-muted: #817985;
+  --accent: #e96322;
+  --accent-hover: #ce4c12;
+  --accent-soft: rgba(245, 102, 34, .1);
+  --border: rgba(167, 106, 45, .12);
+  --shadow-md: 0 5px 18px rgba(146, 91, 35, .07);
+}
+.app-layout-home .header {
+  background: radial-gradient(ellipse at 95% 45%, #ffdda0, transparent 65%), linear-gradient(175deg, #fff9f1 12%, #fff0d8 68%, #fff9f1);
+}
+.app-layout-home .header .brand-lockup { color: var(--text-primary); font-size: clamp(22px, 5.6vw, 30px); letter-spacing: -1px; }
+.app-layout-home .header-menu-btn { color: var(--text-primary); background: #fff0de; border-radius: 50%; }
+.app-layout-home .header-menu-btn:hover { background: #ffe1b0; }
+.app-layout-home .header-greeting { color: var(--text-secondary); opacity: 1; }
+.app-layout-home .header-meal-label { color: var(--accent); letter-spacing: -.04em; }
+.app-layout-home .header-serving-label { color: var(--text-secondary); opacity: 1; }
+.app-layout-home .header-serving-label span { opacity: 1; }
+.app-layout-home .meal-card { border-radius: 24px; }
+.app-layout-home .today-label-nav button { background: linear-gradient(110deg, #ff7a20, #fc4d12); color: #fffaf0; box-shadow: 0 3px 10px #ee911f26; }
+.app-layout-home .today-label-nav button:hover { background: #de571c; }
+.app-layout-home .sidebar-link.active { background: #ffead7; color: #b94410; }
+.app-layout-home .persistent-install-pill { border-color: #f5c99f; }
+[data-theme="dark"] .app-layout-home {
+  --bg-primary: #191510;
+  --surface: #252019;
+  --surface-elevated: #302820;
+  --surface-glass: rgba(37, 32, 25, .94);
+  --text-primary: #fff6e9;
+  --text-secondary: #d3c2ad;
+  --text-muted: #b8a78f;
+  --accent: #ffab6e;
+  --accent-hover: #ffc392;
+  --accent-soft: rgba(255, 171, 110, .12);
+  --border: rgba(255, 201, 146, .13);
+}
+[data-theme="dark"] .app-layout-home .header { background: radial-gradient(ellipse at 95% 45%, #57361c, transparent 65%), linear-gradient(175deg, #191510, #302115, #191510); }
+[data-theme="dark"] .app-layout-home .header-menu-btn { background: #3b2c1f; }
+@media (max-width: 380px) {
+  .app-layout-home .brand-logo { width: 36px; height: 36px; }
+  .app-layout-home .header .brand-lockup { font-size: 21px; gap: 8px; }
+}
 
+/* Warm navigation drawer, matching the welcome screen. */
+.sidebar { background: #fff9f1; color: #101022; box-shadow: 8px 0 32px rgba(109, 67, 26, .12); }
+.sidebar .brand-lockup { color: #101022; }
+.sidebar-link, .sidebar-theme-toggle { color: #716c73; }
+.sidebar-link:hover { background: #fff0de; color: #101022; }
+.sidebar-link.active { background: #ffead7; color: #b94410; }
+.sidebar-footer { border-top-color: #eadbcc; }
+.sidebar .theme-switch { background: #e5d3bd; }
+.sidebar .theme-switch.dark { background: #e96322; }
+[data-theme="dark"] .sidebar { background: #252019; color: #fff6e9; }
+[data-theme="dark"] .sidebar .brand-lockup { color: #fff6e9; }
+[data-theme="dark"] .sidebar-link, [data-theme="dark"] .sidebar-theme-toggle { color: #d3c2ad; }
+[data-theme="dark"] .sidebar-link:hover { background: #3b2c1f; color: #fff6e9; }
+[data-theme="dark"] .sidebar .sidebar-link.active { background: #f5662226; color: #ffb477; }
+[data-theme="dark"] .sidebar-footer { border-top-color: #514130; }

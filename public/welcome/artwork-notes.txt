@@ -1,0 +1,6 @@
+Artwork for the welcome screen
+
+meal-tray.png was generated using the built-in imagegen tool.
+Prompt: Create a high quality website food illustration: a white rectangular compartment Indian mess meal tray viewed at three quarter overhead angle, rotated slightly clockwise, with fluffy white rice and cilantro in large compartment, orange dal with cilantro in upper compartment, chapati flatbreads, sliced red tomato purple onion and cucumber in right compartment. Tray resting on a folded golden yellow and cream gingham napkin. A few fresh green basil leaves around tray. Warm soft studio lighting, appetizing polished realistic 3D food photography, rich warm orange yellow colors. Entire tray and napkin visible, tightly composed, isolated on transparent background. No text, no letters, no logos, no UI. Image is an asset for a cream and orange food menu welcome page.
+
+reference-art.png is the user-provided design reference. The stylesheet displays its meal illustrations and decorative footer using CSS background positions. Headings, meal labels, branding and buttons are live UI.
