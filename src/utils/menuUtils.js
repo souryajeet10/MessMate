@@ -73,9 +73,11 @@ export async function updateDayMenu(dayName, dayObj, date = new Date()) {
 export async function setDayConfirmation(dayName, isConfirmed, date = new Date()) {
   const key = getMenuOverrideKey(dayName, date);
   if (!key) return;
-  const overrides = readLocalCache();
-  const baseDay = getMenuForDate(date)[dayName];
+  const dateMenu = getMenuForDate(date);
+  if (!dateMenu || !dateMenu[dayName]) return;
+  const baseDay = dateMenu[dayName];
 
+  const overrides = readLocalCache();
   if (!overrides[key]) {
     overrides[key] = { ...baseDay };
   }

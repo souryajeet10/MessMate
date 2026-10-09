@@ -1,0 +1,96 @@
+{
+  "title": "Mess Menu of 2nd & 4th Week",
+  "weeks": [2, 4],
+  "notes": [
+    "Do not waste food",
+    "Menu may change as per availability of raw materials"
+  ],
+  "days": {
+    "Monday": {
+      "breakfast": ["Masala Poha", "Ratlami Sev/Onion", "Fruit", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Green Salad", "Jeera Aloo", "Shahi Paneer", "Dal Fry", "Jeera Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Masala Maggi", "Tea", "Coffee"],
+      "dinner": ["Kachumber Salad", "Gatta Curry", "Subz Jaipuri", "Rajasthani Dal", "Rice", "Phulka", "Buttermilk"]
+    },
+    "Tuesday": {
+      "breakfast": ["Besan Chilla", "Chutney", "Maska Bun", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Onion in Imli Chutney", "Chole", "Bhature", "Boondi Raita", "Veg Biryani", "Phulka", "Rasna"],
+      "hi_tea": ["Masala Panipuri", "Tea", "Coffee"],
+      "dinner": ["Tomato Soup", "2 Types of Chutney", "Maysore Vada", "Idli", "Curd Rice", "Sabzi/Phulka (Optional)", "Kheer"]
+    },
+    "Wednesday": {
+      "breakfast": ["Bombay Sandwich", "Ketchup", "Fruit", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Papad Churi", "Lehsuni Palak Kofta", "Desi Chana Masala", "Yellow Dal Tadka", "Corn Pulao", "Phulka", "Buttermilk"],
+      "hi_tea": ["Yellow Dhokla", "Tea", "Coffee"],
+      "dinner": ["Hara Bhara Kebab", "Matar Paneer", "Dal Makhani", "Steamed Rice", "Tawa Paratha / Phulka", "Buttermilk"]
+    },
+    "Thursday": {
+      "breakfast": ["Veg Upma", "Coconut Chutney", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Peanut Salad", "Bharela Ringan", "Sev Tomato", "Masoor Dal", "Steamed Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Dal Vada", "Tea", "Coffee"],
+      "dinner": ["Laccha Payaz", "Soya Keema Masala", "Masala Pulao", "Bakery Kulcha", "Masala Chaach", "Phulka", "Fruit Custard"]
+    },
+    "Friday": {
+      "breakfast": ["Thepla", "Curd/Pickle", "Fruit", "Maska Bun", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Cucumber Salad", "Veg Jalfrezi", "Lobhiya Masala", "Dal Do Mel", "Jeera Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Vada Pav", "Tea", "Coffee"],
+      "dinner": ["Manchow Soup", "Chilli Paneer Gravy", "Veg Noodles", "Kimchi Rice", "Sabzi/Phulka (Optional)"]
+    },
+    "Saturday": {
+      "breakfast": ["Veg Hanvo", "Chutney", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Kachumber Salad", "Bhindi Do Pyaza", "Soyabean Curry", "Moong Dal", "Steamed Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Payaz Kachori", "Tea", "Coffee"],
+      "dinner": ["Cucumber Raita", "Veg Biryani", "Mirchi Ka Salan", "Aloo Capsicum", "Phulka", "Coconut Ladoo"]
+    },
+    "Sunday": {
+      "breakfast": ["Bengali Luchi Ghugni Chole", "Khaman", "Papadi Chat", "Muffins", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Jeera Rice", "Dal Tadka"],
+      "hi_tea": ["Veg Puff", "Tea", "Coffee"],
+      "dinner": ["Greek Salad", "Peri Peri Wedges", "Pink Sauce Pasta", "Rice Hotpot", "Sabzi/Phulka (Optional)", "Ice Tea"]
+    }
+  },
+  "menu": {
+    "Monday": {
+      "breakfast": ["Masala Poha", "Ratlami Sev/Onion", "Fruit", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Green Salad", "Jeera Aloo", "Shahi Paneer", "Dal Fry", "Jeera Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Masala Maggi", "Tea", "Coffee"],
+      "dinner": ["Kachumber Salad", "Gatta Curry", "Subz Jaipuri", "Rajasthani Dal", "Rice", "Phulka", "Buttermilk"]
+    },
+    "Tuesday": {
+      "breakfast": ["Besan Chilla", "Chutney", "Maska Bun", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Onion in Imli Chutney", "Chole", "Bhature", "Boondi Raita", "Veg Biryani", "Phulka", "Rasna"],
+      "hi_tea": ["Masala Panipuri", "Tea", "Coffee"],
+      "dinner": ["Tomato Soup", "2 Types of Chutney", "Maysore Vada", "Idli", "Curd Rice", "Sabzi/Phulka (Optional)", "Kheer"]
+    },
+    "Wednesday": {
+      "breakfast": ["Bombay Sandwich", "Ketchup", "Fruit", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Papad Churi", "Lehsuni Palak Kofta", "Desi Chana Masala", "Yellow Dal Tadka", "Corn Pulao", "Phulka", "Buttermilk"],
+      "hi_tea": ["Yellow Dhokla", "Tea", "Coffee"],
+      "dinner": ["Hara Bhara Kebab", "Matar Paneer", "Dal Makhani", "Steamed Rice", "Tawa Paratha / Phulka", "Buttermilk"]
+    },
+    "Thursday": {
+      "breakfast": ["Veg Upma", "Coconut Chutney", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Peanut Salad", "Bharela Ringan", "Sev Tomato", "Masoor Dal", "Steamed Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Dal Vada", "Tea", "Coffee"],
+      "dinner": ["Laccha Payaz", "Soya Keema Masala", "Masala Pulao", "Bakery Kulcha", "Masala Chaach", "Phulka", "Fruit Custard"]
+    },
+    "Friday": {
+      "breakfast": ["Thepla", "Curd/Pickle", "Fruit", "Maska Bun", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Cucumber Salad", "Veg Jalfrezi", "Lobhiya Masala", "Dal Do Mel", "Jeera Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Vada Pav", "Tea", "Coffee"],
+      "dinner": ["Manchow Soup", "Chilli Paneer Gravy", "Veg Noodles", "Kimchi Rice", "Sabzi/Phulka (Optional)"]
+    },
+    "Saturday": {
+      "breakfast": ["Veg Hanvo", "Chutney", "Bread - Plain / Toasted with Butter & Jam", "Baked Beans", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Kachumber Salad", "Bhindi Do Pyaza", "Soyabean Curry", "Moong Dal", "Steamed Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Payaz Kachori", "Tea", "Coffee"],
+      "dinner": ["Cucumber Raita", "Veg Biryani", "Mirchi Ka Salan", "Aloo Capsicum", "Phulka", "Coconut Ladoo"]
+    },
+    "Sunday": {
+      "breakfast": ["Bengali Luchi Ghugni Chole", "Khaman", "Papadi Chat", "Muffins", "Cereals - 2 Types", "Sprouts - 2 Types", "Detox Water", "Milk - Hot & Cold", "Tea & Coffee"],
+      "lunch": ["Jeera Rice", "Dal Tadka"],
+      "hi_tea": ["Veg Puff", "Tea", "Coffee"],
+      "dinner": ["Greek Salad", "Peri Peri Wedges", "Pink Sauce Pasta", "Rice Hotpot", "Sabzi/Phulka (Optional)", "Ice Tea"]
+    }
+  }
+}

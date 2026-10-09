@@ -8,7 +8,9 @@ export function getMealPackages(date, mealKey) {
     const sourceDate = new Date(date.getFullYear(), date.getMonth(), day);
     const rotation = getMenuRotationKey(sourceDate);
     if (!rotation || rotations.has(rotation)) continue;
-    rotations.set(rotation, getMenuForDate(sourceDate));
+    const menu = getMenuForDate(sourceDate);
+    if (!menu) continue;
+    rotations.set(rotation, menu);
   }
   return [...rotations].flatMap(([rotation, menu]) =>
     DAY_ORDER.flatMap((day) => {

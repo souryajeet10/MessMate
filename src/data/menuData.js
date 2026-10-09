@@ -4,6 +4,8 @@ import rawAugustMenu from "./auguyst menu.json" with { type: "json" };
 import rawSep2And4Menu from "./september_menu_2_4.json" with { type: "json" };
 // September 1st & 3rd week menu (flat array format)
 import rawSep1And3Menu from "./september_menu_1_3.json" with { type: "json" };
+// October 2nd & 4th week menu (flat array format)
+import rawOct2And4Menu from "./october_menu_2_4.json" with { type: "json" };
 
 const DAY_ORDER_LIST = [
   "Monday",
@@ -229,7 +231,8 @@ export function buildFlatDayMenu(rawData) {
  * { days: { Monday: { breakfast: [...], lunch: [...], hi_tea: [...], dinner: [...], dinner_theme: "..." } } }
  */
 export function buildArrayDayMenu(rawData) {
-  if (!rawData || !rawData.days) return {};
+  const daysData = rawData?.days || rawData?.menu;
+  if (!daysData) return {};
   const menu = {};
 
   DAY_ORDER_LIST.forEach((day) => {
@@ -240,7 +243,7 @@ export function buildArrayDayMenu(rawData) {
         ? saturdayTimings
         : defaultTimings;
 
-    const dayData = rawData.days[day] || {};
+    const dayData = daysData[day] || {};
 
     // Breakfast — skip the last entry (Tea/Coffee) as it's in beverages
     const bfArr = Array.isArray(dayData.breakfast) ? dayData.breakfast : [];
@@ -252,8 +255,8 @@ export function buildArrayDayMenu(rawData) {
 
     // Lunch
     const lunchArr = Array.isArray(dayData.lunch) ? dayData.lunch : [];
-    // last item may be a drink (Buttermilk / Jaljeera / Rasna / Shikanji)
-    const drinkKeywords = /buttermilk|jaljeera|rasna|shikanji|chaas|lassi/i;
+    // last item may be a drink (Buttermilk / Jaljeera / Rasna / Shikanji / Chaas)
+    const drinkKeywords = /buttermilk|jaljeera|rasna|shikanji|chaas|chaach|lassi/i;
     const lunchDrinkItem = lunchArr.find((v) => drinkKeywords.test(v));
     const lunchDrink = lunchDrinkItem || "Buttermilk";
     const lunchFoodRaw = lunchArr.filter(
@@ -269,7 +272,8 @@ export function buildArrayDayMenu(rawData) {
 
     // Dinner
     const dinnerArr = Array.isArray(dayData.dinner) ? dayData.dinner : [];
-    const dinnerDrinkItem = dinnerArr.find((v) => /ice tea|rasna|jaljeera|chaas|mint cooler/i.test(v));
+    const dinnerDrinkKeywords = /ice tea|rasna|jaljeera|chaas|chaach|mint cooler|buttermilk/i;
+    const dinnerDrinkItem = dinnerArr.find((v) => dinnerDrinkKeywords.test(v));
     const dinnerDrink = dinnerDrinkItem || null;
     const theme = dayData.dinner_theme || null;
     const dinnerFoodRaw = [
@@ -319,13 +323,18 @@ export const septWeeklyMenu2And4 = buildFlatDayMenu(rawSep2And4Menu);
 // Sep 1st & 3rd week menu built from flat-array-per-day format
 export const septWeeklyMenu1And3 = buildArrayDayMenu(rawSep1And3Menu);
 
+// ── October menus ─────────────────────────────────────────────────────────────
+// October 2nd & 4th week menu built from flat-array-per-day format
+export const octWeeklyMenu2And4 = buildArrayDayMenu(rawOct2And4Menu);
+// October 1st & 3rd week menu is not available yet
+export const octWeeklyMenu1And3 = null;
+
 export function getMenuRotationKey(date = new Date()) {
   const month = date.getMonth();
-  // October repeats the published September menu rotation.
+  // Supported months: August (7), September (8), October (9)
   if (month !== 7 && month !== 8 && month !== 9) return null;
 
   // Weeks run Monday–Sunday. The partial week containing the 1st is week 1.
-  // September 2026: 1–6, 7–13, 14–20, 21–27, 28–30.
   const firstDay = new Date(date.getFullYear(), month, 1);
   const mondayOffset = (firstDay.getDay() + 6) % 7;
   const weekNumber = Math.floor((date.getDate() - 1 + mondayOffset) / 7) + 1;
@@ -345,8 +354,13 @@ export function getMenuForDate(date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null; // No menu data for this month
 
-  // September and October use the published September rotations.
-  if (month === 8 || month === 9) {
+  // October: Weeks 2 & 4 are published; Weeks 1 & 3 are not available
+  if (month === 9) {
+    return rotationKey === "week_2_and_4" ? octWeeklyMenu2And4 : null;
+  }
+
+  // September: Weeks 2 & 4 and Weeks 1 & 3
+  if (month === 8) {
     return rotationKey === "week_2_and_4" ? septWeeklyMenu2And4 : septWeeklyMenu1And3;
   }
 

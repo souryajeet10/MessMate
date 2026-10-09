@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useSiteClock } from "../hooks/useSiteClock";
 
 // ── Menu Update Banner ────────────────────────────────────────────────────────
-const UPDATE_STORAGE_KEY = "messmate_sep_update_dismissed_v2";
-const UPDATE_FIRST_SHOWN_KEY = "messmate_sep_update_first_shown_v2";
+const UPDATE_STORAGE_KEY = "messmate_oct_update_dismissed_v1";
+const UPDATE_FIRST_SHOWN_KEY = "messmate_oct_update_first_shown_v1";
 const UPDATE_EXPIRY_DAYS = 5;
 
 function isUpdateExpired() {
@@ -102,10 +102,10 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
             <div className="menu-update-content">
               <div className="menu-update-header">
                 <span className="menu-update-badge">Menu Updated ✨</span>
-                <h3 className="menu-update-title">Full September Menu Live!</h3>
+                <h3 className="menu-update-title">October Menu (Weeks 2 & 4) Live!</h3>
               </div>
               <p className="menu-update-desc">
-                September menu has been updated. Check out this week's meals!
+                October 2nd & 4th week menu has been updated. Check out this week's meals!
               </p>
 
               {currentView === "today" && (
@@ -113,7 +113,7 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
                   type="button"
                   className="menu-update-action-btn"
                   onClick={() => navigate("/calendar")}
-                  aria-label="View September menu in calendar"
+                  aria-label="View October menu in calendar"
                 >
                   <Calendar size={13} />
                   <span>View Full Schedule</span>

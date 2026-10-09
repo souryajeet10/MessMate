@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function NoMenuBanner({ month = "this month" }) {
+export default function NoMenuBanner({ month = "this month", title = "Menu Not Available" }) {
   return (
     <motion.div
       className="no-menu-banner"
@@ -16,10 +16,9 @@ export default function NoMenuBanner({ month = "this month" }) {
       </div>
 
       <div className="no-menu-content">
-        <h2 className="no-menu-title">Menu Not Yet Announced</h2>
+        <h2 className="no-menu-title">{title}</h2>
         <p className="no-menu-subtitle">
-          The mess team is still cooking up the <strong>{month}</strong> menu.
-          Check back soon!
+          The mess team has not released the menu for this week yet. Check back soon for <strong>{month}</strong> updates!
         </p>
       </div>
 
