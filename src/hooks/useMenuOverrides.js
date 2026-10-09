@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { ref, onValue, off } from "firebase/database";
 import { db } from "../services/firebase";
 
-const LOCAL_CACHE_KEY = "messmate_menu_overrides";
+const LOCAL_CACHE_KEY = "messmate_menu_overrides_v2";
 
 function readLocalCache() {
   try {

@@ -12,7 +12,7 @@ const DAY_NAMES = [
   "Saturday",
 ];
 
-const LOCAL_CACHE_KEY = "messmate_menu_overrides";
+const LOCAL_CACHE_KEY = "messmate_menu_overrides_v2";
 
 // ─── Local Cache Helpers (offline fallback) ───────────────────────────────────
 
