@@ -6,6 +6,8 @@ import rawSep2And4Menu from "./september_menu_2_4.json" with { type: "json" };
 import rawSep1And3Menu from "./september_menu_1_3.json" with { type: "json" };
 // October 2nd & 4th week menu (flat array format)
 import rawOct2And4Menu from "./october_menu_2_4.json" with { type: "json" };
+// October 1st & 3rd week menu (flat array format)
+import rawOct1And3Menu from "./october_menu_1_3.json" with { type: "json" };
 
 const DAY_ORDER_LIST = [
   "Monday",
@@ -326,8 +328,8 @@ export const septWeeklyMenu1And3 = buildArrayDayMenu(rawSep1And3Menu);
 // ── October menus ─────────────────────────────────────────────────────────────
 // October 2nd & 4th week menu built from flat-array-per-day format
 export const octWeeklyMenu2And4 = buildArrayDayMenu(rawOct2And4Menu);
-// October 1st & 3rd week menu is not available yet
-export const octWeeklyMenu1And3 = null;
+// October 1st & 3rd week menu built from flat-array-per-day format
+export const octWeeklyMenu1And3 = buildArrayDayMenu(rawOct1And3Menu);
 
 export function getMenuRotationKey(date = new Date()) {
   const month = date.getMonth();
@@ -354,9 +356,9 @@ export function getMenuForDate(date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null; // No menu data for this month
 
-  // October: Weeks 2 & 4 are published; Weeks 1 & 3 are not available
+  // October: both week rotations are now published
   if (month === 9) {
-    return rotationKey === "week_2_and_4" ? octWeeklyMenu2And4 : null;
+    return rotationKey === "week_2_and_4" ? octWeeklyMenu2And4 : octWeeklyMenu1And3;
   }
 
   // September: Weeks 2 & 4 and Weeks 1 & 3

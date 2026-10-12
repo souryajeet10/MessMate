@@ -1,0 +1,60 @@
+{
+  "title": "Mess Menu OCT 2026",
+  "weeks": [1, 3],
+  "notes": [
+    "Khichdi in small portions daily.",
+    "Dessert: any 3 days.",
+    "Sunday is Brunch-Dinner."
+  ],
+  "days": {
+    "Monday": {
+      "breakfast": ["Moonglet", "Green Chutney", "Papaya", "Bread / Butter / Jam", "Cereals (2 types)", "Sprouts (2 types)", "Detox Water - Ginger Lemon", "Hot Milk & Cold Milk", "Tea / Coffee"],
+      "lunch": ["Green Salad", "Gwarfali", "Matar Paneer", "Dal Yellow Tadka", "Jeera Rice", "Fulka Roti", "Shikanji"],
+      "hi_tea": ["Chocolate Pancake", "Tea", "Coffee"],
+      "dinner": ["Cucumber Kosambari + Chutney", "Veg Uttapam + Vada", "Sambar", "Lemon Rice", "Roti (optional)", "Shikanji", "Rava Kesari"],
+      "dinner_theme": "Vanakkam Night"
+    },
+    "Tuesday": {
+      "breakfast": ["Veg Paratha", "Plain Curd", "Pickle", "Maska Bun", "Cereals (2 types)", "Sprouts (2 types)", "Detox Water - Orange Mint", "Hot Milk & Cold Milk", "Tea / Coffee"],
+      "lunch": ["Macroni Salad", "Mix Veg", "Soyabean Curry", "Arhar Dal", "Steamed Rice", "Phulka (optional)", "Buttermilk"],
+      "hi_tea": ["Mexican Corn Samosa", "Tea", "Coffee"],
+      "dinner": ["Lemon Coriander Soup", "Chopped Onion / Chilli / Lemon", "Pav Bhaji", "Tawa Masala Pulao", "Roti (optional)", "Shikanji"],
+      "dinner_theme": "Chatkara Street"
+    },
+    "Wednesday": {
+      "breakfast": ["Indori Poha", "Ratlami Sev / Lemon", "Watermelon", "Tutti Frutti Slice Cake", "Cereals (2 types)", "Boiled Sprouts (2 types)", "Detox Water - Cucumber Carrot", "Hot Milk & Cold Milk", "Tea / Coffee"],
+      "lunch": ["Onion in Imli Chutney", "Chole Bhature", "Veg Biryani", "Fulka Roti", "Raita", "Jaljeera"],
+      "hi_tea": ["Dhokla", "Tea", "Coffee"],
+      "dinner": ["Fryums", "Gujarati Dal + Lasaniya Batata Curry (Spicy)", "Bhat", "Roti (optional)", "Mohal Thal"],
+      "dinner_theme": "Rangeela Gujarat"
+    },
+    "Thursday": {
+      "breakfast": ["Veg Upma", "Green Chutney", "Tomato Ketchup", "Bread / Butter / Jam", "Cereals (2 types)", "Sprouts (2 types)", "Detox Water - Mint Beetroot", "Hot Milk & Cold Milk", "Tea / Coffee"],
+      "lunch": ["Green Salad", "Aloo Methi", "Rajma Rasedar", "Jeera Rice", "Phulka", "Buttermilk"],
+      "hi_tea": ["Bhelpuri", "Tea", "Coffee"],
+      "dinner": ["Tomato Soup", "Greek Salad", "Red Sauce Pasta + Green Thai Curry (Spicy)", "Steamed Rice", "Roti (optional)", "Buttermilk"],
+      "dinner_theme": "Italiano"
+    },
+    "Friday": {
+      "breakfast": ["Veg Sandwich", "Green Chutney", "Maska Bun", "Cereals (2 types)", "Boiled Sprouts (2 types)", "Detox Water - Lemon Mint", "Hot Milk & Cold Milk", "Tea / Coffee"],
+      "lunch": ["Kachumbar Salad", "Cabbage Matar", "Amritsari Paneer", "Moong Masoor Dal", "Jeera Rice", "Fulka Roti", "Buttermilk"],
+      "hi_tea": ["Aloo Bonda", "Tea", "Coffee"],
+      "dinner": ["Fried Chilli with Sliced Onions", "Aloo Bhujiya", "Arhar Dal", "Steam Rice", "Roti", "Buttermilk", "Vanilla Ice Cream"],
+      "dinner_theme": "Bihar Ki Rasoi"
+    },
+    "Saturday": {
+      "breakfast": ["Masala Idli", "Green Chutney", "Papaya", "Bread / Butter / Jam", "Cereals (2 types)", "Boiled Sprouts (2 types)", "Detox Water - Ginger Carrot", "Hot Milk & Cold Milk", "Tea / Coffee"],
+      "lunch": ["Lachha Onion Masala", "Palak Tamatar Dry", "Punjabi Kadhi", "Steamed Rice", "Fulka Roti", "Rasna"],
+      "hi_tea": ["Ragda Pani Puri", "Tea", "Coffee"],
+      "dinner": ["Hot N Sour Soup", "Crispy Corn", "Veg Manchurian Gravy", "Spicy Veg Fried Rice", "Roti (optional)", "Buttermilk"],
+      "dinner_theme": "Chinatown Fest"
+    },
+    "Sunday": {
+      "breakfast": ["Aloo Sabzi + Kachori", "Dahi Bhalla", "Kali Mari Dhokla", "Papaya", "Dry Fruit Cake", "Cereals (2 types)", "Boiled Sprouts (2 types)", "Dal Panchmel", "Steam Rice", "Detox Water - Orange Mint Ginger", "Hot Milk & Cold Milk", "Tea / Coffee"],
+      "lunch": [],
+      "hi_tea": ["Chinese Puff", "Tea", "Coffee"],
+      "dinner": ["Greek Salad", "Hara Bhara Kebab", "Teen Mirch Ka Paneer + Dal Makhni", "Steamed Rice", "Tawa Paranthas"],
+      "dinner_theme": "Punjab Da Swag"
+    }
+  }
+}
