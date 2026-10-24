@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, UtensilsCrossed, Calendar, Shield, Moon, Sun } from "lucide-react";
+import { X, UtensilsCrossed, Calendar, Moon, Sun } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import Brand from "./Brand";
 
@@ -29,6 +29,15 @@ export default function Sidebar({ isOpen, onClose }) {
       <nav className={`sidebar ${isOpen ? "open" : ""}`} id="sidebar">
         <div className="sidebar-brand">
           <Brand />
+          <button
+            type="button"
+            className="sidebar-close-btn"
+            onClick={onClose}
+            aria-label="Close menu"
+            id="sidebar-close-btn"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         <div className="sidebar-nav">

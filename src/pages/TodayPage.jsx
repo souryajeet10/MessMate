@@ -2,19 +2,17 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { getDayMenu, getTodayName, getMealStatus, formatDate } from "../utils/menuUtils";
-import { MEAL_ORDER, DAY_ORDER } from "../data/menuData";
+import { getDayMenu, getTodayName, getMealStatus } from "../utils/menuUtils";
+import { MEAL_ORDER } from "../data/menuData";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import Header from "../components/Header";
 import MealCard from "../components/MealCard";
 import NoMenuBanner from "../components/NoMenuBanner";
-
 import { useSiteClock } from "../hooks/useSiteClock";
 
 export default function TodayPage({ onMenuClick }) {
   const navigate = useNavigate();
   const { now: today } = useSiteClock();
-  const todayName = getTodayName(today);
 
   const [dayOffset, setDayOffset] = useState(0);
   const { overrides } = useMenuOverrides();
@@ -65,91 +63,98 @@ export default function TodayPage({ onMenuClick }) {
 
   return (
     <div className="page-enter">
-      <Header onMenuClick={onMenuClick} />
+      <Header onMenuClick={onMenuClick} formattedDate={formattedDate} />
 
-
-      {/* Date display */}
+      {/* Date display (mobile only) */}
       <div className="today-date-strip">
         <span className="today-date-text">{formattedDate}</span>
       </div>
 
-      {/* Currently Serving — Hero Card (Above Today's Menu label) */}
-      {servingMeal && (
-        <div className="serving-hero-container">
-          <div className="serving-hero-section">
-            <p className="serving-hero-label">🟢 Currently Serving</p>
-            <MealCard
-              mealKey={servingMeal.mealKey}
-              mealData={servingMeal.mealData}
-              status={servingMeal.status}
-              date={selectedDate}
-              isConfirmed={dayMenu?.isConfirmed ?? true}
-              index={0}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Section label */}
-      <div className="today-label">
-        <span className="today-label-text">
-          {isToday ? "Today's" : selectedDayName + "'s"} Menu for United Homes
-        </span>
-        <div className="today-label-nav">
-          <button
-            onClick={() => navigate("/calendar")}
-            aria-label="View calendar"
-            id="today-calendar-btn"
-            title="Calendar view"
-          >
-            <Calendar size={16} />
-          </button>
-          <button onClick={goPrev} aria-label="Previous day" id="today-prev-btn" title="Previous day">
-            <ChevronLeft size={16} />
-          </button>
-          {!isToday && (
-            <button onClick={goToday} aria-label="Back to today" id="today-today-btn" title="Back to today">
-              Today
-            </button>
-          )}
-          <button onClick={goNext} aria-label="Next day" id="today-next-btn" title="Next day">
-            <ChevronRight size={16} />
-          </button>
-        </div>
-      </div>
-
-      {/* Remaining Meal cards Grid */}
-      <div className="meals-container">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={selectedDate.toDateString()}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.25 }}
-          >
-            {!dayMenu ? (
-              <NoMenuBanner
-                month={selectedDate.toLocaleDateString("en-IN", { month: "long" })}
-              />
-            ) : otherMeals.length > 0 ? (
-              <div className="meals-grid">
-                {otherMeals.map((m, i) => (
-                  <MealCard
-                    key={m.mealKey}
-                    mealKey={m.mealKey}
-                    mealData={m.mealData}
-                    status={m.status}
-                    date={selectedDate}
-                    isConfirmed={dayMenu?.isConfirmed ?? true}
-                    index={i}
-                  />
-                ))}
+      {/* Main Grid Wrapper for Desktop */}
+      <main className={`today-main-layout ${servingMeal ? "has-serving" : "no-serving"}`}>
+        {/* Left Column: Currently Serving Meal Card */}
+        {servingMeal && (
+          <section className="today-primary-col" aria-label="Currently Serving">
+            <div className="serving-hero-container">
+              <div className="serving-hero-section">
+                <p className="serving-hero-label">🟢 Currently Serving</p>
+                <MealCard
+                  mealKey={servingMeal.mealKey}
+                  mealData={servingMeal.mealData}
+                  status={servingMeal.status}
+                  date={selectedDate}
+                  isConfirmed={dayMenu?.isConfirmed ?? true}
+                  index={0}
+                />
               </div>
-            ) : null}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+            </div>
+          </section>
+        )}
+
+        {/* Right Column: Other Meals & Navigation */}
+        <section className="today-secondary-col" aria-label="Today's Other Meals">
+          {/* Section label */}
+          <div className="today-label">
+            <span className="today-label-text">
+              {isToday ? "Today's" : selectedDayName + "'s"} Menu for United Homes
+            </span>
+            <div className="today-label-nav">
+              <button
+                onClick={() => navigate("/calendar")}
+                aria-label="View calendar"
+                id="today-calendar-btn"
+                title="Calendar view"
+              >
+                <Calendar size={16} />
+              </button>
+              <button onClick={goPrev} aria-label="Previous day" id="today-prev-btn" title="Previous day">
+                <ChevronLeft size={16} />
+              </button>
+              {!isToday && (
+                <button onClick={goToday} aria-label="Back to today" id="today-today-btn" title="Back to today">
+                  Today
+                </button>
+              )}
+              <button onClick={goNext} aria-label="Next day" id="today-next-btn" title="Next day">
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Remaining Meal cards Grid */}
+          <div className="meals-container">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedDate.toDateString()}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.25 }}
+              >
+                {!dayMenu ? (
+                  <NoMenuBanner
+                    month={selectedDate.toLocaleDateString("en-IN", { month: "long" })}
+                  />
+                ) : otherMeals.length > 0 ? (
+                  <div className="meals-grid">
+                    {otherMeals.map((m, i) => (
+                      <MealCard
+                        key={m.mealKey}
+                        mealKey={m.mealKey}
+                        mealData={m.mealData}
+                        status={m.status}
+                        date={selectedDate}
+                        isConfirmed={dayMenu?.isConfirmed ?? true}
+                        index={i}
+                      />
+                    ))}
+                  </div>
+                ) : null}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

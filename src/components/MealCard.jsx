@@ -38,7 +38,12 @@ export default function MealCard({ mealKey, mealData, status, date, isConfirmed 
             <p className="meal-card-subject-to-change">⚠️ Subject to change on the day</p>
           )}
         </div>
-        <span className={`meal-card-status ${status}`}>{statusLabel}</span>
+        <div className="meal-card-header-right">
+          <div className="meal-card-illustration desktop-illustration" aria-hidden="true">
+            {emojis}
+          </div>
+          <span className={`meal-card-status ${status}`}>{statusLabel}</span>
+        </div>
       </div>
 
       <div className="meal-card-timing">
@@ -51,27 +56,34 @@ export default function MealCard({ mealKey, mealData, status, date, isConfirmed 
       {/* Food items */}
       <div className="meal-card-body">
         <div className="meal-card-info">
-          <div className="meal-card-food-items">
-            <strong>Food : </strong>
-            {mealData.food.map((dishId, idx) => {
-              const dishName = getDishName(dishId);
-              return (
-                <span key={idx} className="food-item-span">
-                  {dishName}
-                  {idx < mealData.food.length - 1 ? " , " : ""}
-                </span>
-              );
-            })}
+          <div className="meal-card-food-items meal-card-group meal-card-food-group">
+            <strong className="meal-group-label">Food : </strong>
+            <div className="meal-items-wrapper">
+              {mealData.food.map((dishId, idx) => {
+                const dishName = getDishName(dishId);
+                return (
+                  <span key={idx} className="food-item-span meal-item-chip">
+                    <span className="food-item-name">{dishName}</span>
+                  </span>
+                );
+              })}
+            </div>
           </div>
 
           {mealData.beverages && mealData.beverages.length > 0 && (
-            <p className="meal-card-beverages">
-              <strong>Beverages : </strong>
-              {mealData.beverages.join(" , ")}
-            </p>
+            <div className="meal-card-beverages meal-card-group meal-card-beverages-group">
+              <strong className="meal-group-label">Beverages : </strong>
+              <div className="meal-items-wrapper">
+                {mealData.beverages.map((bev, idx) => (
+                  <span key={idx} className="food-item-span meal-item-chip">
+                    <span className="food-item-name">{bev}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
           )}
         </div>
-        <div className="meal-card-illustration">{emojis}</div>
+        <div className="meal-card-illustration mobile-illustration">{emojis}</div>
       </div>
       {date && <MealVote date={date} mealKey={mealKey} mealTitle={mealTitle} timing={mealData.timing} />}
     </motion.div>

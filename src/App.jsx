@@ -7,6 +7,7 @@ import CalendarView from "./components/CalendarView";
 
 import Sidebar from "./components/Sidebar";
 import BottomNav from "./components/BottomNav";
+import DesktopNav from "./components/DesktopNav";
 import AdminPanel from "./components/AdminPanel";
 import Footer from "./components/Footer";
 import InstallPrompt from "./components/InstallPrompt";
@@ -36,6 +37,9 @@ function AppContent() {
     <div className={`app-layout${location.pathname === "/" ? " app-layout-home" : ""}`}>
       {!isWelcomePage && (
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      )}
+      {!isWelcomePage && hasWelcomed && (
+        <DesktopNav onMenuClick={() => setSidebarOpen(true)} />
       )}
 
       <Routes>

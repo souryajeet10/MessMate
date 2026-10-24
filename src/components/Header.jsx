@@ -6,12 +6,19 @@ import Brand from "./Brand";
 import { getGreeting, getCurrentMealLabel } from "../utils/menuUtils";
 import { useSiteClock } from "../hooks/useSiteClock";
 
-export default function Header({ onMenuClick }) {
+export default function Header({ onMenuClick, formattedDate }) {
   const { now } = useSiteClock();
   const greeting = getGreeting(now);
   const mealLabel = getCurrentMealLabel(now);
   const reducedMotion = useReducedMotion();
   const [showIntro, setShowIntro] = useState(() => !headerIntroPlayed);
+
+  const displayDate = formattedDate || now.toLocaleDateString("en-IN", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   useEffect(() => {
     headerIntroPlayed = true;
@@ -55,11 +62,19 @@ export default function Header({ onMenuClick }) {
           <Menu size={24} />
         </button>
       </div>
-      <p className="header-greeting">{greeting} !</p>
-      <h1 className="header-meal-label">{mealLabel}</h1>
-      <p className="header-serving-label">
-        Currently Serving in <span>United Homes</span>
-      </p>
+
+      <div className="header-hero-content">
+        <div className="header-hero-left">
+          <p className="header-greeting">{greeting} !</p>
+          <h1 className="header-meal-label">{mealLabel}</h1>
+        </div>
+        <div className="header-hero-right">
+          <p className="header-desktop-date">{displayDate}</p>
+          <p className="header-serving-label">
+            Currently Serving in <span>United Homes</span>
+          </p>
+        </div>
+      </div>
     </header>
   );
 }
