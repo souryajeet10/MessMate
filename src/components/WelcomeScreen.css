@@ -62,7 +62,41 @@
 .welcome-meal-arrow svg { width: 23px; }
 .welcome-closing { width: 100%; margin: 24px auto 0; aspect-ratio: 884 / 400; max-height: 510px; background: url('/welcome/reference-art.png') center 94.27% / 100% auto no-repeat; }
 .welcome-footer { position: relative; text-align: center; padding: 16px 20px max(35px, env(safe-area-inset-bottom)); color: #85808a; font-size: 19px; background: #fff9f1; }
-@media (min-width: 1200px) { .welcome-hero-art { right: -12%; width: 54%; top: 95px; } .welcome-closing { background-size: 100% auto; } }
+/* Desktop/tablet uses two real columns so artwork never covers the copy. */
+@media (min-width: 701px) {
+  .welcome-screen { min-height: calc(100dvh - 48px); }
+  .welcome-screen::before { inset: 70px -20% auto -15%; height: 620px; }
+  .welcome-header { padding: 22px 40px; }
+  .welcome-brand { gap: 12px; font-size: 28px; letter-spacing: -1px; }
+  .welcome-brand-icon { width: 48px; height: 48px; }
+  .welcome-location { padding: 12px 20px; font-size: 15px; gap: 10px; }
+  .welcome-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 24px;
+    min-height: 0;
+    padding: 20px 40px 32px;
+  }
+  .welcome-tagline { font-size: 11px; letter-spacing: 2px; margin-bottom: 22px; padding-left: 36px; }
+  .welcome-tagline::before { width: 24px; top: 14px; }
+  .welcome-title { font-size: clamp(38px, 4.6vw, 62px); letter-spacing: -2px; line-height: 1.06; }
+  .welcome-subtitle { font-size: 21px; margin-top: 18px; }
+  .welcome-cta { margin-top: 24px; padding: 15px 24px; font-size: 20px; border-radius: 20px; gap: 28px; }
+  .welcome-cta svg { width: 24px; height: 24px; }
+  .welcome-hero-art { position: static; width: 100%; max-height: 360px; object-fit: contain; }
+  .welcome-spark { right: 36%; top: 18px; font-size: 54px; }
+  .welcome-menu-card { margin: 0 40px; padding: 20px; border-radius: 28px; }
+  .welcome-eyebrow { font-size: 10px; letter-spacing: 2px; }
+  .welcome-card-heading h2 { font-size: 30px; letter-spacing: -1px; line-height: 1.2; }
+  .welcome-card-heading::after { margin: 9px auto 12px; }
+  .welcome-meals { gap: 14px; }
+  .welcome-meal { padding: 10px; gap: 4px; font-size: 18px; border-radius: 20px; }
+  .welcome-meal-art { max-width: 115px; }
+  .welcome-meal-arrow { width: 28px; height: 28px; }
+  .welcome-meal-arrow svg { width: 18px; }
+  .welcome-closing { max-width: 480px; margin-top: 12px; }
+  .welcome-footer { padding: 12px 20px 24px; font-size: 14px; }
+}
 @media (max-width: 700px) {
   .welcome-header { padding: 20px 22px; gap: 10px; }
   .welcome-brand { gap: 10px; font-size: 25px; letter-spacing: -1px; }
