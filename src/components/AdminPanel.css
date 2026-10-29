@@ -60,15 +60,45 @@
 [data-theme="dark"] .admin-page { --admin-accent: #ffb077; --admin-tint: #38271e; }
 [data-theme="dark"] .admin-page :is(.admin-meal-tab.active, .admin-save-btn) { background: #a43e12; color: #fff; }
 @media (max-width: 800px) {
-  .admin-page { padding: 24px 16px 40px; }
+  .admin-page { width: 100%; min-width: 0; padding: 20px 16px max(32px, env(safe-area-inset-bottom)); }
+  .admin-page .admin-header { margin-bottom: 20px; }
+  .admin-page .messit-date-carousel { padding: 0; gap: 8px; min-width: 0; }
+  .admin-page .messit-date-pills { min-width: 0; flex: 1; scroll-snap-type: x proximity; }
+  .admin-page .messit-date-pill { flex: 0 0 48px; scroll-snap-align: center; }
+  .admin-page .messit-nav-arrow { width: 44px; height: 44px; }
+  .admin-page .admin-cat-btn { min-height: 44px; }
+  .admin-page .admin-selected-chip button { width: 44px; height: 44px; }
+  .admin-page :is(.prefed-search-input, .admin-package-picker select) { font-size: 16px; }
+  .admin-package-body { min-width: 0; }
+  .admin-page .admin-package-picker select { max-width: 100%; text-overflow: ellipsis; }
+  .admin-page .admin-card-sub { overflow-wrap: anywhere; }
+  .admin-page .admin-actions { align-items: stretch; }
+  .admin-page .admin-actions > * { width: 100%; }
+  .admin-page .admin-reset-btn { justify-content: center; min-height: 48px; white-space: normal; }
+  .admin-maintenance { padding: 14px; }
+  .admin-page summary { min-height: 44px; padding-block: 10px; }
   .admin-editor-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .admin-page .admin-selected-dishes-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .admin-page .admin-card-row { flex-direction: row; align-items: center; }
   .admin-page .admin-toggle-switch { width: auto; }
 }
 @media (max-width: 480px) {
+  .admin-page { padding-inline: 12px; }
+  .admin-page .admin-card-row { align-items: stretch; flex-direction: column; }
+  .admin-page .admin-toggle-switch { min-height: 44px; justify-content: center; width: 100%; }
+  .admin-page .admin-card { padding: 16px; }
   .admin-page .admin-meal-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-page .admin-meal-tab { flex-direction: row; gap: 8px; font-size: 14px; }
   .admin-selection-panel, .admin-page .admin-dish-picker-card { padding: 16px; }
-  .admin-page .prefed-dishes-grid { grid-template-columns: minmax(0, 1fr); max-height: 400px; }
+  .admin-page .prefed-dishes-grid { grid-template-columns: minmax(0, 1fr); max-height: min(480px, 60dvh); overscroll-behavior: auto; }
   .admin-page .admin-selected-dishes-chips { grid-template-columns: minmax(0, 1fr); }
+}
+@media (min-width: 1024px) {
+  .admin-page { max-width: none; width: 100%; padding-inline: 32px; }
+}
+@media (max-width: 480px) {
+  .admin-gate-wrap { padding: 24px 16px; }
+  .admin-gate-card { min-width: 0; width: 100%; padding: 24px 20px; }
+  .admin-gate-input { min-width: 0; font-size: 16px; }
+  .admin-gate-eye { min-width: 44px; min-height: 44px; }
 }

@@ -9,6 +9,7 @@ import Header from "../components/Header";
 import MealCard from "../components/MealCard";
 import NoMenuBanner from "../components/NoMenuBanner";
 import { useSiteClock } from "../hooks/useSiteClock";
+import "./TodayPage.css";
 
 export default function TodayPage({ onMenuClick }) {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ export default function TodayPage({ onMenuClick }) {
   }
 
   return (
-    <div className="page-enter">
+    <div className="today-page page-enter">
       <Header onMenuClick={onMenuClick} formattedDate={formattedDate} />
 
       {/* Date display (mobile only) */}
@@ -125,6 +126,7 @@ export default function TodayPage({ onMenuClick }) {
           <div className="meals-container">
             <AnimatePresence mode="wait">
               <motion.div
+                className="today-meals-transition"
                 key={selectedDate.toDateString()}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}

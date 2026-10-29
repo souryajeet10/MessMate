@@ -1890,17 +1890,17 @@ body:has(.brand-intro) .bottom-nav {
   }
 
   .admin-meal-tabs {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 4px !important;
-    overflow: visible !important;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    overflow: visible;
   }
 
   .admin-meal-tab {
-    padding: 8px 2px !important;
-    font-size: 0.72rem !important;
-    flex-direction: column !important;
-    gap: 2px !important;
+    padding: 8px 2px;
+    font-size: 0.72rem;
+    flex-direction: column;
+    gap: 2px;
     text-align: center;
   }
 
@@ -2930,21 +2930,22 @@ body:has(.brand-intro) .bottom-nav {
     background-color: #0d0a08;
   }
 
-  /* Max-width container (~1200px), centered, with consistent horizontal padding (32px) */
+  /* Edge-to-edge desktop shell; individual sections provide their own gutters. */
   .app-layout {
-    max-width: 1200px;
-    margin: 24px auto 48px;
-    border-radius: 28px;
-    border: 1px solid var(--border);
-    box-shadow: 0 16px 48px rgba(70, 45, 15, 0.08);
-    min-height: calc(100vh - 48px);
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    min-height: 100dvh;
     overflow: hidden;
     background: var(--bg-primary);
   }
 
   [data-theme="dark"] .app-layout {
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
-    border: 1px solid rgba(255, 201, 146, 0.12);
+    box-shadow: none;
+    border: 0;
   }
 
   /* Desktop Top Navigation */
@@ -2961,7 +2962,7 @@ body:has(.brand-intro) .bottom-nav {
   }
 
   .desktop-nav-inner {
-    max-width: 1200px;
+    max-width: none;
     margin: 0 auto;
     padding: 12px 32px;
     display: flex;
@@ -3305,7 +3306,7 @@ body:has(.brand-intro) .bottom-nav {
 
   /* Calendar Page */
   .weekly-page {
-    max-width: 1200px;
+    max-width: none;
     margin: 0 auto;
     padding: 28px 32px 80px;
     width: 100%;

@@ -1,0 +1,60 @@
+/* A single desktop meal grid; phone layouts retain their existing flow. */
+@media (min-width: 1024px) {
+  .today-page .header { padding: 26px 32px !important; max-height: none; }
+  .today-page .header-hero-left { align-items: flex-start; }
+  .today-page .header-hero-left .header-greeting { text-align: left; font-size: 12px; letter-spacing: 1.5px; }
+  .today-page .header-hero-left .header-meal-label { font-size: clamp(28px, 2.6vw, 36px); margin-top: 6px; }
+  .today-page .header-desktop-date { font-size: 14px; }
+  .today-page .today-main-layout {
+    max-width: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+    padding: 24px 32px 40px;
+  }
+  /* Flatten the mobile sections into one grid without duplicating meal cards. */
+  .today-page :is(.today-primary-col, .today-secondary-col, .serving-hero-container,
+    .serving-hero-section, .meals-container, .today-meals-transition, .meals-grid) {
+    display: contents;
+  }
+  .today-page .today-main-layout .meals-grid { display: contents; }
+  .today-page .serving-hero-label { display: none; }
+  .today-page .today-main-layout .today-label {
+    grid-column: 1 / -1;
+    order: -1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: none;
+    margin: 0;
+    padding: 0 0 4px;
+  }
+  .today-page .today-label-text { font-size: 18px; font-weight: 700; color: var(--text-primary); }
+  .today-page .today-label-nav { display: flex; align-items: center; gap: 8px; padding: 5px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+  .today-page .today-label-nav button { min-width: 40px; min-height: 40px; border-radius: 11px; background: var(--bg-primary); color: var(--text-primary); box-shadow: none; }
+  .today-page .today-label-nav button:hover { background: #fff0e2; color: #a63d12; transform: none; }
+  .today-page .today-label-nav button:focus-visible { outline: 2px solid #c54b16; outline-offset: 2px; }
+  .today-page .today-main-layout .meal-card {
+    min-width: 0;
+    margin: 0;
+    padding: 22px 24px;
+    border-radius: 20px;
+    background: var(--surface);
+    box-shadow: 0 4px 16px rgba(70, 45, 15, .045);
+  }
+  .today-page .today-main-layout .meal-card.serving { border-color: rgba(16, 185, 129, .25); border-left: 4px solid var(--status-serving); background: linear-gradient(120deg, var(--surface), var(--bg-primary)); }
+  .today-page .today-main-layout .meal-card.ended { opacity: 1; }
+  .today-page .today-main-layout .meal-card-name { font-size: 20px; letter-spacing: -.3px; }
+  .today-page .meal-card-header { align-items: flex-start; gap: 16px; }
+  .today-page .meal-card-header-right { flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+  .today-page .meal-card-timing { margin: 12px 0 18px; color: var(--text-secondary); }
+  .today-page .meal-group-label { font-size: 11px; color: var(--text-secondary); letter-spacing: 1px; }
+  .today-page .meal-card-group:last-child { margin-bottom: 0; }
+  .today-page .today-main-layout .meal-item-chip { padding: 5px 11px; font-size: 13px; box-shadow: none; max-width: 100%; overflow-wrap: anywhere; }
+  .today-page .meal-items-wrapper { gap: 7px; }
+  .today-page .meal-vote { margin-top: 18px; padding-top: 14px; }
+  .today-page .no-menu-banner { grid-column: 1 / -1; }
+  [data-theme="dark"] .today-page .today-label-nav button:hover { background: #38271e; color: #ffb077; }
+  [data-theme="dark"] .today-page .today-label-nav button:focus-visible { outline-color: #ffb077; }
+}
