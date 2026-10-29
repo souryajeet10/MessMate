@@ -5,13 +5,13 @@ import "./WelcomeScreen.css";
 
 const MEALS = ["Breakfast", "Lunch", "Snacks", "Dinner"];
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ onComplete }) {
   const navigate = useNavigate();
   const reducedMotion = useReducedMotion();
 
   const handleEnter = () => {
-    localStorage.setItem("messmate_welcomed", "true");
-    navigate("/");
+    onComplete();
+    navigate("/", { replace: true });
   };
 
   return (

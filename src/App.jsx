@@ -21,7 +21,12 @@ function AppContent() {
   });
   const location = useLocation();
 
-  // Listen for welcome completion
+  const handleWelcomeComplete = () => {
+    localStorage.setItem("messmate_welcomed", "true");
+    setHasWelcomed(true);
+  };
+
+  // Keep welcome state in sync when it changes in another browser tab.
   useEffect(() => {
     const checkWelcome = () => {
       setHasWelcomed(localStorage.getItem("messmate_welcomed") === "true");
@@ -29,7 +34,7 @@ function AppContent() {
     window.addEventListener("storage", checkWelcome);
     checkWelcome();
     return () => window.removeEventListener("storage", checkWelcome);
-  }, [location]);
+  }, []);
 
   const isWelcomePage = location.pathname === "/welcome";
 
@@ -45,7 +50,7 @@ function AppContent() {
       <Routes>
         <Route
           path="/welcome"
-          element={<WelcomeScreen />}
+          element={<WelcomeScreen onComplete={handleWelcomeComplete} />}
         />
         <Route
           path="/"
