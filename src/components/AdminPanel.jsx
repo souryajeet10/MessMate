@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, CheckCircle, AlertCircle, RotateCcw, Check, ChevronLeft, ChevronRight, Plus, X, Search, Zap, Lock, Eye, EyeOff, Smartphone } from "lucide-react";
 import { getDayMenu, updateDayMenu, resetMenuOverrides } from "../utils/menuUtils";
@@ -7,6 +8,7 @@ import { DISHES_CATALOG, getDishName } from "../data/dishesCatalog";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import { getMealPackages, applyMealPackage } from "../utils/mealPackages";
 import { useSiteClock } from "../hooks/useSiteClock";
+import "./AdminPanel.css";
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -107,7 +109,9 @@ function MealPackagePicker({ date, mealKey, disabled, onApply }) {
   const selected = packages.find((item) => item.id === selectedId);
 
   return (
-    <div className="admin-package-picker">
+    <details className="admin-package-picker">
+      <summary>Use a weekly meal package</summary>
+      <div className="admin-package-body">
       <label htmlFor="meal-package-select"><strong>Choose a meal package</strong></label>
       <p className="admin-dish-picker-sub">
         Pick a weekly menu package to replace this meal’s dishes and drinks in one step.
@@ -129,7 +133,8 @@ function MealPackagePicker({ date, mealKey, disabled, onApply }) {
         <Check size={16} /> Apply package to {MEAL_NAMES[mealKey]}
       </button>
       <p className="admin-dish-picker-sub">Applies immediately. Serving times stay the same. You can fine-tune dishes below.</p>
-    </div>
+      </div>
+    </details>
   );
 }
 
@@ -272,6 +277,7 @@ function AdminPanelContent() {
   });
 
   const safeDayMenu = resolvedDayMenu || { isConfirmed: false };
+  const selectedFood = safeDayMenu[activeMealEdit]?.food || [];
 
   return (
     <div className="admin-page page-enter">
@@ -292,13 +298,17 @@ function AdminPanelContent() {
       </AnimatePresence>
 
       <div className="admin-header">
+        <Link to="/" className="admin-back-link"><ChevronLeft size={16} /> Back to today’s menu</Link>
         <div className="admin-badge">
           <Shield size={15} /> Mess Manager Portal
         </div>
-        <h1 className="admin-title">Manager Menu Editor</h1>
+        <h1 className="admin-title">Manage the menu</h1>
         <p className="admin-subtitle">
           Choose a date and meal, then apply a weekly menu package or edit individual dishes.
-          Changes sync instantly to all student devices via Firebase.
+          Edits save automatically.
+        </p>
+        <p className="admin-save-status" role="status" aria-live="polite">
+          {isSaving ? "Saving changes…" : "Changes apply immediately to the selected date"}
         </p>
       </div>
 
@@ -344,7 +354,7 @@ function AdminPanelContent() {
       <div className="admin-card">
         <div className="admin-card-row">
           <div>
-            <h3 className="admin-card-day">{formattedSelectedDate} ({selectedDayName})</h3>
+            <h3 className="admin-card-day">{formattedSelectedDate}</h3>
             <p className="admin-card-sub">
               Menu Status:{" "}
               <strong style={{ color: safeDayMenu.isConfirmed ? "#10B981" : "#F59E0B" }}>
@@ -357,6 +367,8 @@ function AdminPanelContent() {
             className={`admin-toggle-switch ${safeDayMenu.isConfirmed ? "confirmed" : "planned"}`}
             onClick={handleConfirmationToggle}
             disabled={isSaving}
+            aria-pressed={!!safeDayMenu.isConfirmed}
+            aria-label={safeDayMenu.isConfirmed ? "Mark menu as planned" : "Confirm this menu"}
           >
             {safeDayMenu.isConfirmed ? (
               <>
@@ -383,6 +395,7 @@ function AdminPanelContent() {
               className={`admin-meal-tab ${activeMealEdit === mealKey ? "active" : ""}`}
               onClick={() => setActiveMealEdit(mealKey)}
               disabled={isSaving}
+              aria-pressed={activeMealEdit === mealKey}
             >
               <span>{mealTitle}</span>
               <span className="admin-meal-tab-count">{count}</span>
@@ -392,6 +405,13 @@ function AdminPanelContent() {
       </div>
 
       {/* Selected Meal Pre-fed Dish Selector */}
+      <div className="admin-editor-layout">
+      <aside className="admin-selection-panel" aria-label="Selected meal">
+      <div className="admin-selection-heading">
+        <span className="admin-section-label">Selected meal</span>
+        <h2>{MEAL_NAMES[activeMealEdit]}</h2>
+        <p>{selectedFood.length} dishes · {formattedSelectedDate}</p>
+      </div>
       <MealPackagePicker
         key={`${selectedDate.toDateString()}_${activeMealEdit}`}
         date={selectedDate}
@@ -402,16 +422,6 @@ function AdminPanelContent() {
       {!safeDayMenu[activeMealEdit] && (
         <p className="admin-dish-picker-sub">This meal is not scheduled on the selected date.</p>
       )}
-      <div className="admin-dish-picker-card">
-        <div className="admin-dish-picker-header">
-          <div>
-            <strong>Editing {MEAL_NAMES[activeMealEdit]} Dishes</strong>
-            <p className="admin-dish-picker-sub">
-              Tap any dish from pre-fed list below to instantly add or remove it.
-            </p>
-          </div>
-        </div>
-
         {/* Selected Dishes Chips */}
         <div className="admin-selected-dishes-chips">
           {(safeDayMenu[activeMealEdit]?.food || []).map((dishId) => (
@@ -420,7 +430,7 @@ function AdminPanelContent() {
               <button
                 type="button"
                 onClick={() => handleToggleDishInMeal(activeMealEdit, dishId)}
-                aria-label="Remove dish"
+                aria-label={`Remove ${getDishName(dishId)}`}
                 disabled={isSaving}
               >
                 <X size={13} />
@@ -428,8 +438,28 @@ function AdminPanelContent() {
             </span>
           ))}
           {(safeDayMenu[activeMealEdit]?.food || []).length === 0 && (
-            <p className="no-dishes-text">No dishes selected for {MEAL_NAMES[activeMealEdit]}. Tap below to add.</p>
+            <p className="no-dishes-text">No dishes selected for {MEAL_NAMES[activeMealEdit]}. Choose from the dish library to add.</p>
           )}
+        </div>
+        {!!safeDayMenu[activeMealEdit]?.beverages?.length && (
+          <div className="admin-beverages">
+            <h3>Beverages</h3>
+            <p>{safeDayMenu[activeMealEdit].beverages.join(" · ")}</p>
+            <small>Included with the meal package.</small>
+          </div>
+        )}
+      </aside>
+      <section className="admin-dish-picker-card" aria-labelledby="admin-catalog-title">
+        <div className="admin-dish-picker-header">
+          <h2 id="admin-catalog-title">Dish library</h2>
+          <p className="admin-dish-picker-sub">Choose a dish to add it. Selected dishes show a checkmark.</p>
+        </div>
+
+        <div className="prefed-search-bar">
+          <Search size={18} aria-hidden="true" />
+          <input type="search" className="prefed-search-input"
+            aria-label="Search dish library" placeholder="Search dishes or categories…"
+            value={dishSearchQuery} onChange={(e) => setDishSearchQuery(e.target.value)} />
         </div>
 
         {/* Master Catalog Category Filters & Search */}
@@ -439,24 +469,15 @@ function AdminPanelContent() {
               key={cat}
               className={`admin-cat-btn ${selectedCategory === cat ? "active" : ""}`}
               onClick={() => setSelectedCategory(cat)}
+              aria-pressed={selectedCategory === cat}
             >
               {cat}
             </button>
           ))}
         </div>
 
-        <div className="prefed-search-bar" style={{ margin: "12px 0" }}>
-          <Search size={16} color="var(--text-muted)" />
-          <input
-            type="text"
-            className="prefed-search-input"
-            placeholder="Search dishes to tap..."
-            value={dishSearchQuery}
-            onChange={(e) => setDishSearchQuery(e.target.value)}
-          />
-        </div>
-
-        <div className="prefed-dishes-grid" style={{ maxHeight: "220px" }}>
+        <p className="admin-results-count" role="status">{filteredCatalog.length} dishes found</p>
+        <div className="prefed-dishes-grid">
           {filteredCatalog.map((dish) => {
             const isSelected = (safeDayMenu[activeMealEdit]?.food || []).includes(dish.id);
 
@@ -466,18 +487,31 @@ function AdminPanelContent() {
                 className={`prefed-dish-btn ${isSelected ? "selected" : ""}`}
                 onClick={() => handleToggleDishInMeal(activeMealEdit, dish.id)}
                 type="button"
-                disabled={isSaving}
+                disabled={isSaving || !safeDayMenu[activeMealEdit]}
+                aria-pressed={isSelected}
               >
                 {isSelected ? <Check size={14} color="#0284C7" /> : <Plus size={14} color="var(--text-muted)" />}
-                <span>{dish.name}</span>
+                <span><span className="admin-dish-name">{dish.name}</span><small>{dish.category}</small></span>
               </button>
             );
           })}
+          {filteredCatalog.length === 0 && (
+            <div className="admin-empty-results">
+              <Search size={24} />
+              <strong>No matching dishes</strong>
+              <p>Try a different name or category.</p>
+              <button type="button" onClick={() => { setDishSearchQuery(""); setSelectedCategory("All"); }}>Clear filters</button>
+            </div>
+          )}
         </div>
+      </section>
       </div>
 
       {/* Reset Action */}
-      <div className="admin-actions" style={{ marginTop: "20px", justifyContent: "center" }}>
+      <details className="admin-maintenance">
+        <summary>Advanced settings</summary>
+      <div className="admin-actions">
+        <div><h3>Reset all menus</h3><p>Remove custom edits for every date on all devices.</p></div>
         <button className="admin-reset-btn" onClick={handleReset} disabled={isSaving}>
           <RotateCcw size={16} /> Reset Menu to Default
         </button>
@@ -533,6 +567,7 @@ function AdminPanelContent() {
           <RotateCcw size={16} /> Clear Install Flags
         </button>
       </div>
+      </details>
     </div>
   );
 }

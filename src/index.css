@@ -1131,18 +1131,18 @@ body:has(.brand-intro) .bottom-nav {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-full);
-  background: #38BDF8;
+  background: #d94b12;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   transition: transform 0.2s, background 0.2s;
-  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.35);
+  box-shadow: 0 2px 8px rgba(217, 75, 18, 0.2);
 }
 
 .messit-nav-arrow:hover {
-  background: #0284C7;
+  background: #b93b0b;
   transform: scale(1.08);
 }
 
@@ -1168,7 +1168,7 @@ body:has(.brand-intro) .bottom-nav {
   min-width: 48px;
   padding: 8px 12px;
   border-radius: 28px;
-  border: 1.5px solid #BAE6FD;
+  border: 1.5px solid #f0d8c4;
   background: var(--surface);
   color: var(--text-secondary);
   transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1176,12 +1176,13 @@ body:has(.brand-intro) .bottom-nav {
 }
 
 [data-theme="dark"] .messit-date-pill {
-  border-color: rgba(56, 189, 248, 0.25);
+  border-color: rgba(255, 176, 119, 0.3);
 }
 
 .messit-date-pill:hover {
-  border-color: #38BDF8;
-  color: #0284C7;
+  border-color: #e86a2c;
+  background: #fff0e2;
+  color: #a63d12;
   transform: translateY(-2px);
 }
 
@@ -1200,16 +1201,37 @@ body:has(.brand-intro) .bottom-nav {
 }
 
 .messit-date-pill.selected {
-  background: #0284C7;
-  border-color: #0284C7;
+  background: linear-gradient(135deg, #df5917, #c43d0b);
+  border-color: #c43d0b;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+  box-shadow: 0 4px 14px rgba(217, 75, 18, 0.25);
   transform: scale(1.05);
 }
 
 .messit-date-pill.selected .messit-pill-day,
 .messit-date-pill.selected .messit-pill-num {
   color: #FFFFFF !important;
+}
+
+.messit-date-pill:focus-visible,
+.messit-nav-arrow:focus-visible {
+  outline: 2px solid #a63d12;
+  outline-offset: 3px;
+}
+
+[data-theme="dark"] .messit-date-pill:hover:not(.selected) {
+  background: #38271e;
+  border-color: #ffb077;
+  color: #ffb077;
+}
+
+[data-theme="dark"] .messit-date-pill.selected {
+  border-color: #ffb077;
+}
+
+[data-theme="dark"] .messit-date-pill:focus-visible,
+[data-theme="dark"] .messit-nav-arrow:focus-visible {
+  outline-color: #ffb077;
 }
 
 .messit-meals-grid-container {

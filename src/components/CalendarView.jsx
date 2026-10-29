@@ -84,6 +84,8 @@ export default function CalendarView() {
                 key={dateObj.toISOString()}
                 className={`messit-date-pill ${isSelected ? "selected" : ""}`}
                 onClick={() => setSelectedDate(dateObj)}
+                aria-pressed={isSelected}
+                aria-label={dateObj.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
               >
                 <span className="messit-pill-day">{dayName}</span>
                 <span className="messit-pill-num">{dateObj.getDate()}</span>

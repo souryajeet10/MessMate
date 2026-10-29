@@ -37,6 +37,7 @@ function AppContent() {
   }, []);
 
   const isWelcomePage = location.pathname === "/welcome";
+  const isAdminPage = location.pathname === "/admin";
 
   return (
     <div className={`app-layout${location.pathname === "/" ? " app-layout-home" : ""}`}>
@@ -79,8 +80,8 @@ function AppContent() {
       </Routes>
 
       {!isWelcomePage && <Footer />}
-      {!isWelcomePage && hasWelcomed && <BottomNav />}
-      {!isWelcomePage && hasWelcomed && <InstallPrompt />}
+      {!isWelcomePage && !isAdminPage && hasWelcomed && <BottomNav />}
+      {!isWelcomePage && !isAdminPage && hasWelcomed && <InstallPrompt />}
     </div>
   );
 }

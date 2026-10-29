@@ -1,0 +1,74 @@
+/* Scoped manager workspace; the student menu keeps its existing styles. */
+.admin-page { --admin-accent: #c54b16; --admin-tint: #fff0e2; max-width: 1200px; margin: auto; padding: 32px 28px 48px; }
+.admin-page .admin-header { text-align: left; margin-bottom: 28px; }
+.admin-back-link { display: flex; align-items: center; gap: 4px; width: fit-content; min-height: 44px; margin-bottom: 12px; color: var(--text-secondary); font-size: 13px; }
+.admin-back-link:focus-visible { outline: 2px solid var(--admin-accent); outline-offset: 3px; }
+.admin-page .admin-badge { background: var(--admin-tint); color: var(--admin-accent); padding: 6px 12px; }
+.admin-page .admin-title { font-size: clamp(26px, 3vw, 36px); letter-spacing: -1px; }
+.admin-page .admin-subtitle { max-width: 650px; color: var(--text-secondary); line-height: 1.6; }
+.admin-save-status { margin-top: 12px; color: var(--text-secondary); font-size: 12px; }
+.admin-page .admin-card { box-shadow: none; padding: 20px; }
+.admin-page .admin-meal-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.admin-page .admin-meal-tab { min-height: 50px; padding: 10px; }
+.admin-page .admin-meal-tab.active { background: var(--admin-accent); border-color: var(--admin-accent); box-shadow: none; }
+.admin-page .admin-meal-tab:not(.active) .admin-meal-tab-count { color: var(--admin-accent); background: var(--admin-tint); }
+.admin-editor-layout { display: grid; grid-template-columns: minmax(260px, .8fr) minmax(0, 1.6fr); gap: 20px; align-items: start; }
+.admin-selection-panel, .admin-page .admin-dish-picker-card { min-width: 0; padding: 22px; border: 1px solid var(--border); background: var(--surface); border-radius: 20px; box-shadow: none; }
+.admin-section-label { color: var(--admin-accent); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
+.admin-selection-heading h2 { font-size: 25px; margin: 4px 0; }
+.admin-selection-heading p { font-size: 13px; color: var(--text-secondary); }
+.admin-page .admin-package-picker { display: block; margin: 20px 0 0; padding: 12px; background: var(--bg-primary); border-radius: 12px; }
+.admin-page summary { cursor: pointer; font-size: 14px; font-weight: 600; padding: 5px 0; }
+.admin-package-body { display: grid; gap: 12px; padding-top: 14px; }
+.admin-page .admin-package-picker select { font-size: 13px; }
+.admin-page .admin-save-btn { background: var(--admin-accent); padding: 12px; font-size: 13px; border-radius: 12px; box-shadow: none; }
+.admin-page .admin-selected-dishes-chips { display: grid; gap: 8px; margin-top: 20px; padding-bottom: 0; border: 0; }
+.admin-page .admin-selected-chip { justify-content: space-between; gap: 10px; padding: 6px 8px 6px 12px; border-radius: 10px; background: var(--bg-primary); border: 1px solid var(--border); color: var(--text-primary); font-size: 13px; }
+.admin-page .admin-selected-chip > span { overflow-wrap: anywhere; }
+.admin-page .admin-selected-chip button { flex-shrink: 0; width: 36px; height: 36px; color: var(--text-secondary); border-radius: 8px; }
+.admin-page .admin-selected-chip button:hover { color: #b91c1c; background: #fee2e2; }
+.admin-beverages { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 16px; }
+.admin-beverages h3 { font-size: 13px; margin-bottom: 6px; }
+.admin-beverages p { font-size: 14px; }
+.admin-beverages small { display: block; margin-top: 6px; color: var(--text-secondary); font-size: 12px; }
+.admin-dish-picker-header h2 { font-size: 21px; }
+.admin-page .admin-dish-picker-sub { color: var(--text-secondary); line-height: 1.6; }
+.admin-page .prefed-search-bar { display: flex; align-items: center; gap: 10px; min-height: 48px; margin-top: 18px; padding: 0 14px; border: 1px solid var(--border); background: var(--bg-primary); border-radius: 12px; color: var(--text-secondary); }
+.admin-page .prefed-search-bar:focus-within { outline: 2px solid var(--admin-accent); outline-offset: 2px; }
+.admin-page .prefed-search-input { width: 100%; min-width: 0; min-height: 46px; border: 0; outline: 0; background: transparent; color: var(--text-primary); font: inherit; font-size: 14px; }
+.admin-page .admin-category-filter-strip { flex-wrap: wrap; gap: 6px; overflow: visible; padding: 14px 0; }
+.admin-page .admin-cat-btn { min-height: 36px; color: var(--text-secondary); border-radius: 9px; padding: 7px 10px; }
+.admin-page .admin-cat-btn.active { color: var(--admin-accent); background: var(--admin-tint); border-color: var(--admin-accent); }
+.admin-results-count { margin-bottom: 10px; color: var(--text-secondary); font-size: 12px; }
+.admin-page .prefed-dishes-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; max-height: 480px; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 4px; }
+.admin-page .prefed-dish-btn { display: flex; align-items: center; gap: 10px; width: 100%; min-width: 0; min-height: 68px; padding: 12px; text-align: left; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text-primary); }
+.admin-page .prefed-dish-btn > svg { flex-shrink: 0; }
+.admin-dish-name { display: block; font-size: 13px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.admin-page .prefed-dish-btn small { display: block; margin-top: 3px; color: var(--text-secondary); font-size: 11px; }
+.admin-page .prefed-dish-btn.selected { background: var(--admin-tint); border-color: var(--admin-accent); }
+.admin-page .prefed-dish-btn.selected > svg { color: var(--admin-accent); }
+.admin-page .prefed-dish-btn:hover:not(:disabled) { border-color: var(--admin-accent); }
+.admin-page button:disabled { opacity: .55; cursor: not-allowed; }
+.admin-page :is(button, summary, select):focus-visible { outline: 2px solid var(--admin-accent); outline-offset: 3px; }
+.admin-empty-results { grid-column: 1 / -1; min-height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; color: var(--text-secondary); font-size: 14px; }
+.admin-empty-results button { color: var(--admin-accent); padding: 10px 16px; font-weight: 600; }
+.admin-maintenance { margin-top: 24px; padding: 16px 20px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+.admin-page .admin-actions { margin-top: 20px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.admin-actions h3 { font-size: 15px; }
+.admin-actions p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+.admin-page .no-dishes-text { font-size: 13px; color: var(--text-secondary); padding: 16px 0; }
+[data-theme="dark"] .admin-page { --admin-accent: #ffb077; --admin-tint: #38271e; }
+[data-theme="dark"] .admin-page :is(.admin-meal-tab.active, .admin-save-btn) { background: #a43e12; color: #fff; }
+@media (max-width: 800px) {
+  .admin-page { padding: 24px 16px 40px; }
+  .admin-editor-layout { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .admin-page .admin-selected-dishes-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-page .admin-card-row { flex-direction: row; align-items: center; }
+  .admin-page .admin-toggle-switch { width: auto; }
+}
+@media (max-width: 480px) {
+  .admin-page .admin-meal-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-selection-panel, .admin-page .admin-dish-picker-card { padding: 16px; }
+  .admin-page .prefed-dishes-grid { grid-template-columns: minmax(0, 1fr); max-height: 400px; }
+  .admin-page .admin-selected-dishes-chips { grid-template-columns: minmax(0, 1fr); }
+}
