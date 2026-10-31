@@ -135,6 +135,7 @@ export default function TodayPage({ onMenuClick }) {
               >
                 {!dayMenu ? (
                   <NoMenuBanner
+                    date={selectedDate}
                     month={selectedDate.toLocaleDateString("en-IN", { month: "long" })}
                   />
                 ) : otherMeals.length > 0 ? (

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   getMenuForDate,
   getMenuRotationKey,
+  isDiwaliHoliday,
   septWeeklyMenu1And3,
   septWeeklyMenu2And4,
   octWeeklyMenu1And3,
@@ -52,5 +53,36 @@ test("October rotates between both week menus", () => {
 });
 
 test("months without menu files return no menu", () => {
-  assert.equal(getMenuForDate(new Date(2026, 10, 1)), null);
+  assert.equal(getMenuForDate(new Date(2026, 11, 1)), null);
+});
+
+test("November 1–5 repeats October's weekday rotation only in 2026", () => {
+  for (let day = 1; day <= 5; day++) {
+    const date = new Date(2026, 10, day);
+    assert.equal(getMenuForDate(date), day === 1 ? octWeeklyMenu1And3 : octWeeklyMenu2And4);
+    assert.equal(isDiwaliHoliday(date), false);
+  }
+  assert.equal(getMenuForDate(new Date(2027, 10, 1)), null);
+});
+
+test("Diwali holidays cover November 6–14 inclusive without serving menus", () => {
+  for (let day = 6; day <= 15; day++) {
+    const date = new Date(2026, 10, day);
+    assert.equal(isDiwaliHoliday(date), day <= 14);
+    assert.equal(getMenuForDate(date), null);
+    assert.equal(getMenuRotationKey(date), null);
+  }
+  assert.equal(isDiwaliHoliday(new Date(2027, 10, 6)), false);
+  assert.equal(isDiwaliHoliday(new Date(2026, 9, 6)), false);
+});
+
+test("November 16–30 resumes October's menu with the existing Monday rotation", () => {
+  for (let day = 16; day <= 30; day++) {
+    const date = new Date(2026, 10, day);
+    const secondRotation = day <= 22 || day === 30;
+    assert.equal(getMenuRotationKey(date), secondRotation ? "week_2_and_4" : "week_1_and_3");
+    assert.equal(getMenuForDate(date), secondRotation ? octWeeklyMenu2And4 : octWeeklyMenu1And3);
+    assert.equal(isDiwaliHoliday(date), false);
+  }
+  assert.equal(getMenuForDate(new Date(2027, 10, 16)), null);
 });

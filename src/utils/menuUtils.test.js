@@ -37,7 +37,8 @@ test("manager edits and confirmations use the same month-scoped read/write key",
   assert.equal(writes.at(-1).path, `menu_overrides/${key}`);
   assert.notEqual(getMenuOverrideKey("Monday", new Date(2026, 7, 10)), key);
   assert.notEqual(getMenuOverrideKey("Monday", new Date(2027, 8, 14)), key);
-  assert.equal(getMenuOverrideKey("Monday", new Date(2026, 9, 5)), null);
+  assert.equal(getMenuOverrideKey("Monday", new Date(2026, 9, 5)), "2026_10_week_2_and_4_Monday");
+  assert.equal(getMenuOverrideKey("Monday", new Date(2026, 10, 6)), null);
 });
 
 test("dinner keeps the published theme when a saved edit only changes dishes", () => {

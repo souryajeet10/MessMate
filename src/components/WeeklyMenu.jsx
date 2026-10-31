@@ -91,7 +91,7 @@ export default function WeeklyMenu() {
             style={{ display: "flex", flexDirection: "column", gap: "16px" }}
           >
             {!dayMenu ? (
-              <NoMenuBanner month={currentMonthName} />
+              <NoMenuBanner month={currentMonthName} date={selectedDate} />
             ) : (
               MEAL_ORDER.map((mealKey, i) => {
                 const mealData = dayMenu[mealKey];

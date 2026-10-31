@@ -116,6 +116,7 @@ export default function CalendarView() {
           >
             {!dayMenu ? (
               <NoMenuBanner
+                date={selectedDate}
                 month={selectedDate.toLocaleDateString("en-IN", { month: "long" })}
               />
             ) : (

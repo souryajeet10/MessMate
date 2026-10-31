@@ -331,10 +331,17 @@ export const octWeeklyMenu2And4 = buildArrayDayMenu(rawOct2And4Menu);
 // October 1st & 3rd week menu built from flat-array-per-day format
 export const octWeeklyMenu1And3 = buildArrayDayMenu(rawOct1And3Menu);
 
+export function isDiwaliHoliday(date = new Date()) {
+  return date.getFullYear() === 2026 && date.getMonth() === 10 &&
+    date.getDate() >= 6 && date.getDate() <= 14;
+}
+
 export function getMenuRotationKey(date = new Date()) {
   const month = date.getMonth();
-  // Supported months: August (7), September (8), October (9)
-  if (month !== 7 && month !== 8 && month !== 9) return null;
+  // Repeat October's rotation on November 1–5 and 16–30, 2026.
+  const novemberExtension = date.getFullYear() === 2026 && month === 10 &&
+    (date.getDate() <= 5 || date.getDate() >= 16);
+  if (month !== 7 && month !== 8 && month !== 9 && !novemberExtension) return null;
 
   // Weeks run Monday–Sunday. The partial week containing the 1st is week 1.
   const firstDay = new Date(date.getFullYear(), month, 1);
@@ -357,7 +364,7 @@ export function getMenuForDate(date = new Date()) {
   if (!rotationKey) return null; // No menu data for this month
 
   // October: both week rotations are now published
-  if (month === 9) {
+  if (month === 9 || month === 10) {
     return rotationKey === "week_2_and_4" ? octWeeklyMenu2And4 : octWeeklyMenu1And3;
   }
 
