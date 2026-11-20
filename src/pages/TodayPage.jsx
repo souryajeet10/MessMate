@@ -101,7 +101,7 @@ export default function TodayPage({ onMenuClick }) {
           {/* Section label */}
           <div className="today-label">
             <span className="today-label-text">
-              {isToday ? "Today's" : selectedDayName + "'s"} Menu for United Homes
+              {isToday ? "TODAY'S MENU" : `${selectedDayName.toUpperCase()}'S MENU`}
             </span>
             <div className="today-label-nav">
               <button
