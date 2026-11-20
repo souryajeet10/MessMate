@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   getMenuForDate,
   getMenuSourceLabel,
+  buildArrayDayMenu,
   getMenuRotationKey,
   isDiwaliHoliday,
   septWeeklyMenu1And3,
@@ -11,6 +12,22 @@ import {
   octWeeklyMenu2And4,
   novWeeklyMenu1And3,
 } from "./menuData.js";
+
+test("breakfast drinks appear only in beverages across all menu formats", () => {
+  for (const date of [new Date(2026, 7, 3), new Date(2026, 8, 7), new Date(2026, 9, 5), new Date(2026, 10, 20)]) {
+    for (const day of Object.values(getMenuForDate(date))) {
+      assert.ok(day.breakfast.food.every((item) => !/^(detox-water|milk|hot-milk|cold-milk|tea|coffee)\b/.test(item)));
+      assert.equal(day.breakfast.beverages.filter((item) => /milk/i.test(item)).length, 1);
+      assert.equal(day.breakfast.beverages.filter((item) => /detox water/i.test(item)).length, 1);
+    }
+  }
+  const friday = novWeeklyMenu1And3.Friday.breakfast;
+  assert.ok(friday.beverages.includes("Detox Water - Lemon + Mint + Saunf"));
+  assert.ok(friday.beverages.includes("Milk (hot & cold)"));
+  assert.ok(friday.food.includes("watermelon"));
+  const sample = buildArrayDayMenu({ days: { Sunday: { breakfast: ["Steam Rice", "Tea / Coffee", "Hot Milk & Cold Milk"] } } });
+  assert.ok(sample.Sunday.breakfast.food.includes("steam-rice"));
+});
 
 test("source labels identify the actual menu, including November's October fallback", () => {
   assert.equal(getMenuSourceLabel(new Date(2026, 10, 20)), "November · Weeks 1 & 3");

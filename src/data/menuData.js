@@ -60,6 +60,22 @@ function extractItems(val) {
   return [];
 }
 
+function splitBreakfastItems(items) {
+  const entries = items.filter((item) => typeof item === "string" && item.trim());
+  const milk = /^(?:(?:hot|cold)\s+)?milk\b/i;
+  const detox = /^detox\s+water\b/i;
+  const teaCoffee = /^(?:tea|coffee)\b/i;
+  return {
+    food: entries.filter((item) => !milk.test(item.trim()) && !detox.test(item.trim()) && !teaCoffee.test(item.trim())).map(slugify),
+    beverages: [
+      entries.find((item) => milk.test(item.trim())) || "Milk",
+      "Tea",
+      "Coffee",
+      entries.find((item) => detox.test(item.trim())) || "Detox Water",
+    ],
+  };
+}
+
 export function buildWeeklyMenu(rawWeekData) {
   if (!rawWeekData) return {};
   const menu = {};
@@ -111,8 +127,7 @@ export function buildWeeklyMenu(rawWeekData) {
       breakfast: {
         title: day === "Sunday" ? "Sunday Brunch" : "Breakfast",
         timing: dayTimings.breakfast,
-        food: bfFoodRaw.map(slugify),
-        beverages: ["Milk", "Tea", "Coffee", "Detox Water"],
+        ...splitBreakfastItems(bfFoodRaw),
       },
       lunch: day === "Sunday" ? null : {
         timing: dayTimings.lunch,
@@ -203,8 +218,7 @@ export function buildFlatDayMenu(rawData) {
       breakfast: {
         title: day === "Sunday" ? "Sunday Brunch" : "Breakfast",
         timing: dayTimings.breakfast,
-        food: bfFoodRaw.map(slugify),
-        beverages: ["Milk", "Tea", "Coffee", "Detox Water"],
+        ...splitBreakfastItems(bfFoodRaw),
       },
       lunch: day === "Sunday" ? null : {
         timing: dayTimings.lunch,
@@ -248,13 +262,9 @@ export function buildArrayDayMenu(rawData) {
 
     const dayData = daysData[day] || {};
 
-    // Breakfast — skip the last entry (Tea/Coffee) as it's in beverages
+    // Keep source drink details; split food and beverages when building the meal.
     const bfArr = Array.isArray(dayData.breakfast) ? dayData.breakfast : [];
-    // filter out beverage-like items already covered by beverages field
-    const bfFoodRaw = bfArr.filter(
-      (v) => v && typeof v === "string" && v.trim().length > 0 &&
-             !/(tea|coffee)/i.test(v)
-    );
+    const bfFoodRaw = bfArr;
 
     // Lunch
     const lunchArr = Array.isArray(dayData.lunch) ? dayData.lunch : [];
@@ -290,8 +300,7 @@ export function buildArrayDayMenu(rawData) {
       breakfast: {
         title: day === "Sunday" ? "Sunday Brunch" : "Breakfast",
         timing: dayTimings.breakfast,
-        food: bfFoodRaw.map(slugify),
-        beverages: ["Milk", "Tea", "Coffee", "Detox Water"],
+        ...splitBreakfastItems(bfFoodRaw),
       },
       lunch: day === "Sunday" ? null : {
         timing: dayTimings.lunch,
