@@ -81,7 +81,8 @@ function AppContent() {
 
       {!isWelcomePage && <Footer />}
       {!isWelcomePage && !isAdminPage && hasWelcomed && <BottomNav />}
-      {!isWelcomePage && !isAdminPage && hasWelcomed && <InstallPrompt />}
+      {/* Keep install listeners mounted through welcome and route changes. */}
+      <InstallPrompt />
     </div>
   );
 }
