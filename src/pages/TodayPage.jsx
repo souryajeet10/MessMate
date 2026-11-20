@@ -3,13 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { getDayMenu, getTodayName, getMealStatus } from "../utils/menuUtils";
-import { MEAL_ORDER, getMenuSourceLabel, getMenuOverrideKey } from "../data/menuData";
+import { MEAL_ORDER } from "../data/menuData";
 import { useMenuOverrides } from "../hooks/useMenuOverrides";
 import Header from "../components/Header";
 import MealCard from "../components/MealCard";
 import NoMenuBanner from "../components/NoMenuBanner";
 import { useSiteClock } from "../hooks/useSiteClock";
 import "./TodayPage.css";
+
+// Change this public date only when the site owner explicitly requests it.
+// Admin saves and the current clock must not update this label automatically.
+const MENU_LAST_UPDATED = "20 Nov 2026";
 
 export default function TodayPage({ onMenuClick }) {
   const navigate = useNavigate();
@@ -30,15 +34,6 @@ export default function TodayPage({ onMenuClick }) {
   const selectedDayName = getTodayName(selectedDate);
   const dayMenu = getDayMenu(selectedDayName, selectedDate, overrides);
   const isToday = dayOffset === 0;
-  const menuSource = getMenuSourceLabel(selectedDate);
-  const menuOverride = overrides[getMenuOverrideKey(selectedDayName, selectedDate)];
-  const updatedAt = menuOverride?.updatedAt;
-  const updatedLabel = typeof updatedAt === "number" && Number.isFinite(new Date(updatedAt).getTime())
-    ? new Date(updatedAt).toLocaleString("en-IN", {
-        day: "numeric", month: "short", year: "numeric",
-        hour: "numeric", minute: "2-digit", timeZone: "Asia/Kolkata",
-      }) + " IST"
-    : null;
 
   const formattedDate = selectedDate.toLocaleDateString("en-IN", {
     weekday: "long",
@@ -131,10 +126,9 @@ export default function TodayPage({ onMenuClick }) {
             </div>
           </div>
 
-          {dayMenu && menuSource && (
-            <div className="today-menu-info" aria-label="Menu source and last update">
-              <span>Menu used: <strong>{menuSource}</strong></span>
-              <span>Last updated: {updatedLabel ?? "20 Nov 2026"}</span>
+          {dayMenu && (
+            <div className="today-menu-info" aria-label="Last menu update">
+              <span>Last updated: {MENU_LAST_UPDATED}</span>
             </div>
           )}
 
