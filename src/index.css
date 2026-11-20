@@ -2548,6 +2548,29 @@ body:has(.brand-intro) .bottom-nav {
   transition: all 0.2s;
 }
 
+.install-card {
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+}
+
+.install-guide-steps {
+  list-style: decimal;
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+.install-guide-steps svg { vertical-align: middle; }
+.install-guide-figure { margin: 16px 0 0; }
+.install-guide-figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); }
+.install-guide-figure figcaption { margin-top: 8px; font-size: 0.72rem; color: var(--text-secondary); line-height: 1.5; }
+.install-guide-demo { padding: 12px; border: 1px solid var(--border); border-radius: 14px; background: var(--bg-primary); }
+.install-guide-demo-toolbar { display: flex; justify-content: space-between; align-items: center; padding: 0 2px 12px; font-weight: 700; color: var(--text-primary); }
+.install-guide-demo-option { display: flex; align-items: center; gap: 10px; padding: 10px; border: 2px solid var(--accent); border-radius: 9px; background: var(--surface); color: var(--text-primary); font-size: 0.8rem; }
+.install-guide-demo-option svg { flex-shrink: 0; }
+.install-guide-demo-or { text-align: center; font-size: 0.7rem; padding: 4px; }
+.install-guide-note { margin-top: 12px; font-size: 0.75rem; }
+
 .install-card-close:hover {
   color: var(--text-primary);
   background: var(--accent-soft);

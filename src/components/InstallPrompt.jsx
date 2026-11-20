@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Smartphone, X, Download, ArrowUpRight } from "lucide-react";
+import { Smartphone, X, Download, ArrowUpRight, Share, EllipsisVertical, PlusSquare } from "lucide-react";
 
 /** Chrome owns automatic install UI; our button offers an explicit shortcut. */
 function detectStandalone() {
@@ -115,17 +115,39 @@ export default function InstallPrompt() {
               <div className="install-card-body">
                 {isIOS ? (
                   /* iOS manual instructions */
-                  <p>
-                    Tap the <strong>Share</strong> button (
-                    <span aria-label="share icon">⎋</span>) at the bottom of
-                    Safari, then select <strong>&quot;Add to Home Screen&quot;</strong> to
-                    install <strong>MESSMATE @ UH</strong>.
-                  </p>
+                  <>
+                    <ol className="install-guide-steps">
+                      <li>Open MessMate in <strong>Safari</strong>.</li>
+                      <li>Tap <Share size={15} aria-hidden="true" /> <strong>Share</strong>, then <strong>Add to Home Screen</strong>.</li>
+                      <li>Confirm by tapping <strong>Add</strong>.</li>
+                    </ol>
+                    <figure className="install-guide-figure">
+                      <img src="/install-guide/ios-add-to-home-screen.png"
+                        width="704" height="435"
+                        alt="Safari share menu with Add to Home Screen highlighted in red." />
+                      <figcaption>Look for the highlighted option in the share menu.</figcaption>
+                    </figure>
+                  </>
                 ) : (
-                  <p>
-                    {canInstall ? "Install MessMate for quick access to your daily menu." :
-                      "Open your browser menu and choose Install app or Add to Home screen. On desktop Chrome or Edge, look for the install icon in the address bar. If the option is missing, try opening this site in Chrome or Safari."}
-                  </p>
+                  canInstall ? <p>Install MessMate for quick access to your daily menu.</p> : (
+                    <>
+                      <ol className="install-guide-steps">
+                        <li>Open your browser’s <strong>menu ⋮ or ☰</strong>.</li>
+                        <li>Look for <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+                        <li>Follow the browser’s confirmation steps.</li>
+                      </ol>
+                      <figure className="install-guide-figure">
+                        <div className="install-guide-demo" role="img" aria-label="Example browser menu: open the three-dot menu, then look for Install app or Add to Home screen.">
+                          <div className="install-guide-demo-toolbar"><span>messmate@UH</span><EllipsisVertical size={20} /></div>
+                          <div className="install-guide-demo-option"><Download size={18} /><span>Install app</span></div>
+                          <div className="install-guide-demo-or">or</div>
+                          <div className="install-guide-demo-option"><PlusSquare size={18} /><span>Add to Home screen</span></div>
+                        </div>
+                        <figcaption>Example only — menu wording and availability vary by browser.</figcaption>
+                      </figure>
+                      <p className="install-guide-note">On desktop Chrome or Edge, also check the address bar for an install icon. If your browser has no install option, open this site in Chrome on Android or Safari on iPhone/iPad.</p>
+                    </>
+                  )
                 )}
               </div>
 
