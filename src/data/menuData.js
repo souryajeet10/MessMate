@@ -8,6 +8,7 @@ import rawSep1And3Menu from "./september_menu_1_3.json" with { type: "json" };
 import rawOct2And4Menu from "./october_menu_2_4.json" with { type: "json" };
 // October 1st & 3rd week menu (flat array format)
 import rawOct1And3Menu from "./october_menu_1_3.json" with { type: "json" };
+import rawNov1And3Menu from "./november_menu_1_3.json" with { type: "json" };
 
 const DAY_ORDER_LIST = [
   "Monday",
@@ -331,6 +332,18 @@ export const octWeeklyMenu2And4 = buildArrayDayMenu(rawOct2And4Menu);
 // October 1st & 3rd week menu built from flat-array-per-day format
 export const octWeeklyMenu1And3 = buildArrayDayMenu(rawOct1And3Menu);
 
+// Adapt November's brunch, hiTea and themed dinner fields to the array format.
+export const novWeeklyMenu1And3 = buildArrayDayMenu({
+  days: Object.fromEntries(Object.entries(rawNov1And3Menu.days).map(([day, meals]) => [day, {
+    ...meals,
+    // Sunday uses a combined brunch service in the app; retain its lunch dishes.
+    breakfast: meals.brunch ? [...meals.brunch, ...meals.lunch] : meals.breakfast,
+    hi_tea: meals.hiTea,
+    dinner: meals.dinner.items,
+    dinner_theme: meals.dinner.theme,
+  }])),
+});
+
 export function isDiwaliHoliday(date = new Date()) {
   return date.getFullYear() === 2026 && date.getMonth() === 10 &&
     date.getDate() >= 6 && date.getDate() <= 14;
@@ -338,7 +351,7 @@ export function isDiwaliHoliday(date = new Date()) {
 
 export function getMenuRotationKey(date = new Date()) {
   const month = date.getMonth();
-  // Repeat October's rotation on November 1–5 and 16–30, 2026.
+  // November service dates retain the existing holiday closure.
   const novemberExtension = date.getFullYear() === 2026 && month === 10 &&
     (date.getDate() <= 5 || date.getDate() >= 16);
   if (month !== 7 && month !== 8 && month !== 9 && !novemberExtension) return null;
@@ -363,8 +376,13 @@ export function getMenuForDate(date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null; // No menu data for this month
 
+  // November's published odd weeks replace the October fallback.
+  if (month === 10) {
+    return rotationKey === "week_1_and_3" ? novWeeklyMenu1And3 : octWeeklyMenu2And4;
+  }
+
   // October: both week rotations are now published
-  if (month === 9 || month === 10) {
+  if (month === 9) {
     return rotationKey === "week_2_and_4" ? octWeeklyMenu2And4 : octWeeklyMenu1And3;
   }
 

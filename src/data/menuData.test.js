@@ -8,6 +8,7 @@ import {
   septWeeklyMenu2And4,
   octWeeklyMenu1And3,
   octWeeklyMenu2And4,
+  novWeeklyMenu1And3,
 } from "./menuData.js";
 
 test("September menu changes on Mondays, including September 14", () => {
@@ -56,10 +57,10 @@ test("months without menu files return no menu", () => {
   assert.equal(getMenuForDate(new Date(2026, 11, 1)), null);
 });
 
-test("November 1–5 repeats October's weekday rotation only in 2026", () => {
+test("November 1–5 uses the published odd weeks and existing even-week fallback", () => {
   for (let day = 1; day <= 5; day++) {
     const date = new Date(2026, 10, day);
-    assert.equal(getMenuForDate(date), day === 1 ? octWeeklyMenu1And3 : octWeeklyMenu2And4);
+    assert.equal(getMenuForDate(date), day === 1 ? novWeeklyMenu1And3 : octWeeklyMenu2And4);
     assert.equal(isDiwaliHoliday(date), false);
   }
   assert.equal(getMenuForDate(new Date(2027, 10, 1)), null);
@@ -76,13 +77,31 @@ test("Diwali holidays cover November 6–14 inclusive without serving menus", ()
   assert.equal(isDiwaliHoliday(new Date(2026, 9, 6)), false);
 });
 
-test("November 16–30 resumes October's menu with the existing Monday rotation", () => {
+test("November 16–30 uses the November odd weeks with the existing Monday rotation", () => {
   for (let day = 16; day <= 30; day++) {
     const date = new Date(2026, 10, day);
     const secondRotation = day <= 22 || day === 30;
     assert.equal(getMenuRotationKey(date), secondRotation ? "week_2_and_4" : "week_1_and_3");
-    assert.equal(getMenuForDate(date), secondRotation ? octWeeklyMenu2And4 : octWeeklyMenu1And3);
+    assert.equal(getMenuForDate(date), secondRotation ? octWeeklyMenu2And4 : novWeeklyMenu1And3);
     assert.equal(isDiwaliHoliday(date), false);
   }
   assert.equal(getMenuForDate(new Date(2027, 10, 16)), null);
+});
+
+
+test("November preserves meals, dinner themes and Sunday's combined brunch", () => {
+  const menu = getMenuForDate(new Date(2026, 10, 23));
+  assert.ok(menu.Monday.breakfast.food.includes("ghee-podi-idli"));
+  assert.ok(menu.Monday.hitea.food.includes("veg-vermicelli"));
+  assert.equal(menu.Monday.dinner.theme, "Desi Zaika");
+  assert.ok(menu.Monday.dinner.food.includes("soya-keema-bakery-kulcha"));
+  assert.ok(menu.Sunday.breakfast.food.includes("kachori-sabzi-khaman"));
+  assert.ok(menu.Sunday.breakfast.food.includes("dal-rice"));
+  assert.equal(menu.Sunday.lunch, null);
+  for (const day of Object.values(menu)) {
+    for (const meal of [day.breakfast, day.hitea, day.dinner]) {
+      assert.ok(meal.food.length > 0);
+      assert.ok(meal.timing);
+    }
+  }
 });

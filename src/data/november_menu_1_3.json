@@ -1,0 +1,267 @@
+{
+  "month": "November",
+  "weeks": [
+    1,
+    3
+  ],
+  "notes": [
+    "Khichdi is served in small portions daily."
+  ],
+  "days": {
+    "Monday": {
+      "breakfast": [
+        "Ghee Podi Idli",
+        "Coconut/Tomato Chutney",
+        "Banana",
+        "Bread / Butter / Jam",
+        "Cereals (2 types)",
+        "Sprouts (2 types)",
+        "Detox Water - Lemon + Mint",
+        "Milk (hot & cold)",
+        "Tea",
+        "Coffee"
+      ],
+      "lunch": [
+        "Green Salad",
+        "Spicy Jeera Aloo",
+        "Paneer Butter Masala",
+        "Arhar Dal Tadka",
+        "Jeera Rice",
+        "Phulka",
+        "Buttermilk"
+      ],
+      "hiTea": [
+        "Veg Vermicelli",
+        "Tea",
+        "Coffee"
+      ],
+      "dinner": {
+        "theme": "Desi Zaika",
+        "items": [
+          "Chopped Onion / Chilli / Lemon",
+          "Soya Keema - Bakery Kulcha",
+          "Tawa Masala Pulao",
+          "Roti (optional)",
+          "Shikanji",
+          "Gulab Jamun"
+        ]
+      }
+    },
+    "Tuesday": {
+      "breakfast": [
+        "Mix Veg Parantha + Curd",
+        "Pickle",
+        "Bun Maska",
+        "Cereals (2 types)",
+        "Sprouts (2 types)",
+        "Detox Water - Cucumber + Mint",
+        "Milk (hot & cold)",
+        "Tea",
+        "Coffee"
+      ],
+      "lunch": [
+        "Kachumbar Salad",
+        "Cabbage Peas",
+        "Gatta Curry",
+        "Moong Dal Fry",
+        "Steamed Rice",
+        "Phulka",
+        "Buttermilk"
+      ],
+      "hiTea": [
+        "Dhokla",
+        "Tea",
+        "Coffee"
+      ],
+      "dinner": {
+        "theme": "Chinatown Fest",
+        "items": [
+          "Manchow Soup",
+          "Schezwan Paneer or Chilli Paneer Gravy",
+          "Schezwan Fried Rice",
+          "Sabzi + Fulka Roti (optional)"
+        ]
+      }
+    },
+    "Wednesday": {
+      "breakfast": [
+        "Poha",
+        "Ratlami Sev & Onion",
+        "Papaya",
+        "Bread / Butter / Jam",
+        "Cereals (2 types)",
+        "Sprouts (2 types)",
+        "Detox Water - Ginger + Lemon",
+        "Milk (hot & cold)",
+        "Tea",
+        "Coffee"
+      ],
+      "lunch": [
+        "Macaroni Salad",
+        "Veg Jalfrezi",
+        "Methi Malai Matar",
+        "Urad Dal",
+        "Hyderabadi Biryani",
+        "Phulka (optional)",
+        "Boondi Raita"
+      ],
+      "hiTea": [
+        "Chocolate Pancake",
+        "Tea",
+        "Coffee"
+      ],
+      "dinner": {
+        "theme": "Vanakkam Night",
+        "items": [
+          "Cucumber Kosambari",
+          "Veg Uttapam",
+          "Potato Fry + Sambar",
+          "Tomato Rice",
+          "Roti (optional)",
+          "Rava Kesari"
+        ]
+      }
+    },
+    "Thursday": {
+      "breakfast": [
+        "Bread Moonglet",
+        "Green Chutney",
+        "Bread / Butter / Jam",
+        "Cereals (2 types)",
+        "Sprouts (2 types)",
+        "Detox Water - Cucumber + Lemon",
+        "Milk (hot & cold)",
+        "Tea",
+        "Coffee"
+      ],
+      "lunch": [
+        "Pyaz Imli Chutney",
+        "Amritsari Chhole",
+        "Bhature",
+        "Hyderabadi Biryani",
+        "Phulka (optional)",
+        "Boondi Raita"
+      ],
+      "hiTea": [
+        "Jhalmuri",
+        "Tea",
+        "Coffee"
+      ],
+      "dinner": {
+        "theme": "Italiano",
+        "items": [
+          "Creamy Tomato Soup",
+          "Pink Sauce Pasta",
+          "Mexican Rice with Curry",
+          "Sabzi + Roti (optional)"
+        ]
+      }
+    },
+    "Friday": {
+      "breakfast": [
+        "Thepla + Curd",
+        "Pickle",
+        "Watermelon",
+        "Bun Maska",
+        "Cereals (2 types)",
+        "Sprouts (2 types)",
+        "Detox Water - Lemon + Mint + Saunf",
+        "Milk (hot & cold)",
+        "Tea",
+        "Coffee"
+      ],
+      "lunch": [
+        "Carrot/Cucumber Salad",
+        "Palak Corn",
+        "Malai Kofta (non-sweet gravy)",
+        "Sabut Masoor Dal Tadka",
+        "Jeera Rice",
+        "Phulka (optional)",
+        "Buttermilk"
+      ],
+      "hiTea": [
+        "Sev Khamani",
+        "Tea",
+        "Coffee"
+      ],
+      "dinner": {
+        "theme": "Chatkara Street",
+        "items": [
+          "Chopped Onion - Fried Chilli",
+          "Pav Bhaji",
+          "Tawa Masala Pulao",
+          "Boondi Raita",
+          "Roti (optional)"
+        ]
+      }
+    },
+    "Saturday": {
+      "breakfast": [
+        "Veg Upma",
+        "Coconut Chutney",
+        "Bread / Butter / Jam",
+        "Cereals (2 types)",
+        "Sprouts (2 types)",
+        "Detox Water - Tulsi + Ginger",
+        "Milk (hot & cold)",
+        "Tea",
+        "Coffee"
+      ],
+      "lunch": [
+        "Peanut Salad",
+        "Dum Aloo",
+        "Dal Makhani",
+        "Peas Pulao",
+        "Matar Puri",
+        "Buttermilk"
+      ],
+      "hiTea": [
+        "Maggi Masala",
+        "Tea",
+        "Coffee"
+      ],
+      "dinner": {
+        "theme": "Rangeelo Gujarat",
+        "items": [
+          "Fryums",
+          "Sev Tomato + Mix Kathod",
+          "Khichdi",
+          "Roti",
+          "Ice Cream"
+        ]
+      }
+    },
+    "Sunday": {
+      "brunch": [
+        "Kachori + Sabzi + Khaman",
+        "Jeera Curd + Pickle",
+        "Kishori Bhalla Chaat",
+        "Hot Jalebi",
+        "Cereals (2 types)",
+        "Sprouts (2 types)",
+        "Detox Water - Cucumber + Lemon + Sabia Seeds",
+        "Milk (hot & cold)",
+        "Tea",
+        "Coffee"
+      ],
+      "lunch": [
+        "Dal + Rice"
+      ],
+      "hiTea": [
+        "Chinese Puff",
+        "Tea",
+        "Coffee"
+      ],
+      "dinner": {
+        "theme": "Punjab Da Swag",
+        "items": [
+          "Green Salad",
+          "American Corn Tikki",
+          "Paneer Keema + Masal Rajma",
+          "Jeera Onion Rice",
+          "Butter Roti"
+        ]
+      }
+    }
+  }
+}
