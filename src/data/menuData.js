@@ -359,7 +359,10 @@ export function getMenuRotationKey(date = new Date()) {
   // Weeks run Monday–Sunday. The partial week containing the 1st is week 1.
   const firstDay = new Date(date.getFullYear(), month, 1);
   const mondayOffset = (firstDay.getDay() + 6) % 7;
-  const weekNumber = Math.floor((date.getDate() - 1 + mondayOffset) / 7) + 1;
+  let weekNumber = Math.floor((date.getDate() - 1 + mondayOffset) / 7) + 1;
+  // November's published schedule starts week 1 on Monday the 2nd.
+  // Its opening Sunday must not shift November 16–22 into week 4.
+  if (novemberExtension) weekNumber = Math.max(1, weekNumber - 1);
 
   return weekNumber % 2 === 1 ? "week_1_and_3" : "week_2_and_4";
 }

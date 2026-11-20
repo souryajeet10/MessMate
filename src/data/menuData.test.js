@@ -57,10 +57,10 @@ test("months without menu files return no menu", () => {
   assert.equal(getMenuForDate(new Date(2026, 11, 1)), null);
 });
 
-test("November 1–5 uses the published odd weeks and existing even-week fallback", () => {
+test("November 1–5 uses the first week's published menu", () => {
   for (let day = 1; day <= 5; day++) {
     const date = new Date(2026, 10, day);
-    assert.equal(getMenuForDate(date), day === 1 ? novWeeklyMenu1And3 : octWeeklyMenu2And4);
+    assert.equal(getMenuForDate(date), novWeeklyMenu1And3);
     assert.equal(isDiwaliHoliday(date), false);
   }
   assert.equal(getMenuForDate(new Date(2027, 10, 1)), null);
@@ -80,7 +80,7 @@ test("Diwali holidays cover November 6–14 inclusive without serving menus", ()
 test("November 16–30 uses the November odd weeks with the existing Monday rotation", () => {
   for (let day = 16; day <= 30; day++) {
     const date = new Date(2026, 10, day);
-    const secondRotation = day <= 22 || day === 30;
+    const secondRotation = day >= 23 && day <= 29;
     assert.equal(getMenuRotationKey(date), secondRotation ? "week_2_and_4" : "week_1_and_3");
     assert.equal(getMenuForDate(date), secondRotation ? octWeeklyMenu2And4 : novWeeklyMenu1And3);
     assert.equal(isDiwaliHoliday(date), false);
@@ -90,7 +90,11 @@ test("November 16–30 uses the November odd weeks with the existing Monday rota
 
 
 test("November preserves meals, dinner themes and Sunday's combined brunch", () => {
-  const menu = getMenuForDate(new Date(2026, 10, 23));
+  const menu = getMenuForDate(new Date(2026, 10, 20));
+  assert.equal(getMenuRotationKey(new Date(2026, 10, 20)), "week_1_and_3");
+  assert.ok(menu.Friday.breakfast.food.includes("thepla-curd"));
+  assert.ok(menu.Friday.lunch.food.includes("palak-corn"));
+  assert.equal(menu.Friday.dinner.theme, "Chatkara Street");
   assert.ok(menu.Monday.breakfast.food.includes("ghee-podi-idli"));
   assert.ok(menu.Monday.hitea.food.includes("veg-vermicelli"));
   assert.equal(menu.Monday.dinner.theme, "Desi Zaika");

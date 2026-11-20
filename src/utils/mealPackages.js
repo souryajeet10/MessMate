@@ -4,7 +4,8 @@ import { DAY_ORDER, MEAL_NAMES, getMenuForDate, getMenuRotationKey } from "../da
 export function getMealPackages(date, mealKey) {
   const monthName = date.toLocaleDateString("en-IN", { month: "long" });
   const rotations = new Map();
-  for (let day = 1; day <= 14; day++) {
+  const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  for (let day = 1; day <= daysInMonth; day++) {
     const sourceDate = new Date(date.getFullYear(), date.getMonth(), day);
     const rotation = getMenuRotationKey(sourceDate);
     if (!rotation || rotations.has(rotation)) continue;
