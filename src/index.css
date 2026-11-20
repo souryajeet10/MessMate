@@ -280,6 +280,44 @@ img {
   opacity: 0.9;
 }
 
+.header-serving-caption {
+  font-size: 0.72rem;
+  margin-bottom: 6px;
+}
+
+.header-serving-locations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.header-serving-label .header-location {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface-glass);
+  color: var(--text-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.header-location small {
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+@media (min-width: 1024px) {
+  .header-serving-caption { text-align: right; }
+  .header-serving-locations { justify-content: flex-end; }
+}
+
 /* ===== TODAY DATE STRIP ===== */
 .today-date-strip {
   text-align: center;

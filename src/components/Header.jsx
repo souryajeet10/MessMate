@@ -70,9 +70,13 @@ export default function Header({ onMenuClick, formattedDate }) {
         </div>
         <div className="header-hero-right">
           <p className="header-desktop-date">{displayDate}</p>
-          <p className="header-serving-label">
-            Currently Serving in <span>United Homes and Antivoid (KU campus)</span>
-          </p>
+          <div className="header-serving-label">
+            <p className="header-serving-caption">Currently serving in</p>
+            <div className="header-serving-locations">
+              <span className="header-location">United Homes</span>
+              <span className="header-location">Antivoid <small>KU campus</small></span>
+            </div>
+          </div>
         </div>
       </div>
     </header>
