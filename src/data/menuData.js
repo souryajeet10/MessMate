@@ -398,6 +398,20 @@ export function getMenuForDate(date = new Date()) {
   return rotationKey === "week_1_and_3" ? weeklyMenu1And3 : weeklyMenu2And4;
 }
 
+export function getMenuSourceLabel(date = new Date()) {
+  const menu = getMenuForDate(date);
+  const sources = [
+    [weeklyMenu1And3, "August · Weeks 1 & 3"],
+    [weeklyMenu2And4, "August · Weeks 2 & 4"],
+    [septWeeklyMenu1And3, "September · Weeks 1 & 3"],
+    [septWeeklyMenu2And4, "September · Weeks 2 & 4"],
+    [octWeeklyMenu1And3, "October · Weeks 1 & 3"],
+    [octWeeklyMenu2And4, "October · Weeks 2 & 4"],
+    [novWeeklyMenu1And3, "November · Weeks 1 & 3"],
+  ];
+  return sources.find(([source]) => source === menu)?.[1] ?? null;
+}
+
 const weeklyMenu = getMenuForDate(new Date());
 
 export const MEAL_ORDER = ["breakfast", "lunch", "hitea", "dinner"];

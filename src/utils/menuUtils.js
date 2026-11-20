@@ -55,12 +55,13 @@ export async function updateDayMenu(dayName, dayObj, date = new Date()) {
 
   // Update local cache instantly (writing device gets immediate feedback)
   const current = readLocalCache();
-  current[key] = dayObj;
+  const updatedDay = { ...dayObj, updatedAt: Date.now() };
+  current[key] = updatedDay;
   writeLocalCache(current);
 
   // Push to Firebase — all other devices will update via their onValue listeners
   try {
-    await set(ref(db, `menu_overrides/${key}`), dayObj);
+    await set(ref(db, `menu_overrides/${key}`), updatedDay);
   } catch (err) {
     console.error("[MessMate] Failed to sync to Firebase:", err);
     // Local cache is already updated — at least this device sees the change
@@ -82,6 +83,7 @@ export async function setDayConfirmation(dayName, isConfirmed, date = new Date()
     overrides[key] = { ...baseDay };
   }
   overrides[key].isConfirmed = isConfirmed;
+  overrides[key].updatedAt = Date.now();
   writeLocalCache(overrides);
 
   try {

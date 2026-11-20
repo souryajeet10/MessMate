@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   getMenuForDate,
+  getMenuSourceLabel,
   getMenuRotationKey,
   isDiwaliHoliday,
   septWeeklyMenu1And3,
@@ -10,6 +11,12 @@ import {
   octWeeklyMenu2And4,
   novWeeklyMenu1And3,
 } from "./menuData.js";
+
+test("source labels identify the actual menu, including November's October fallback", () => {
+  assert.equal(getMenuSourceLabel(new Date(2026, 10, 20)), "November · Weeks 1 & 3");
+  assert.equal(getMenuSourceLabel(new Date(2026, 10, 23)), "October · Weeks 2 & 4");
+  assert.equal(getMenuSourceLabel(new Date(2026, 11, 1)), null);
+});
 
 test("September menu changes on Mondays, including September 14", () => {
   const weeks = [[1, 6], [7, 13], [14, 20], [21, 27], [28, 30]];

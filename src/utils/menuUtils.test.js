@@ -29,10 +29,14 @@ test("manager edits and confirmations use the same month-scoped read/write key",
   assert.equal(key, "2026_09_week_1_and_3_Monday");
   const day = structuredClone(getMenuForDate(date).Monday);
   day.lunch.food = ["test-dish"];
+  const beforeSave = Date.now();
   await updateDayMenu("Monday", day, date);
+  assert.ok(writes.at(-1).data.updatedAt >= beforeSave);
+  assert.equal(day.updatedAt, undefined, "saving should not mutate the input menu");
   assert.equal(writes.at(-1).path, `menu_overrides/${key}`);
   assert.deepEqual(getDayMenu("Monday", date).lunch.food, ["test-dish"]);
   await setDayConfirmation("Monday", false, date);
+  assert.ok(writes.at(-1).data.updatedAt >= beforeSave);
   assert.equal(getDayMenu("Monday", date).isConfirmed, false);
   assert.equal(writes.at(-1).path, `menu_overrides/${key}`);
   assert.notEqual(getMenuOverrideKey("Monday", new Date(2026, 7, 10)), key);

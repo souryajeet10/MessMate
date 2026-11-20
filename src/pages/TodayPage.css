@@ -1,5 +1,31 @@
+.today-menu-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 16px 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.today-menu-info strong { font-weight: 600; }
+
 /* A single desktop meal grid; phone layouts retain their existing flow. */
 @media (min-width: 1024px) {
+  .today-page .today-menu-info {
+    grid-column: 1 / -1;
+    order: -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    max-width: none;
+    padding: 0;
+    margin-top: -12px;
+  }
   .today-page .header { padding: 26px 32px !important; max-height: none; }
   .today-page .header-hero-left { align-items: flex-start; }
   .today-page .header-hero-left .header-greeting { text-align: left; font-size: 12px; letter-spacing: 1.5px; }
