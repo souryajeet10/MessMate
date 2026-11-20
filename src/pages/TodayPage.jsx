@@ -133,7 +133,7 @@ export default function TodayPage({ onMenuClick }) {
 
           {dayMenu && menuSource && (
             <div className="today-menu-info" aria-label="Menu source and last update">
-              <span>Menu used: <strong>{menuSource}</strong>{menuOverride ? " · Admin changes applied" : ""}</span>
+              <span>Menu used: <strong>{menuSource}</strong></span>
               <span>Last updated: {updatedLabel ?? "20 Nov 2026"}</span>
             </div>
           )}
