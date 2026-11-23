@@ -405,6 +405,11 @@ export function getMenuOverrideKey(dayName, date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null;
   const month = String(date.getMonth() + 1).padStart(2, "0");
+  // The November even-week menu replaces October fallback dishes. Previously
+  // saved edits/confirmations belong to that fallback, not this publication.
+  if (date.getFullYear() === 2026 && date.getMonth() === 10 && rotationKey === "week_2_and_4") {
+    return `${date.getFullYear()}_${month}_${rotationKey}_published_v1_${dayName}`;
+  }
   return `${date.getFullYear()}_${month}_${rotationKey}_${dayName}`;
 }
 

@@ -60,3 +60,24 @@ test("a selected package can supply its own dinner theme", () => {
   const result = getDayMenu("Monday", date, { [key]: { dinner: source } });
   assert.equal(result.dinner.theme, source.theme);
 });
+
+test("November's new publication ignores saved October fallback dishes", async () => {
+  const november = new Date(2026, 10, 23);
+  const oldDay = { ...getMenuForDate(new Date(2026, 9, 5)).Monday, isConfirmed: false };
+  const staleKey = "2026_11_week_2_and_4_Monday";
+  const overrides = { [staleKey]: oldDay };
+  cache.set("messmate_menu_overrides_v2", JSON.stringify(overrides));
+  const published = getMenuForDate(november).Monday;
+  assert.deepEqual(getDayMenu("Monday", november, overrides), published);
+  assert.deepEqual(getDayMenu("Monday", november), published);
+  assert.notEqual(getMenuOverrideKey("Monday", november), staleKey);
+  await setDayConfirmation("Monday", false, november);
+  assert.deepEqual(getDayMenu("Monday", november).dinner.food, published.dinner.food);
+  assert.equal(getDayMenu("Monday", november).isConfirmed, false);
+  const edited = structuredClone(published);
+  edited.dinner.food = ["test-dish"];
+  await updateDayMenu("Monday", edited, november);
+  assert.deepEqual(getDayMenu("Monday", november).dinner.food, ["test-dish"]);
+  assert.deepEqual(JSON.parse(cache.get("messmate_menu_overrides_v2"))[staleKey], oldDay);
+  cache.clear();
+});
