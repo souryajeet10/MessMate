@@ -13,7 +13,7 @@ import "./TodayPage.css";
 
 // Change this public date only when the site owner explicitly requests it.
 // Admin saves and the current clock must not update this label automatically.
-const MENU_LAST_UPDATED = "20 Nov 2026";
+const MENU_LAST_UPDATED = "23 Nov 2026";
 
 export default function TodayPage({ onMenuClick }) {
   const navigate = useNavigate();
