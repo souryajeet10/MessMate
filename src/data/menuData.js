@@ -9,6 +9,7 @@ import rawOct2And4Menu from "./october_menu_2_4.json" with { type: "json" };
 // October 1st & 3rd week menu (flat array format)
 import rawOct1And3Menu from "./october_menu_1_3.json" with { type: "json" };
 import rawNov1And3Menu from "./november_menu_1_3.json" with { type: "json" };
+import rawNov2And4Menu from "./november_menu_2_4.json" with { type: "json" };
 
 const DAY_ORDER_LIST = [
   "Monday",
@@ -353,6 +354,30 @@ export const novWeeklyMenu1And3 = buildArrayDayMenu({
   }])),
 });
 
+// November's even weeks supply arrays grouped by course, with explicit drinks.
+export const novWeeklyMenu2And4 = Object.fromEntries(DAY_ORDER_LIST.map((day) => {
+  const source = rawNov2And4Menu.days[day.toLowerCase()];
+  const timings = day === "Sunday" ? sundayTimings : day === "Saturday" ? saturdayTimings : defaultTimings;
+  const foodItems = (meal) => Object.entries(meal)
+    .filter(([key, value]) => !["beverage", "beverages"].includes(key) && Array.isArray(value))
+    .flatMap(([, value]) => value);
+  const meal = (data, timing, title) => ({
+    title,
+    timing,
+    food: foodItems(data).map(slugify),
+    beverages: data.beverages || data.beverage || [],
+  });
+  const breakfast = meal(source.breakfast, timings.breakfast, day === "Sunday" ? "Sunday Brunch" : "Breakfast");
+  if (day === "Sunday") breakfast.food.push(...foodItems(source.lunch).map(slugify));
+  return [day, {
+    isConfirmed: true,
+    breakfast,
+    lunch: day === "Sunday" ? null : meal(source.lunch, timings.lunch, "Lunch"),
+    hitea: meal(source.hi_tea, timings.hitea, "HI-TEA"),
+    dinner: { ...meal(source.dinner, timings.dinner, "Dinner"), theme: source.dinner.theme },
+  }];
+}));
+
 export function isDiwaliHoliday(date = new Date()) {
   return date.getFullYear() === 2026 && date.getMonth() === 10 &&
     date.getDate() >= 6 && date.getDate() <= 14;
@@ -388,9 +413,9 @@ export function getMenuForDate(date = new Date()) {
   const rotationKey = getMenuRotationKey(date);
   if (!rotationKey) return null; // No menu data for this month
 
-  // November's published odd weeks replace the October fallback.
+  // November has published menus for both rotations.
   if (month === 10) {
-    return rotationKey === "week_1_and_3" ? novWeeklyMenu1And3 : octWeeklyMenu2And4;
+    return rotationKey === "week_1_and_3" ? novWeeklyMenu1And3 : novWeeklyMenu2And4;
   }
 
   // October: both week rotations are now published
@@ -417,6 +442,7 @@ export function getMenuSourceLabel(date = new Date()) {
     [octWeeklyMenu1And3, "October · Weeks 1 & 3"],
     [octWeeklyMenu2And4, "October · Weeks 2 & 4"],
     [novWeeklyMenu1And3, "November · Weeks 1 & 3"],
+    [novWeeklyMenu2And4, "November · Weeks 2 & 4"],
   ];
   return sources.find(([source]) => source === menu)?.[1] ?? null;
 }

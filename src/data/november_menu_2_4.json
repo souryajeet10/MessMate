@@ -1,0 +1,48 @@
+{
+  "menu_weeks": [2, 4],
+  "days": {
+    "monday": {
+      "breakfast": {"mains": ["Gobhi/Mooli Parantha"], "sides": ["Pickle", "Curd"], "fruits": [], "extras": ["Bread / Butter / Jam", "Cereals (2 types)", "Sprouts (2 types)"], "beverages": ["Detox water - Lemon + Mint", "Hot milk & cold milk", "Tea / Coffee"]},
+      "lunch": {"salad": ["Lachha Onion Masala"], "dry_veg": ["Aloo Methi"], "curry": ["Punjabi Kadhi Pakoda"], "dal": [], "rice": ["Steamed Rice"], "breads": ["Fulka Roti"], "beverage": ["Shikanji"]},
+      "hi_tea": {"snacks": ["Khaman"], "beverages": ["Tea", "Coffee"]},
+      "dinner": {"theme": "Vanakkam Night", "soup": [], "salad_sauces_dips": ["Sambar", "2 types of chutney"], "starters": ["Vada", "Idli"], "main_course": ["Masala Uttapam"], "rice_noodles": ["Curd Rice"], "breads": ["Fulka (optional)"], "beverage": [], "dessert": []}
+    },
+    "tuesday": {
+      "breakfast": {"mains": ["Indori Poha"], "sides": ["Ratlami Sev", "Lemon"], "fruits": ["Fruits"], "extras": ["Maska Bun", "Cereals (2 types)", "Sprouts (2 types)"], "beverages": ["Detox water - Cucumber + Mint", "Hot milk & cold milk", "Tea / Coffee"]},
+      "lunch": {"salad": ["Macroni Salad"], "dry_veg": ["Mix Veg"], "curry": ["Paneer Kalimirch (White Non Sweet Gravy)"], "dal": ["Arhar Dal"], "rice": ["Steamed Rice"], "breads": ["Phulka (optional)"], "beverage": ["Buttermilk"]},
+      "hi_tea": {"snacks": ["Bhelpuri"], "beverages": ["Tea", "Coffee"]},
+      "dinner": {"theme": "Chatkara Street", "soup": [], "salad_sauces_dips": ["Chopped Onion", "Chilli", "Lemon"], "starters": [], "main_course": ["Pav Bhaji"], "rice_noodles": ["Tawa Masala Pulao"], "breads": ["Roti (optional)"], "beverage": [], "dessert": ["Fruit Custard"]}
+    },
+    "wednesday": {
+      "breakfast": {"mains": ["Idli"], "sides": ["Sambar", "Chutney"], "fruits": [], "extras": ["Bread / Butter / Jam", "Cereals (2 types)", "Sprouts (2 types)"], "beverages": ["Detox water - Ginger + Lemon", "Hot milk & cold milk", "Tea / Coffee"]},
+      "lunch": {"salad": ["Onion in Imli Chutney"], "dry_veg": [], "curry": ["Chole", "Bhature"], "dal": [], "rice": ["Veg Biryani"], "breads": ["Raita", "Fulka Roti"], "beverage": ["Jaljeera"]},
+      "hi_tea": {"snacks": ["Masala Panipuri"], "beverages": ["Tea", "Coffee"]},
+      "dinner": {"theme": "Chinatown Fest", "soup": ["Manchow Soup"], "salad_sauces_dips": [], "starters": [], "main_course": ["Veg Manchurian Gravy"], "rice_noodles": ["Burnt Garlic Fried Rice"], "breads": ["Sabzi + Fulka (optional)"], "beverage": [], "dessert": []}
+    },
+    "thursday": {
+      "breakfast": {"mains": ["Bombay Sandwich"], "sides": ["Chutney"], "fruits": ["Fruits"], "extras": ["Bread / Butter / Jam", "Cereals (2 types)", "Sprouts (2 types)"], "beverages": ["Detox water - Cucumber + Lemon", "Hot milk & cold milk", "Tea / Coffee"]},
+      "lunch": {"salad": ["Kachumbar Salad"], "dry_veg": ["Cabbage Matar"], "curry": ["Amritsari Paneer"], "dal": ["Moong Masoor Dal"], "rice": ["Jeera Rice"], "breads": ["Fulka (optional)"], "beverage": ["Rasna"]},
+      "hi_tea": {"snacks": ["Mexican Samosa"], "beverages": ["Tea", "Coffee"]},
+      "dinner": {"theme": "Rangeelo Gujarat", "soup": [], "salad_sauces_dips": ["Kachumbar Salad"], "starters": [], "main_course": ["Lasaniya Bataka", "Turiya Patra Batana (Semi-Undhiyu)"], "rice_noodles": ["Steamed Rice"], "breads": ["Roti"], "beverage": ["Butter Milk"], "dessert": ["Coconut Ladoo"]}
+    },
+    "friday": {
+      "breakfast": {"mains": ["Moong Dal Cheela"], "sides": ["Green Chutney"], "fruits": [], "extras": ["Maska Bun", "Cereals (2 types)", "Boiled Sprouts (2 types)"], "beverages": ["Detox water - Lemon + Mint + Saunf", "Hot milk & cold milk", "Tea / Coffee"]},
+      "lunch": {"salad": ["Lachha Onion Masala"], "dry_veg": ["Lasooni Palak"], "curry": ["Lobhiya Masala"], "dal": [], "rice": ["Steamed Rice"], "breads": ["Fulka Roti"], "beverage": ["Shikanji"]},
+      "hi_tea": {"snacks": ["Misal Pav"], "beverages": ["Tea", "Coffee"]},
+      "dinner": {"theme": "Ghar Ka Khana", "soup": ["Lemon Coriander Soup"], "salad_sauces_dips": ["Fried Papad"], "starters": [], "main_course": ["Veg Kofta", "Dal Fry"], "rice_noodles": ["Steam Rice"], "breads": ["Roti"], "beverage": ["Buttermilk"], "dessert": []}
+    },
+    "saturday": {
+      "breakfast": {"mains": ["Veg Upma"], "sides": ["Coconut Chutney"], "fruits": ["Fruits"], "extras": ["Bread / Butter / Jam", "Cereals (2 types)", "Sprouts (2 types)"], "beverages": ["Detox water - Tulsi + Ginger", "Hot milk & cold milk", "Tea / Coffee"]},
+      "lunch": {"salad": [], "dry_veg": ["Aloo Chauli"], "curry": ["Gatta Curry"], "dal": ["Green Moong Dal"], "rice": ["Steamed Rice"], "breads": ["Fulka Roti"], "beverage": ["Shikanji"]},
+      "hi_tea": {"snacks": ["Mix Bhajiya"], "beverages": ["Tea", "Coffee"]},
+      "dinner": {"theme": "Punjab Da Swag", "soup": [], "salad_sauces_dips": ["Kachumbar Salad"], "starters": [], "main_course": ["Bhindi Do Pyaza", "Dal Makhni"], "rice_noodles": ["Steamed Rice"], "breads": ["Tawa Parantha"], "beverage": [], "dessert": ["Gulab Jamun"]}
+    },
+    "sunday": {
+      "breakfast": {"mains": ["Ghungni with Luchi", "Samosa"], "sides": ["Peri-Peri Dhokla"], "fruits": [], "extras": ["Kheer", "Cereals (2 types)", "Sprouts (2 types)"], "beverages": ["Detox water - Cucumber + Lemon + Sabja Seeds", "Hot milk & cold milk", "Tea / Coffee"]},
+      "lunch": {"salad": [], "dry_veg": ["Dal Panchmel"], "curry": ["Steam Rice"], "dal": [], "rice": [], "breads": [], "beverage": []},
+      "hi_tea": {"snacks": ["Veg Puff"], "beverages": ["Tea", "Coffee"]},
+      "dinner": {"theme": "Ghar Ka Khana", "soup": ["Tomato Soup"], "salad_sauces_dips": [], "starters": [], "main_course": ["Aloo Gobhi Matar", "Black Chana Curry"], "rice_noodles": ["Steamed Rice"], "breads": ["Roti"], "beverage": [], "dessert": []}
+    }
+  },
+  "notes": ["Khichdi in small portions daily.", "Dessert on any 3 days."]
+}

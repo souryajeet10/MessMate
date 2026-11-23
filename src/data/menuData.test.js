@@ -11,6 +11,8 @@ import {
   octWeeklyMenu1And3,
   octWeeklyMenu2And4,
   novWeeklyMenu1And3,
+  novWeeklyMenu2And4,
+  slugify,
 } from "./menuData.js";
 
 test("breakfast drinks appear only in beverages across all menu formats", () => {
@@ -29,9 +31,9 @@ test("breakfast drinks appear only in beverages across all menu formats", () => 
   assert.ok(sample.Sunday.breakfast.food.includes("steam-rice"));
 });
 
-test("source labels identify the actual menu, including November's October fallback", () => {
+test("source labels identify both published November menus", () => {
   assert.equal(getMenuSourceLabel(new Date(2026, 10, 20)), "November · Weeks 1 & 3");
-  assert.equal(getMenuSourceLabel(new Date(2026, 10, 23)), "October · Weeks 2 & 4");
+  assert.equal(getMenuSourceLabel(new Date(2026, 10, 23)), "November · Weeks 2 & 4");
   assert.equal(getMenuSourceLabel(new Date(2026, 11, 1)), null);
 });
 
@@ -106,7 +108,7 @@ test("November 16–30 uses the November odd weeks with the existing Monday rota
     const date = new Date(2026, 10, day);
     const secondRotation = day >= 23 && day <= 29;
     assert.equal(getMenuRotationKey(date), secondRotation ? "week_2_and_4" : "week_1_and_3");
-    assert.equal(getMenuForDate(date), secondRotation ? octWeeklyMenu2And4 : novWeeklyMenu1And3);
+    assert.equal(getMenuForDate(date), secondRotation ? novWeeklyMenu2And4 : novWeeklyMenu1And3);
     assert.equal(isDiwaliHoliday(date), false);
   }
   assert.equal(getMenuForDate(new Date(2027, 10, 16)), null);
@@ -130,6 +132,35 @@ test("November preserves meals, dinner themes and Sunday's combined brunch", () 
     for (const meal of [day.breakfast, day.hitea, day.dinner]) {
       assert.ok(meal.food.length > 0);
       assert.ok(meal.timing);
+    }
+  }
+});
+
+
+test("November 23 serves the published week 4 menu and source label", () => {
+  const date = new Date(2026, 10, 23);
+  const menu = getMenuForDate(date);
+  assert.equal(menu, novWeeklyMenu2And4);
+  assert.equal(getMenuSourceLabel(date), "November · Weeks 2 & 4");
+  assert.ok(menu.Monday.breakfast.food.includes("gobhi-mooli-parantha"));
+  assert.ok(menu.Monday.lunch.food.includes("punjabi-kadhi-pakoda"));
+  assert.deepEqual(menu.Monday.lunch.beverages, ["Shikanji"]);
+  assert.equal(menu.Monday.dinner.theme, "Vanakkam Night");
+});
+
+test("November even weeks preserve every published dish and beverage", async () => {
+  const { default: raw } = await import("./november_menu_2_4.json", { with: { type: "json" } });
+  for (const [day, menu] of Object.entries(novWeeklyMenu2And4)) {
+    const source = raw.days[day.toLowerCase()];
+    for (const [key, data] of Object.entries(source)) {
+      const meal = key === "hi_tea" ? menu.hitea : key === "lunch" && day === "Sunday" ? menu.breakfast : menu[key];
+      for (const [field, values] of Object.entries(data)) {
+        if (!Array.isArray(values)) continue;
+        for (const value of values) {
+          const isDrink = ["beverage", "beverages"].includes(field);
+          assert.ok((isDrink ? meal.beverages : meal.food).includes(isDrink ? value : slugify(value)), `${day} ${key}: ${value}`);
+        }
+      }
     }
   }
 });

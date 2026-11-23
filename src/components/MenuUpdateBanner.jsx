@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useSiteClock } from "../hooks/useSiteClock";
 
 // ── Menu Update Banner ────────────────────────────────────────────────────────
-const UPDATE_STORAGE_KEY = "messmate_nov_1_3_update_dismissed_v1";
-const UPDATE_FIRST_SHOWN_KEY = "messmate_nov_1_3_update_first_shown_v1";
+const UPDATE_STORAGE_KEY = "messmate_nov_2_4_update_dismissed_v1";
+const UPDATE_FIRST_SHOWN_KEY = "messmate_nov_2_4_update_first_shown_v1";
 const UPDATE_EXPIRY_DAYS = 5;
 
 function isUpdateExpired() {
@@ -102,10 +102,10 @@ export default function MenuUpdateBanner({ currentView = "today" }) {
             <div className="menu-update-content">
               <div className="menu-update-header">
                 <span className="menu-update-badge">Menu Updated ✨</span>
-                <h3 className="menu-update-title">November Menu (Weeks 1 & 3) Live!</h3>
+                <h3 className="menu-update-title">November Menu (Weeks 2 & 4) Live!</h3>
               </div>
               <p className="menu-update-desc">
-                November 1st & 3rd week menu has been updated. Explore the new meals!
+                November 2nd & 4th week menu has been updated. Explore the new meals!
               </p>
 
               {currentView === "today" && (
